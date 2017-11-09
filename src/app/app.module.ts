@@ -22,6 +22,7 @@ import { CategoryCardComponent } from './../components/category-card/category-ca
 import { BasketComponent } from './../components/basket/basket';
 
 import { Globals } from './../services/globals.service';
+import { Utils } from './../services/utils.service';
 import { BasketService } from './../services/basket.service';
 
 @NgModule({
@@ -59,6 +60,7 @@ import { BasketService } from './../services/basket.service';
 		StatusBar,
 		SplashScreen,
 		Globals,
+		Utils,
 		BasketService,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }

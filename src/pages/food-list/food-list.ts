@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Utils } from './../../services/utils.service';
+
 import { Category } from './../../models/category.model';
 
 /**
@@ -21,7 +23,7 @@ export class FoodListPage {
 
 	foodCards: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
 		this.category = navParams.get('category') as Category;
 
 		this.foodCards = [{
@@ -37,6 +39,21 @@ export class FoodListPage {
 	
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad FoodListPage');
+	}
+
+	ngOnInit() {
+		this.getFoodList();
+	}
+
+	getFoodList() {
+		let loading = this.utils.loading('Carregando');
+
+		loading.present();
+		this.utils.getHttp().get('product.php?action=getList').subscribe(success => {
+			loading.dismiss();
+		}, error => {
+			loading.dismiss();
+		});
 	}
 	
 }
