@@ -1,0 +1,56 @@
+page-order-items {
+
+    .toolbar {
+        padding: 15px;
+    }
+
+    ion-grid.grid {
+        padding: 0;
+    }
+
+    ion-label.label {
+        margin-right: 0;
+    }
+
+    .hidden-button {
+        .icon {
+            font-size: 25px;
+        }
+    }
+
+    .item-label {
+        vertical-align: middle;
+    }
+
+    .quantity-display {
+        // border: 1px solid #ccc;
+
+        $children-width: 35px;
+        $children-height: 30px;
+
+        button {
+            width: $children-width;
+            height: $children-height;
+            margin: 0;
+            vertical-align: middle;
+        }
+
+        .display {
+            display: inline-block;
+            height: $children-height;
+            min-width: $children-width;
+            line-height: $children-height;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+
+    .item-price-total {
+        padding: 0 10px;
+        text-align: right;
+        margin-top: 10px;
+        font-size: 14px;
+        color: color($colors, primary);
+    }
+
+}

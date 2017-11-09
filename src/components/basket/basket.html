@@ -1,0 +1,11 @@
+<!-- Generated template for the BasketComponent component -->
+<ion-toolbar *ngIf="isVisible()">
+	{{getTextInfo()}}
+
+	<ion-buttons end>
+		<button ion-button solid icon-right color="primary" (click)="showOrderItems()">
+			Ver pedido
+			<ion-icon name="cart"></ion-icon>
+		</button>
+	</ion-buttons>
+</ion-toolbar>

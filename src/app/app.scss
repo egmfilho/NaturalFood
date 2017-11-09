@@ -14,3 +14,90 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+// Compass 
+// --------------------------------------------------
+
+.offset-top-15 {
+	margin-top: 15px;
+}
+
+.offset-top-30 {
+	margin-top: 30px;
+}
+
+.offset-top-60 {
+	margin-top: 60px;
+}
+
+.offset-bottom-15 {
+	margin-bottom: 15px;
+}
+
+.offset-bottom-30 {
+	margin-bottom: 30px;
+}
+
+.offset-bottom-60 {
+	margin-bottom: 60px;
+}
+
+.text-md {
+	font-size: 16px;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-primary {
+	color: color($colors, 'primary');
+}
+
+.no-padding {
+	padding: 0;
+}
+
+ion-nav {
+	margin-bottom: 56px !important;
+}
+
+.user-data {
+	$height: 40px;
+	height: $height;
+
+	.avatar {
+		width: $height;
+		height: $height;
+		display: inline-block;
+		margin-left: 5px;
+
+		text-align: center;
+		font-size: 35px;
+		color: #aaa;
+	}
+
+	.info {
+		width: auto;
+		height: $height;
+		display: inline-block;
+		padding-left: 5px;
+
+		.name {
+			font-size: 16px;
+			display: block;
+		}
+
+		.email {
+			font-size: 13px;
+			color: #aaa;
+			display: block;
+		}
+	}
+
+	.see-more {
+		padding: 15px 5px;
+		float: right;
+		color: color($colors, primary);
+	}
+}

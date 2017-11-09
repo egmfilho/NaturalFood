@@ -1,0 +1,7 @@
+<!-- Generated template for the CategoryCardComponent component -->
+<ion-card>
+	<div class="background" [ngStyle]="{ 'background-image': 'url(' + category.imageUrl + ')' }"></div>
+	<div class="card-title">{{category.title}}</div>
+	<div class="card-subtitle">{{category.subtitle}}</div>
+	<button class="view-more" ion-button color="light" outline small (click)="openCategory()">Ver itens</button>
+</ion-card>

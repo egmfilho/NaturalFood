@@ -1,0 +1,48 @@
+category-card {
+
+	ion-card {
+		position: relative;
+		text-align: center;
+		height: 240px;
+		background-color: black !important;
+		text-shadow: 0 0 2px rgba(#000, .2);
+		// margin: 0 !important;
+		// width: 100% !important;
+
+		.background {
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			opacity: .4;
+		}
+	}
+	
+	.card-title {
+		position: absolute;
+		top: 36%;
+		font-size: 2.0em;
+		width: 100%;
+		font-weight: bold;
+		color: #fff;
+		z-index: 1;
+	}
+	
+	.card-subtitle {
+		font-size: 1.0em;
+		position: absolute;
+		top: 55%;
+		width: 100%;
+		color: #fff;
+		z-index: 1;
+	}
+
+	button.view-more {
+		position: absolute;
+		top: 70%;
+		transform: translateX(-50%);
+		// display: block;
+		margin: 0 auto;
+	}
+}

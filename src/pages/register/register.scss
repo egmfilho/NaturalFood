@@ -1,0 +1,40 @@
+page-register {
+
+	.logo {
+		width: 100%;
+		height: 100px;
+		background-image: url('../assets/images/logo.png');
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		margin: 0;
+	}
+
+	.list-ios {
+		> .item-block {
+			&:first-child {
+				border-top: none;
+			}
+		}
+
+		.item-ios {
+			padding-left: 0;
+		}
+	}
+
+	.grid {
+		padding: 0;
+
+		.col {
+			padding: 0 5px;
+			
+			&:first-child {
+				padding-left: 0;
+			}
+
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+	}
+}

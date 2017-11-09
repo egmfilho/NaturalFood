@@ -1,0 +1,18 @@
+basket {
+	// position: fixed;
+	// bottom: 0;
+
+	ion-toolbar {
+		padding: 10px 15px !important;
+		border-top: 2px solid color($colors, primary);
+
+		button {
+			padding: 10px !important;
+			// ion-icon {
+			// 	margin-left: 10px;
+			// 	font-size: 20px;
+			// 	vertical-align: bottom;
+			// }
+		}
+	}
+}
