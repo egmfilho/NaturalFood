@@ -7,13 +7,6 @@ import { Globals } from './../../services/globals.service';
 import { HomePage } from './../home/home';
 import { RegisterPage } from './../register/register';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
 	selector: 'page-login',
@@ -39,7 +32,12 @@ export class LoginPage {
 			user_user: username,
 			user_pass: password
 		}).subscribe(success => {
-			this.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_session_id);
+			this.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
+			this.globals.set('user', {
+				name: success.data.user_name,
+				email: success.data.user_mail,
+				avatar: success.data.image.image_uri + 'small.jpg'
+			});
 			loading.dismiss();
 			this.navCtrl.setRoot(HomePage);
 		}, error => {

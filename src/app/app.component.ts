@@ -3,6 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { Globals } from './../services/globals.service';
+
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -16,8 +18,10 @@ export class MyApp {
 	rootPage: any = LoginPage;
 	
 	pages: Array<{title: string, component: any}>;
+
+	userPic: string;
 	
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private globals: Globals) {
 		this.initializeApp();
 		
 		// used for an example of ngFor and navigation
@@ -27,7 +31,6 @@ export class MyApp {
 			{ title: 'Ajuda', component: '' },
 			{ title: 'Preferências', component: '' }
 		];
-		
 	}
 	
 	initializeApp() {
@@ -43,5 +46,9 @@ export class MyApp {
 		// Reset the content nav to have just this page
 		// we wouldn't want the back button to show in this scenario
 		this.nav.setRoot(page.component);
+	}
+
+	getUser() {
+		return this.globals.get('user');
 	}
 }

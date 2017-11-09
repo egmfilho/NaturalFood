@@ -1,13 +1,14 @@
 <ion-menu [content]="content">
 	<ion-header>
 		<ion-toolbar>
-			<div class="user-data">
+			<div class="user-data" *ngIf="getUser()">
 				<div class="avatar">
-					<ion-icon name="contact"></ion-icon>
+					<ion-icon name="contact" *ngIf="!getUser().avatar"></ion-icon>
+					<img [src]="getUser().avatar" />
 				</div>
 				<div class="info">
-					<b class="name">Nome do usuario</b>
-					<span class="email">usuario@email.com</span>
+					<b class="name">{{getUser().name}}</b>
+					<span class="email">{{getUser().email}}</span>
 				</div>
 				<div class="see-more">
 					<ion-icon name="arrow-dropright"></ion-icon>

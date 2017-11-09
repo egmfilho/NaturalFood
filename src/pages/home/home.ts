@@ -15,26 +15,7 @@ export class HomePage {
 	categories : Array<Category>;
 
 	constructor(public navCtrl: NavController, private http: HttpClient, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private globals: Globals) {
-		this.categories = [
-			new Category({
-				id: 1001,
-				imageUrl: 'http://naturalsociety.com/wp-content/uploads/soil-dirt-plant-735-350.jpg',
-				title: 'Categoria 1',
-				subtitle: 'Subtitulo da categoria 1'
-			}),
-			new Category({
-				id: 1002,
-				imageUrl: 'http://www.juicingnation.com/wp-content/uploads/2017/09/fruits-for-juicing.jpg',
-				title: 'Categoria 2',
-				subtitle: 'Subtitulo da categoria 2'
-			}),
-			new Category({
-				id: 1003,
-				imageUrl: 'http://urbantastebud.com/wp-content/uploads/2015/08/bottled-juices_0.jpg',
-				title: 'Categoria 3',
-				subtitle: 'Subtitulo da categoria 3'
-			})
-		];
+		
 	}
 
 	ngOnInit() {
@@ -43,13 +24,15 @@ export class HomePage {
 
 	getCategories() {
 		let loading = this.loadingCtrl.create({
-			content: 'Carregando categorias...'
+			content: 'Carregando...'
 		});
 
 		loading.present();
 		this.http.get(this.globals.getInternal('api') + 'product_category.php?action=getList')
 			.subscribe(success => {
-				console.log(success);
+				this.categories = success.data.map(function(n) {
+					return new Category(Category.convertToInternal(n));
+				});
 				loading.dismiss();
 			}, error => {
 				loading.dismiss();

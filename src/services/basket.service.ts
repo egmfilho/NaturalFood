@@ -1,3 +1,10 @@
+/*
+ * @Author: egmfilho &lt;egmfilho@live.com&gt; 
+ * @Date: 2017-11-09 17:23:05 
+ * @Last Modified by:   egmfilho 
+ * @Last Modified time: 2017-11-09 17:23:05 
+ */
+
 import { Injectable } from '@angular/core';
 
 import { BasketItem } from './../models/basketItem.model';
