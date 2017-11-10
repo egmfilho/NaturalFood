@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
-
-import { Globals } from './../../services/globals.service';
+import { NavController } from 'ionic-angular';
 
 import { Category } from './../../models/category.model';
+import { Utils } from '../../services/utils.service';
 
 @Component({
 	selector: 'page-home',
@@ -14,7 +12,7 @@ export class HomePage {
 
 	categories : Array<Category>;
 
-	constructor(public navCtrl: NavController, private http: HttpClient, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private globals: Globals) {
+	constructor(public navCtrl: NavController, private utils: Utils) {
 		
 	}
 
@@ -23,12 +21,11 @@ export class HomePage {
 	}
 
 	getCategories() {
-		let loading = this.loadingCtrl.create({
-			content: 'Carregando...'
-		});
+		let loading = this.utils.loading('Carregando'),
+			scope = this;
 
 		loading.present();
-		this.http.get(this.globals.getInternal('api') + 'product_category.php?action=getList')
+		this.utils.getHttp().get('product_category.php?action=getList')
 			.subscribe(success => {
 				this.categories = success.data.map(function(n) {
 					return new Category(Category.convertToInternal(n));
@@ -37,11 +34,7 @@ export class HomePage {
 			}, error => {
 				loading.dismiss();
 				if (error.status != 0) {
-					this.alertCtrl.create({
-						title: 'Erro',
-						subTitle: error.error.status.description,
-						buttons: ['OK']
-					}).present();
+					scope.utils.alert('Erro', error.error.status.description, ['OK']).present();
 				}
 			});
 	}

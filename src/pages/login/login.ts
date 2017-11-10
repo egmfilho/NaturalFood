@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
-
-import { Globals } from './../../services/globals.service';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from './../home/home';
 import { RegisterPage } from './../register/register';
+import { Utils } from '../../services/utils.service';
 
 @IonicPage()
 @Component({
@@ -14,7 +12,7 @@ import { RegisterPage } from './../register/register';
 })
 export class LoginPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private globals: Globals) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
 	}
 
 	ionViewDidLoad() {
@@ -22,18 +20,16 @@ export class LoginPage {
 	}
 
 	login(username, password) {
-		let loading = this.loadingCtrl.create({
-			content: 'Efetuando login'
-		});
+		let loading = this.utils.loading('Efetuando login');
 
 		loading.present();
-
-		this.http.post(this.globals.getInternal('api') + 'login.php', {
+		
+		this.utils.getHttp().post('login.php', {
 			user_user: username,
 			user_pass: password
 		}).subscribe(success => {
-			this.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
-			this.globals.set('user', {
+			this.utils.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
+			this.utils.globals.set('user', {
 				name: success.data.user_name,
 				email: success.data.user_mail,
 				avatar: success.data.image.image_uri + 'small.jpg'
@@ -69,11 +65,7 @@ export class LoginPage {
 				}
 			}
 
-			this.alertCtrl.create({
-				title: title,
-				subTitle: msg,
-				buttons: ['OK']
-			}).present();
+			this.utils.alert(title, msg, ['OK']).present();
 		});
 	}
 

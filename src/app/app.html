@@ -1,7 +1,7 @@
 <ion-menu [content]="content">
 	<ion-header>
 		<ion-toolbar>
-			<div class="user-data" *ngIf="getUser()">
+			<div class="user-data" menuClose (click)="openProfilePage()" *ngIf="getUser()">
 				<div class="avatar">
 					<ion-icon name="contact" *ngIf="!getUser().avatar"></ion-icon>
 					<img [src]="getUser().avatar" />

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingController, AlertController } from 'ionic-angular';
 
 import { Globals } from './globals.service';
+import { Response } from '../models/server-response.model';
 
 @Injectable()
 export class Utils {
@@ -14,11 +15,11 @@ export class Utils {
 			scope = this;
 
 		function get(endpoint: string) {
-			return scope.http.get(address + endpoint);
+			return scope.http.get<Response>(address + endpoint);
 		}
 
 		function post(endpoint: string, data: any) {
-			return scope.http.post(address + endpoint, data);
+			return scope.http.post<Response>(address + endpoint, data);
 		}
 
 		return {

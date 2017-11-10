@@ -13,6 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { FoodListPage } from '../pages/food-list/food-list';
 import { ListPage } from '../pages/list/list';
 import { OrderItemsPage } from '../pages/order-items/order-items';
+import { EditProfilePage } from './../pages/edit-profile/edit-profile';
 import { LogoutPage } from './../pages/logout/logout';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { CategoryCardComponent } from './../components/category-card/category-card';
 import { BasketComponent } from './../components/basket/basket';
+import { FoodCardComponent } from '../components/food-card/food-card';
 
 import { Globals } from './../services/globals.service';
 import { Utils } from './../services/utils.service';
@@ -34,8 +36,10 @@ import { BasketService } from './../services/basket.service';
 		FoodListPage,
 		ListPage,
 		OrderItemsPage,
+		EditProfilePage,
 		LogoutPage,
 		CategoryCardComponent,
+		FoodCardComponent,
 		BasketComponent
 	],
 	imports: [
@@ -52,8 +56,10 @@ import { BasketService } from './../services/basket.service';
 		FoodListPage,
 		ListPage,
 		OrderItemsPage,
+		EditProfilePage,
 		LogoutPage,
 		CategoryCardComponent,
+		FoodCardComponent,
 		BasketComponent
 	],
 	providers: [

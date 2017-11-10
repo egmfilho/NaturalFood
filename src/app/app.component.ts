@@ -8,6 +8,7 @@ import { Globals } from './../services/globals.service';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 
 @Component({
 	templateUrl: 'app.html'
@@ -46,6 +47,10 @@ export class MyApp {
 		// Reset the content nav to have just this page
 		// we wouldn't want the back button to show in this scenario
 		this.nav.setRoot(page.component);
+	}
+
+	openProfilePage() {
+		this.nav.push(EditProfilePage);
 	}
 
 	getUser() {

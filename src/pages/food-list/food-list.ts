@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Utils } from './../../services/utils.service';
 
 import { Category } from './../../models/category.model';
+import { Food } from '../../models/food.model';
 
 /**
  * Generated class for the FoodListPage page.
@@ -21,20 +22,20 @@ export class FoodListPage {
 	
 	category: Category;
 
-	foodCards: any;
+	foods: Food[];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
 		this.category = navParams.get('category') as Category;
 
-		this.foodCards = [{
-			image: 'assets/dummy/almondegas.PNG',
-			title: 'Almôndegas Fit (com aveia)',
+		this.foods = [new Food({
+			imageUrl: 'assets/dummy/almondegas.PNG',
+			name: 'Almôndegas Fit com aveia',
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet justo magna. Fusce sagittis sollicitudin ornare. Duis erat ipsum, lacinia eu mi vel, venenatis euismod orci. Fusce ultricies eleifend ex eu rhoncus.'
-		}, {
-			image: 'http://i.ndtvimg.com/mt/cooks/2014-11/chicken.jpg',
-			title: 'Estrombelete de pombo obeso',
+		}), new Food({
+			imageUrl: 'https://www.chaostrophic.com/wp-content/uploads/2016/12/greasy-fast-food.jpg',
+			name: 'Estrombelete de pombo obeso',
 			description: 'Cras fringilla elit sed ex sodales placerat. Nullam iaculis egestas vehicula. In ut interdum sem, in vulputate nibh. Ut vitae bibendum nisl, vitae gravida magna.'
-		}];
+		})];
 	}
 	
 	ionViewDidLoad() {

@@ -12,7 +12,7 @@ export class Globals {
 
 	private dictionary: any = { };
 	private internal: any = {
-		'api': 'http://172.16.0.176/api/',
+		'api': 'http://172.16.0.176/app/',
 		'token': null
 	}
 

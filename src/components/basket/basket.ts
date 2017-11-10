@@ -31,8 +31,7 @@ export class BasketComponent {
 	}
 
 	isVisible() {
-		// return this.basketService.getItems().length > 0;
-		return true;
+		return this.basketService.getItems().length > 0;
 	}
 
 	showOrderItems() {

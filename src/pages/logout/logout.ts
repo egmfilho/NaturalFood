@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Globals } from './../../services/globals.service';
-
 /**
 * Generated class for the LogoutPage page.
 *
@@ -17,7 +15,7 @@ import { Globals } from './../../services/globals.service';
 })
 export class LogoutPage {
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private globals: Globals) {
+	constructor(public navCtrl: NavController, public navParams: NavParams) {
 	}
 	
 	ionViewDidLoad() {

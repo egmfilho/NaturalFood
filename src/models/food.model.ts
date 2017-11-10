@@ -18,6 +18,6 @@ export class Food {
         this.name = foodInfo.name;
         this.imageUrl = foodInfo.imageUrl;
         this.price = foodInfo.price;
-        this.description = foodInfo.descriotion;
+        this.description = foodInfo.description;
     }
 }
