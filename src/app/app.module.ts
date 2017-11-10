@@ -2,7 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
+
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+
+import { Camera } from '@ionic-native/camera';
 
 import { Interceptor } from './../services/interceptor.service';
 
@@ -65,6 +72,7 @@ import { BasketService } from './../services/basket.service';
 	providers: [
 		StatusBar,
 		SplashScreen,
+		Camera,
 		Globals,
 		Utils,
 		BasketService,

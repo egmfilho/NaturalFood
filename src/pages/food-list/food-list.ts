@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { BasketService } from '../../services/basket.service';
 import { Utils } from './../../services/utils.service';
 
 import { Category } from './../../models/category.model';
 import { Food } from '../../models/food.model';
+import { BasketItem } from '../../models/basketItem.model';
+
 
 /**
  * Generated class for the FoodListPage page.
@@ -24,18 +27,8 @@ export class FoodListPage {
 
 	foods: Food[];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private basket: BasketService, private utils: Utils) {
 		this.category = navParams.get('category') as Category;
-
-		this.foods = [new Food({
-			imageUrl: 'assets/dummy/almondegas.PNG',
-			name: 'Almôndegas Fit com aveia',
-			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet justo magna. Fusce sagittis sollicitudin ornare. Duis erat ipsum, lacinia eu mi vel, venenatis euismod orci. Fusce ultricies eleifend ex eu rhoncus.'
-		}), new Food({
-			imageUrl: 'https://www.chaostrophic.com/wp-content/uploads/2016/12/greasy-fast-food.jpg',
-			name: 'Estrombelete de pombo obeso',
-			description: 'Cras fringilla elit sed ex sodales placerat. Nullam iaculis egestas vehicula. In ut interdum sem, in vulputate nibh. Ut vitae bibendum nisl, vitae gravida magna.'
-		})];
 	}
 	
 	ionViewDidLoad() {
@@ -51,10 +44,31 @@ export class FoodListPage {
 
 		loading.present();
 		this.utils.getHttp().get('product.php?action=getList').subscribe(success => {
+			this.foods = success.data.map(n => new Food(Food.convertToInternal(n)));
 			loading.dismiss();
 		}, error => {
 			loading.dismiss();
 		});
+	}
+
+	// Sintaxe anti bug para manter o ponteiro this apontando para esta classe
+	selectFood = (food: Food) => {
+		var buttons = [{ 
+			text: 'Sim',
+			handler: () => {
+				this.basket.addItem(new BasketItem({
+					food: food,
+					quantity: 1
+				}));
+				
+				this.utils.alert('Sucesso', 'Prato adicionado!', ['OK']).present();
+			}
+		}, { 
+			text: 'Não', 
+			role: 'cancel' 
+		}];
+
+		this.utils.alert('Aviso', 'Deseja adicionar este prato ao pedido?', buttons).present();
 	}
 	
 }

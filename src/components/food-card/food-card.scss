@@ -1,8 +1,29 @@
 food-card {
 
-	img {
+	.food-pic {
+		width: 100%;
+		min-height: 270px;
+		height: 270px;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
+		border-bottom: 20px solid white;
+	}
+
+	.swiper-container-horizontal > .swiper-pagination-bullets {
+		bottom: 0;
+	}
+
+	.swiper-pagination-bullet-active {
+		background-color: color($colors, primary);
+	}
+
+	.price {
+		color: color($colors, primary);
+		font-size: 20px;
+		line-height: 32px;
 	}
 
 }

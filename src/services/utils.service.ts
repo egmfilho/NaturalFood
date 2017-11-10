@@ -28,7 +28,7 @@ export class Utils {
 		};
 	}
 
-	alert(title: string, message: string, buttons: string[]) {
+	alert(title: string, message: string, buttons: any[]) {
 		return this.alertCtrl.create({
 			title: title,
 			subTitle: message,

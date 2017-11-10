@@ -15,9 +15,15 @@ import { Food } from '../../models/food.model';
 export class FoodCardComponent {
 	
 	@Input() food: Food;
+	@Input() selectCallback: Function;
 	
 	constructor() {
 		console.log('Hello FoodCardComponent Component');
+	}
+
+	select() {
+		if (this.selectCallback)
+			this.selectCallback(this.food);
 	}
 	
 }

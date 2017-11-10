@@ -19,6 +19,6 @@
 
 <ion-content>
 	
-	<food-card *ngFor="let food of foods" [food]="food"></food-card>
+	<food-card *ngFor="let food of foods" [food]="food" [selectCallback]="selectFood"></food-card>
 
 </ion-content>

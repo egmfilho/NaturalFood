@@ -13,7 +13,7 @@ export class BasketItem {
     public quantity: number;
 
     constructor(basketItemInfo: any) {
-        this.food = new Food(basketItemInfo.Food);
+        this.food = new Food(basketItemInfo.food);
         this.quantity = basketItemInfo.quantity;
     }
 }

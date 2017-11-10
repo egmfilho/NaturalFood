@@ -6,17 +6,27 @@
 		</ion-avatar>
 		<h2>{{food.name}}</h2>
 	</ion-item>
-		
-	<img [src]="food.imageUrl">
+
+	<ion-slides pager>
+
+		<ion-slide *ngFor="let img of food.images; let i = index">
+			<!-- <img [src]="food.images[i]"> -->
+			<div class="food-pic" [ngStyle]="{ 'background-image': 'url(' + food.images[i] + ')' }"></div>
+		</ion-slide>
+
+	</ion-slides>
 		
 	<ion-card-content>
 		<p>{{food.description}}</p>
 	</ion-card-content>
 	
-	<ion-row>
+	<ion-row padding>
 		<ion-col>
-			<button ion-button clear small color="primary" icon-start>
-				<ion-icon name="add-circle"></ion-icon>
+			<p class="price">{{food.price | currency:'R$ '}}</p>
+		</ion-col>
+		<ion-col>
+			<button ion-button outline small block color="primary" icon-start (click)="select()">
+				<ion-icon name="cart"></ion-icon>
 				Adicionar
 			</button>
 		</ion-col>
