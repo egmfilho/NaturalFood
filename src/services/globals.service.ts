@@ -6,14 +6,20 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class Globals {
 
-	private dictionary: any = { };
-	private internal: any = {
-		'api': 'http://172.16.0.176/app/',
-		'token': null
+	private dictionary: any;
+	private internal: any;
+
+	constructor(private storage: Storage) {
+		this.dictionary = { };
+		this.internal = {
+			'api': 'http://172.16.0.176/app/',
+			'token': null
+		};
 	}
 
     set(key: string, value: any) {
@@ -48,4 +54,12 @@ export class Globals {
 	// 		'api': this.internal.api
 	// 	};
 	// }
+
+	setPersistent(key: string, value: any) {
+		return this.storage.set(key, value);
+	}
+
+	getPersistent(key: string) {
+		return this.storage.get(key);
+	}
 }

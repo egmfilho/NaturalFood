@@ -25,19 +25,24 @@
 			<ion-input type="password" clearInput placeholder="SENHA" [(ngModel)]='pass'></ion-input>
 		</ion-item>
 
-		<button class='text-white' ion-button full color="primary" (click)="login(user, pass)">
+		<button class='text-white' full ion-button color="primary" (click)="login(user, pass)">
 			ENTRAR
 		</button>
 
 		<ion-grid>
-			<ion-row>
-				<ion-col col-6>
-					<button ion-button full color="light">
+			<ion-row class="action-buttons">
+				<ion-col>
+					<button ion-button full outline color="light">
 						ESQUECI A SENHA
 					</button>
 				</ion-col>
-				<ion-col col-6>
-					<button ion-button full color="light" (click)="register()">
+				<ion-col class="col-fingerprint" *ngIf="canFingerprint">
+					<button class='finger-button' ion-button large (click)="showFingerprint()">
+						<ion-icon name="finger-print"></ion-icon>
+					</button>
+				</ion-col>
+				<ion-col>
+					<button ion-button full outline color="light" (click)="register()">
 						REGISTRE-SE
 					</button>
 				</ion-col>

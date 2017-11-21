@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -9,7 +10,9 @@ registerLocaleData(localePt);
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 import { Interceptor } from './../services/interceptor.service';
 
@@ -33,6 +36,7 @@ import { FoodCardComponent } from '../components/food-card/food-card';
 import { Globals } from './../services/globals.service';
 import { Utils } from './../services/utils.service';
 import { BasketService } from './../services/basket.service';
+import { FoodFilterPipe } from '../pipes/food-filter.pipe';
 
 @NgModule({
 	declarations: [
@@ -47,12 +51,17 @@ import { BasketService } from './../services/basket.service';
 		LogoutPage,
 		CategoryCardComponent,
 		FoodCardComponent,
-		BasketComponent
+		BasketComponent,
+		FoodFilterPipe
 	],
 	imports: [
 		BrowserModule,
 		HttpClientModule,
-		IonicModule.forRoot(MyApp)
+		FormsModule,
+		IonicModule.forRoot(MyApp),
+		IonicStorageModule.forRoot({
+			name: 'appdb'
+		})
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -73,6 +82,7 @@ import { BasketService } from './../services/basket.service';
 		StatusBar,
 		SplashScreen,
 		Camera,
+		FingerprintAIO,
 		Globals,
 		Utils,
 		BasketService,

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 import { HomePage } from './../home/home';
 import { RegisterPage } from './../register/register';
@@ -8,15 +9,56 @@ import { Utils } from '../../services/utils.service';
 @IonicPage()
 @Component({
 	selector: 'page-login',
-	templateUrl: 'login.html',
+	templateUrl: 'login.html'
 })
 export class LoginPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+	user: string;
+	pass: string;
+
+	private canFingerprint;
+
+	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private utils: Utils) {
+		this.canFingerprint = false;
+
+		if (this.utils.platform.is('cordova')) {
+			this.utils.platform.ready().then(success => {
+				this.fingerPrint.isAvailable().then(res => {
+					this.utils.globals.getPersistent('credentials').then(data => {
+						if (data) {
+							this.user = data.username;
+							this.canFingerprint = true;
+							
+							this.showFingerprint();
+						}
+					});
+				}, err => console.log('fingerprint not available'));
+			})
+		}
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad LoginPage');
+		
+	}
+
+	showFingerprint() {
+		if (this.canFingerprint) {
+		
+			this.fingerPrint.isAvailable().then(res => {
+				
+				this.utils.globals.getPersistent('credentials').then(data => {
+					this.fingerPrint.show({
+						clientId: 'Natural Food',
+						localizedFallbackTitle: 'Usar senha',
+						localizedReason: 'Acesse sua conta'
+					}).then(res => {
+						this.login(data.username, data.password);
+					});
+				});
+
+			});
+
+		}
 	}
 
 	login(username, password) {
@@ -28,6 +70,11 @@ export class LoginPage {
 			user_user: username,
 			user_pass: password
 		}).subscribe(success => {
+			this.utils.globals.setPersistent('credentials', {
+				username: username,
+				password: password
+			});
+
 			this.utils.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
 			this.utils.globals.set('user', {
 				name: success.data.user_name,

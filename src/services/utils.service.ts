@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadingController, AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular/platform/platform';
 
 import { Globals } from './globals.service';
 import { Response } from '../models/server-response.model';
@@ -8,7 +9,7 @@ import { Response } from '../models/server-response.model';
 @Injectable()
 export class Utils {
 
-	constructor(private http: HttpClient, private loadingCtrl: LoadingController, private alertCtrl: AlertController, public globals: Globals) { }
+	constructor(public platform: Platform, private http: HttpClient, private loadingCtrl: LoadingController, private alertCtrl: AlertController, public globals: Globals) { }
 
 	getHttp() {
 		let address = this.globals.getInternal('api'),
