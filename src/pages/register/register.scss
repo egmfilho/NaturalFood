@@ -10,6 +10,11 @@ page-register {
 		margin: 0;
 	}
 
+	small {
+		margin-top: 8px;
+		font-size: 12px !important;
+	}
+
 	.list-ios {
 		> .item-block {
 			&:first-child {
@@ -30,12 +35,6 @@ page-register {
 		.item-block {
 			padding-left: 0;
 		}
-
-		// .item-input.item-input-has-focus:last-child {
-		// 	.item-inner {
-		// 		box-shadow: inset 0 -1px 0 0 color($colors, primary);
-		// 	}
-		// }
 	}
 
 	.grid {
@@ -51,6 +50,21 @@ page-register {
 			&:last-child {
 				padding-right: 0;
 			}
+		}
+	}
+
+	.agreement-label {
+		.text {
+			display: inline-block;
+			height: 32px;
+			line-height: 32px;
+			vertical-align: bottom;
+		}
+
+		button {
+			padding: 0;
+			height: 32px;
+			margin: 0;
 		}
 	}
 }

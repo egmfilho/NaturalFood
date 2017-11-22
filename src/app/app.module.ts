@@ -25,6 +25,7 @@ import { ListPage } from '../pages/list/list';
 import { OrderItemsPage } from '../pages/order-items/order-items';
 import { EditProfilePage } from './../pages/edit-profile/edit-profile';
 import { LogoutPage } from './../pages/logout/logout';
+import { AgreementPage } from '../pages/agreement/agreement';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -49,6 +50,7 @@ import { FoodFilterPipe } from '../pipes/food-filter.pipe';
 		OrderItemsPage,
 		EditProfilePage,
 		LogoutPage,
+		AgreementPage,
 		CategoryCardComponent,
 		FoodCardComponent,
 		BasketComponent,
@@ -74,6 +76,7 @@ import { FoodFilterPipe } from '../pipes/food-filter.pipe';
 		OrderItemsPage,
 		EditProfilePage,
 		LogoutPage,
+		AgreementPage,
 		CategoryCardComponent,
 		FoodCardComponent,
 		BasketComponent

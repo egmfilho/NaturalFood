@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PopoverController } from 'ionic-angular/components/popover/popover-controller';
 
 import { Utils } from '../../services/utils.service';
 import { LoginPage } from '../login/login';
+import { AgreementPage } from '../agreement/agreement';
 import { Person } from '../../models/person.model';
 
 /**
@@ -25,7 +27,7 @@ export class RegisterPage {
 	passwordMatch: string;
 	agreement: boolean;
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private popover: PopoverController, private utils: Utils) {
 		this.person = new Person({});
 		this.agreement = false;
 	}
@@ -37,6 +39,7 @@ export class RegisterPage {
 	ngOnInit() {
 		var passwordConfirming = ((c: AbstractControl): { invalid : boolean } => {
 			if (c.get('person_password').value !== c.get('person_confirm_password').value) {
+				c.get('person_confirm_password').setErrors({ notEquivalent: true });
 				return { invalid: true };
 			}
 			
@@ -78,6 +81,15 @@ export class RegisterPage {
 		}, passwordConfirming);
 	}
 
+	openAgreement(event: MouseEvent) {
+		event.stopPropagation();
+		
+		this.popover.create(AgreementPage, { }, {
+			showBackdrop: true,
+			enableBackdropDismiss: true
+		}).present();
+	}
+
 	isValid() {
 		return this.registerForm.valid;
 	}
@@ -90,7 +102,8 @@ export class RegisterPage {
 			loading.dismiss();
 			this.navCtrl.setRoot(LoginPage);
 		}, error => {
-
+			loading.dismiss();
+			this.utils.alert('Erro', 'Não foi possível realizar o registro. Tente novamente mais tarde.', ['OK']).present();
 		});
 	}
 	

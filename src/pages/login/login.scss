@@ -79,6 +79,7 @@ page-login {
     
             .col-fingerprint {
                 max-width: 60px;
+                margin-top: -4px;
 
                 .finger-button {
                     text-align: center;
@@ -88,7 +89,7 @@ page-login {
                     font-size: 22px;
                     display: block;
                     margin: 0 auto;
-                    background-color: white;
+                    background-color: rgba(#fff, .9);
                     color: color($colors, primary);
                 }
             }

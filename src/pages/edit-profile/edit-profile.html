@@ -4,25 +4,68 @@
 	See http://ionicframework.com/docs/components/#navigation for more info on
 	Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 	
-	<ion-navbar>
-		<ion-title>Perfil</ion-title>
+	<ion-navbar transparent>
+		<!-- <ion-title>Perfil</ion-title> -->
 	</ion-navbar>
 	
 </ion-header>
 
 
 
-<ion-content padding>
+<ion-content fullscreen>
 
-	<button class='text-white' ion-button full color="primary" (click)="selectFromSource()">
-		Teste
-	</button>
+	<div class="info">
+		<div class="avatar" [style.background-image]="getAvatar()" (click)="selectFromSource()"></div>
+		<h3>{{user.name}}</h3>
+	</div>
 
-	<br>
-	<br>
+	<div class="body">
+		<ion-item-group>
+			<ion-item-divider color="light">Perfil</ion-item-divider>
 
-	{{teste}}
+			<ion-item>
+				<ion-icon name="person" item-start></ion-icon>
+				<ion-input type="text" readonly [(ngModel)]="user.name"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-icon name="" item-start></ion-icon>
+				<ion-input type="text" readonly [(ngModel)]="user.name"></ion-input>
+			</ion-item>
+		</ion-item-group>
+
+		<ion-item-group>
+			<ion-item-divider color="light">Documento</ion-item-divider>
+
+			<ion-item>
+				<ion-icon name="" item-start></ion-icon>
+				<ion-input type="text" readonly [(ngModel)]="user.name"></ion-input>
+			</ion-item>
+		</ion-item-group>
+
+		<ion-item-group>
+			<ion-item-divider color="light">Contato</ion-item-divider>
+
+			<ion-item>
+				<ion-icon name="mail" item-start></ion-icon>
+				<ion-input type="email" readonly [(ngModel)]="user.name"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-icon name="call" item-start></ion-icon>
+				<ion-input type="text" readonly [(ngModel)]="user.name"></ion-input>
+			</ion-item>
+		</ion-item-group>
+
+		<ion-item-group>
+			<ion-item-divider color="light">Endereço</ion-item-divider>
+
+			<ion-item>
+				<ion-icon name="map" item-start></ion-icon>
+				<ion-input type="text" readonly [(ngModel)]="user.name"></ion-input>
+			</ion-item>
+		</ion-item-group>
+	</div>
 	
 </ion-content>

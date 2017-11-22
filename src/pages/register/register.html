@@ -44,6 +44,7 @@
 				<ion-label floating color="primary">Repita a senha</ion-label>
 				<ion-input type="password" formControlName="person_confirm_password"></ion-input>
 			</ion-item>
+			<small ion-text [hidden]="registerForm.controls.person_confirm_password.valid || registerForm.controls.person_confirm_password.pristine" color="danger">As senhas não conferem</small>
 
 			<ion-grid>
 				<ion-row>
@@ -67,8 +68,11 @@
 			</ion-grid>
 
 			<ion-item class="offset-top-60">
-				<ion-label>Li e aceito os termos.</ion-label>
-				<ion-checkbox formControlName="agreement"></ion-checkbox>
+				<ion-label class="agreement-label">
+					<div class="text">Li e aceito os </div>
+					<button type="button" ion-button clear (click)="openAgreement($event)">Termos e Condições</button>
+				</ion-label>
+			<ion-checkbox formControlName="agreement"></ion-checkbox>
 			</ion-item>
 
 		</ion-list>

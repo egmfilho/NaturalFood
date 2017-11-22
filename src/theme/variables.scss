@@ -21,7 +21,10 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
-
+$popover-ios-width: 300px;
+$popover-ios-max-height: 60%;
+$popover-md-width: 300px;
+$popover-md-max-height: 60%;
 
 
 
@@ -37,7 +40,7 @@ $colors: (
 	primary:    #044726,
 	secondary:  #E0C31A,
 	danger:     #f53d3d,
-	light:      #f4f4f4,
+	light:      #eee,
 	dark:       #222
 );
 

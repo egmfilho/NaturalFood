@@ -1,3 +1,43 @@
 page-edit-profile {
+	ion-content {
+		background-image: url('../assets/images/fundo-login.jpg');
+        background-position: center;
+        background-size: cover;
+		// background-color: darken(color($colors, primary), 15%);
+	}
+	
+	.bar-button, .toolbar-title {
+		color: #ffffff;
+	}
 
+	.info {
+		height: 200px;
+
+		.avatar {
+			width: 100px;
+			height: 100px;
+			margin: 0 auto;
+			border: 3px solid white;
+			border-radius: 50%;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+		h3 {
+			color: white;
+			text-align: center;
+		}
+	}
+
+	.body {
+		.item-inner, ion-item {
+			border-bottom-color: #cdccd1 !important;
+			box-shadow: none !important;
+		}
+
+		ion-icon {
+			color: #777;
+		}
+	}
 }

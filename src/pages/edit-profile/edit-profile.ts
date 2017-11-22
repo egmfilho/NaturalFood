@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { Camera } from '@ionic-native/camera';
 
@@ -15,15 +15,31 @@ import { Utils } from './../../services/utils.service';
 @IonicPage()
 @Component({
 	selector: 'page-edit-profile',
-	templateUrl: 'edit-profile.html',
+	templateUrl: 'edit-profile.html'
 })
 export class EditProfilePage {
+
+	@ViewChild(Content)
+	content: Content;
+	
+	user: any;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheet: ActionSheetController, private camera: Camera, private utils: Utils) {
+		this.user = this.utils.globals.get('user');
 	}
 	
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad EditProfilePage');
+	}
+
+	ngAfterViewInit() {
+        this.content.ionScrollEnd.subscribe(data => {
+			console.log(data['scrollTop']);
+		});
+    }
+
+	getAvatar() {
+		return `url(${this.user.avatar})`;
 	}
 
 	selectFromSource() {
