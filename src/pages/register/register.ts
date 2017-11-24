@@ -38,8 +38,8 @@ export class RegisterPage {
 
 	ngOnInit() {
 		var passwordConfirming = ((c: AbstractControl): { invalid : boolean } => {
-			if (c.get('person_password').value !== c.get('person_confirm_password').value) {
-				c.get('person_confirm_password').setErrors({ notEquivalent: true });
+			if (c.get('user_password').value !== c.get('user_confirm_password').value) {
+				c.get('user_confirm_password').setErrors({ notEquivalent: true });
 				return { invalid: true };
 			}
 			
@@ -51,27 +51,27 @@ export class RegisterPage {
 				Validators.required,
 				Validators.minLength(3)
 			]),
-			'person_last_name': new FormControl(this.person.lastName, [
+			'person_cpf': new FormControl('', [
 				Validators.required,
 				Validators.minLength(3)
 			]),
-			'person_mail': new FormControl(this.person.email, [
+			'user_mail': new FormControl(this.person.email, [
 				Validators.required,
 				Validators.email
 			]),
-			'person_password': new FormControl(this.person.password, [
+			'user_password': new FormControl(this.person.password, [
 				Validators.required,
 				Validators.minLength(6)
 			]),
-			'person_confirm_password': new FormControl(this.passwordMatch, [
+			'user_confirm_password': new FormControl(this.passwordMatch, [
 				Validators.required,
 				Validators.minLength(6)
 			]),
-			'person_ddd': new FormControl(this.person.ddd, [
+			'user_ddd': new FormControl(this.person.ddd, [
 				Validators.required,
 				Validators.pattern(/^[1-9]{2}$/)
 			]),
-			'person_tel': new FormControl(this.person.tel, [
+			'user_tel': new FormControl(this.person.tel, [
 				Validators.required,
 				Validators.pattern(/^[2-9][0-9]{7,8}$/)
 			]),
@@ -83,11 +83,8 @@ export class RegisterPage {
 
 	openAgreement(event: MouseEvent) {
 		event.stopPropagation();
-		
-		this.popover.create(AgreementPage, { }, {
-			showBackdrop: true,
-			enableBackdropDismiss: true
-		}).present();
+
+		this.getAgreement();
 	}
 
 	isValid() {
@@ -98,12 +95,33 @@ export class RegisterPage {
 		let loading = this.utils.loading('Enviando registro');
 		loading.present();
 
-		this.utils.getHttp().post('register.php', this.registerForm.value).subscribe(success => {
+		this.utils.getHttp().post('register.php?action=register', this.registerForm.value).subscribe(success => {
 			loading.dismiss();
-			this.navCtrl.setRoot(LoginPage);
+			this.utils.alert('Sucesso', 'Seu pré-cadastro foi enviado para análise. Em breve entraremos em contato.', ['Ok'])
+				.present()
+				.then(res => this.navCtrl.setRoot(LoginPage));
 		}, error => {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Não foi possível realizar o registro. Tente novamente mais tarde.', ['OK']).present();
+		});
+	}
+
+	getAgreement() {
+		let loading = this.utils.loading('Carregando');
+		loading.present();
+
+		this.utils.getHttp().get('register.php?action=agreement').subscribe(success => {
+			loading.dismiss();
+			this.popover.create(AgreementPage, { 
+				title: success.data.text.text_title,
+				text: success.data.text.text_text 
+			}, {
+				showBackdrop: true,
+				enableBackdropDismiss: true
+			}).present();
+		}, error => {
+			loading.dismiss();
+			this.utils.alert('Erro', this.utils.globals.getInternal('errorMessage'), ['OK']).present();
 		});
 	}
 	

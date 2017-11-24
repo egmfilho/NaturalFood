@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
 import { BasketService } from '../../services/basket.service';
 import { Utils } from './../../services/utils.service';
@@ -22,7 +22,8 @@ import { BasketItem } from '../../models/basketItem.model';
 	templateUrl: 'food-list.html',
 })
 export class FoodListPage {
-	
+	@ViewChild(Content) content: Content;
+
 	category: Category;
 
 	foods: Food[];
@@ -60,6 +61,10 @@ export class FoodListPage {
 					food: food,
 					quantity: 1
 				}));
+
+				if (this.basket.getItems().length == 1) {
+					this.content.resize();
+				}
 				
 				this.utils.alert('Sucesso', 'Prato adicionado!', ['OK']).present();
 			}

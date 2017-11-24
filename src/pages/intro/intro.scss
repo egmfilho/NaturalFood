@@ -1,0 +1,41 @@
+page-intro {
+	.toolbar-background {
+		background: #fff;
+		border-color: transparent;
+	}
+
+	.slides {
+		.slide-zoom {
+			height: 100%;
+		}
+
+		.swiper-pagination-bullet-active {
+			background-color: color($colors, primary);
+		}
+
+		.picture {
+			background-position: center;
+			background-size: contain;
+			background-repeat: no-repeat;
+			width: 70%;
+			height: 30%;
+			margin: 0 auto;
+			margin-top: 10%;
+		}
+
+		.text {
+			padding: 0 30px;			
+
+			h2 {
+				color: color($colors, primary);
+				font-family: 'Kalam';
+			}
+
+			p {
+				color: #777;
+				font-family: 'Kalam';
+				font-size: 17px;
+			}
+		}
+	}
+}

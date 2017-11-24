@@ -13,12 +13,18 @@ export class Food {
     public price: number;
     public description: string;
 
+    public tags: string[];
+    public relevance: number;
+
     constructor(foodInfo: any) {
         this.id = foodInfo.id;
         this.name = foodInfo.name;
         this.images = foodInfo.images;
         this.price = foodInfo.price;
         this.description = foodInfo.description;
+        
+        this.tags = foodInfo.tags || [];
+        this.relevance = 0;
     }
 
     static convertToInternal(food: any) {
@@ -27,7 +33,8 @@ export class Food {
             name: food.product_name,
             images: food.images.map(i => i.image_uri + 'large.jpg'),
             price: food.price.product_price_value,
-            description: food.product_description || '(Sem descrição)'
+            description: food.product_description || '(Sem descrição)',
+            tags: food.product_tags
         }
     }
 }

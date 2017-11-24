@@ -1,9 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
-import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
-import { Camera } from '@ionic-native/camera';
-
-import { Utils } from './../../services/utils.service';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the EditProfilePage page.
@@ -19,76 +16,55 @@ import { Utils } from './../../services/utils.service';
 })
 export class EditProfilePage {
 
-	@ViewChild(Content)
-	content: Content;
-	
-	user: any;
-	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheet: ActionSheetController, private camera: Camera, private utils: Utils) {
-		this.user = this.utils.globals.get('user');
+	editForm: FormGroup;
+
+	constructor(public navCtrl: NavController, public navParams: NavParams) {
+
 	}
 	
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad EditProfilePage');
+
 	}
 
-	ngAfterViewInit() {
-        this.content.ionScrollEnd.subscribe(data => {
-			console.log(data['scrollTop']);
-		});
-    }
-
-	getAvatar() {
-		return `url(${this.user.avatar})`;
-	}
-
-	selectFromSource() {
-		let actionSheet = this.actionSheet.create({
-			title: 'Selecionar uma foto',
-			buttons: [{
-				text: 'Tirar foto',
-				handler: () => {
-					this.takePicture(this.camera.PictureSourceType.CAMERA);
-				}
-			},{
-				text: 'Escolher da biblioteca',
-				handler: () => {
-					this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-				}
-			}, {
-				text: 'Cancelar',
-				role: 'cancel'
-			}]
+	ngOnInit() {
+		var passwordConfirming = ((c: AbstractControl): { invalid : boolean } => {
+			if (c.get('user_password').value !== c.get('user_confirm_password').value) {
+				c.get('user_confirm_password').setErrors({ notEquivalent: true });
+				return { invalid: true };
+			}
+			
+			return null;
 		});
 
-		actionSheet.present();
+		this.editForm = new FormGroup({
+			'user_name': new FormControl('', [
+				Validators.required,
+				Validators.minLength(3)
+			]),
+			'user_cpf': new FormControl('', [
+				Validators.required,
+				Validators.pattern(/^[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}$/)
+			]),
+			'user_mail': new FormControl('', [
+				Validators.required,
+				Validators.email
+			]),
+			'user_password': new FormControl('', [
+				Validators.required,
+				Validators.minLength(6)
+			]),
+			'user_confirm_password': new FormControl('', [
+				Validators.required,
+				Validators.minLength(6)
+			]),
+			'user_ddd': new FormControl('', [
+				Validators.required,
+				Validators.pattern(/^[1-9]{2}$/)
+			]),
+			'user_tel': new FormControl('', [
+				Validators.required,
+				Validators.pattern(/^[2-9][0-9]{7,8}$/)
+			])
+		}, passwordConfirming);
 	}
-
-	teste: string;
-
-	takePicture(sourceType: number) {
-		var options = {
-			quality: 70,
-			sourceType: sourceType,
-			destinationType : this.camera.DestinationType.DATA_URL,
-			saveToPhotoAlbum: false,
-			correctOrientation: true,
-			cameraDirection: this.camera.Direction.FRONT,
-			targetWidth: 500,
-			targetHeight: 500
-		};
-
-		let loading = this.utils.loading('Carregando');
-
-		loading.present();
-		this.camera.getPicture(options).then(imageData => {
-			this.utils.globals.get('user').avatar = 'data:image/jpeg;base64,' + imageData;
-			this.teste = 'data:image/jpeg;base64,' + imageData;
-			loading.dismiss();
-		}, err => {
-			loading.dismiss();
-			this.utils.alert('Erro', 'Não foi possível carregar a imagem.', ['OK']).present();
-		});
-	}
-	
 }

@@ -18,7 +18,7 @@ export class FoodCardComponent {
 	@Input() selectCallback: Function;
 	
 	constructor() {
-		console.log('Hello FoodCardComponent Component');
+
 	}
 
 	select() {

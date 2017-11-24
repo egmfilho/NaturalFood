@@ -1,6 +1,20 @@
 page-agreement {
-	.toolbar-ios ion-title {
-		padding: 0 20px;
+	// .toolbar-ios ion-title {
+	// 	padding: 0 20px;
+	// }
+	
+	.content {
+		padding: 15px;
+
+		h3 {
+			font-size: 20px;
+			margin-top: 0;
+		}
+
+		p {
+			letter-spacing: .3px;
+			line-height: 18px;
+		}
 	}
 
 	.close-button {

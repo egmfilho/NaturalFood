@@ -22,3 +22,7 @@
 	<food-card *ngFor="let food of foods | foodFilter:searchQuery" [food]="food" [selectCallback]="selectFood"></food-card>
 
 </ion-content>
+
+<ion-footer>
+	<basket></basket>
+</ion-footer>

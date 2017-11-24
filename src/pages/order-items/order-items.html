@@ -17,34 +17,34 @@
 	
 	<ion-list>
 
-		<ion-item-sliding *ngFor="let x of [1, 1, 1, 1, 1, 1, 1]">
+		<ion-item-sliding *ngFor="let item of basket.getItems()">
 			<ion-item>
 				<ion-grid>
 					<ion-row>
 						<ion-col>
-							<h2 class="item-label">999x Nome da comida</h2>
+							<h2 class="item-label">{{item.quantity}}x {{item.food.name}}</h2>
 						</ion-col>
 						<ion-col col-auto>
 							<div class="quantity-display">
-								<button ion-button icon-only clear>
+								<button ion-button icon-only clear (click)="decreaseItem(item)">
 									<ion-icon name="remove-circle" color="danger"></ion-icon>
 								</button>
 								<div class="display">
-									999
+									{{item.quantity}}
 								</div>
-								<button ion-button icon-only clear>
+								<button ion-button icon-only clear (click)="increaseItem(item)">
 									<ion-icon name="add-circle" color="primary"></ion-icon>
 								</button>
 							</div>
 							<div class="item-price-total">
-								R$ 9999,00
+								{{item.getPrice() | currency:'R$ '}}
 							</div>
 						</ion-col>
 					</ion-row>
 				</ion-grid>
 			</ion-item>
 			<ion-item-options slide="left">
-				<button class="hidden-button" ion-button color="danger">
+				<button class="hidden-button" ion-button color="danger" (click)="removeItem(item)">
 					<ion-icon name="trash"></ion-icon>
 					Remover
 				</button>
@@ -64,7 +64,7 @@
 		<ion-grid>
 			<ion-row>
 				<ion-col class="text-md">Total: </ion-col>
-				<ion-col class="text-md text-right text-primary">R$ 9999,00</ion-col>
+				<ion-col class="text-md text-right text-primary">{{basket.getPrice() | currency:'R$ '}}</ion-col>
 			</ion-row>
 		</ion-grid>
 		<button ion-button block icon-right>

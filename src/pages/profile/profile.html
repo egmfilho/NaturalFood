@@ -1,0 +1,120 @@
+<!--
+	Generated template for the ProfilePage page.
+	
+	See http://ionicframework.com/docs/components/#navigation for more info on
+	Ionic pages and navigation.
+-->
+<ion-header no-border>
+	
+	<ion-navbar transparent [style.background-color]="headerRGBA">
+		<ion-title>
+			{{user.name}}
+		</ion-title>
+		<ion-buttons end>
+			<button class="edit-button" ion-button icon-only color="white" (click)="editProfile()">
+				<!-- <ion-icon name="ios-create-outline"></ion-icon> -->
+				<i class="fa fa-pencil-square-o"></i>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+	
+</ion-header>
+
+<ion-content fullscreen>
+	
+	<div class="info">
+		<div class="avatar" [style.background-image]="getAvatar()" (click)="selectFromSource()">
+			<div class="edit-icon">
+				<i class="fa fa-camera"></i>
+			</div>
+		</div>
+		<div class="summary">
+			<ion-grid>
+				<ion-row>
+					<ion-col>
+						<h6>Pedidos</h6>
+						<p>0</p>
+					</ion-col>
+					<ion-col>
+						<h6>Peso</h6>
+						<p>70kg</p>
+					</ion-col>
+					<ion-col>
+						<h6>Calorias</h6>
+						<p>0</p>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+	</div>
+	
+	<div class="body">
+		<ion-item-group>
+			<ion-item-divider color="white">Perfil</ion-item-divider>
+			
+			<ion-item>
+				<i class="fa fa-user" item-start></i>
+				Nome
+				<span item-end>{{user.name}}</span>
+			</ion-item>
+			<ion-item>
+				<i class="fa fa-user" item-start></i>
+				Sobrenome
+				<span item-end></span>
+			</ion-item>
+		</ion-item-group>
+		
+		<ion-item-group>
+			<ion-item-divider color="white">Documento</ion-item-divider>
+			
+			<ion-item>
+				<i class="fa fa-id-card-o" item-start></i>
+				CPF
+				<span item-end>111.111.111-11</span>
+			</ion-item>
+		</ion-item-group>
+		
+		<ion-item-group>
+			<ion-item-divider color="white">Contato</ion-item-divider>
+			
+			<ion-item>
+				<i class="fa fa-envelope-o" item-start></i>
+				Email
+				<span item-end>contato@email.com</span>
+			</ion-item>
+			
+			<ion-item>
+				<i class="fa fa-phone" item-start></i>
+				Telefone
+				<span item-end>21 2222-3333</span>
+			</ion-item>
+		</ion-item-group>
+		
+		<ion-item-group>
+			<ion-item-divider color="white">Endereço</ion-item-divider>
+			
+			<ion-item>
+				<i class="fa fa-map-o" item-start></i>
+				Principal
+				<span item-end>Rua azul 33</span>
+			</ion-item>
+		</ion-item-group>
+		
+		<ion-item-group>
+			<ion-item-divider color="white">Plano</ion-item-divider>
+			
+			<ion-item>
+				<i class="fa fa-tag" item-start></i>
+				Nome
+				<span item-end>{{user.plan.name}}</span>
+			</ion-item>
+			
+			<ion-item>
+				<i class="fa fa-credit-card" item-start></i>
+				Valor
+				<span item-end>{{user.plan.price | currency:'R$ '}}</span>
+			</ion-item>
+		</ion-item-group>
+	</div>
+	
+</ion-content>

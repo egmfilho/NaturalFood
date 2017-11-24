@@ -15,12 +15,17 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 	templateUrl: 'agreement.html',
 })
 export class AgreementPage {
+
+	agreement: string;
+	title: string;
 	
 	constructor(public viewCtrl: ViewController) {
+		this.agreement = this.viewCtrl.data.text;
+		this.title = this.viewCtrl.data.title;
 	}
-	
+
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad AgreementPage');
+
 	}
 
 	dismiss() {

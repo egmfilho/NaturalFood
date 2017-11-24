@@ -18,6 +18,21 @@
 // Compass 
 // --------------------------------------------------
 
+.ios {
+	page-register, page-profile {
+	  	.scroll-content {
+			-webkit-overflow-scrolling: auto !important;
+		}
+	}
+}
+
+@font-face {
+	font-family: 'Kalam';
+	src: url('../assets/fonts/Kalam.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
 .offset-top-15 {
 	margin-top: 15px;
 }

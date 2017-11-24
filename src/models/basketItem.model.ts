@@ -16,4 +16,8 @@ export class BasketItem {
         this.food = new Food(basketItemInfo.food);
         this.quantity = basketItemInfo.quantity;
     }
+
+    getPrice() {
+        return this.food.price * this.quantity;
+    }
 }

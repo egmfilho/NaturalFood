@@ -1,0 +1,65 @@
+<!--
+	Generated template for the PreferencesPage page.
+	
+	See http://ionicframework.com/docs/components/#navigation for more info on
+	Ionic pages and navigation.
+-->
+<ion-header>
+	
+	<ion-navbar color="primary">
+		<ion-title>Preferências</ion-title>
+	</ion-navbar>
+	
+</ion-header>
+
+
+<ion-content>
+
+	<ion-item-group>
+		<button ion-item (click)="openProfile()">
+			<ion-avatar item-start>
+				<img [src]="user.avatar" alt="">
+			</ion-avatar>
+			<h2>{{user.name}}</h2>
+			<h3>Plano {{user.plan.name}}</h3>
+			<p>{{user.email}}</p>
+		</button>
+	</ion-item-group>
+
+	<ion-item-group>
+		<ion-item-divider color="light">Conta</ion-item-divider>
+
+		<button ion-item>
+			Trocar senha
+		</button>
+		<button ion-item>
+			Meus endereços
+		</button>
+	</ion-item-group>
+
+	<ion-item-group>
+		<ion-item-divider color="light">Privacidade</ion-item-divider>
+
+		<button ion-item>
+			Localização
+		</button>
+		<button ion-item>
+			Notificações
+		</button>
+	</ion-item-group>
+
+	<ion-item-group>
+		<ion-item-divider color="light">Geral</ion-item-divider>
+
+		<button ion-item (click)="openAgreement()">
+			Termos e condições de uso
+		</button>
+		<button ion-item (click)="showVersion()">
+			Versão do aplicativo
+		</button>
+		<button ion-item (click)="openAbout()">
+			Sobre
+		</button>
+	</ion-item-group>
+
+</ion-content>

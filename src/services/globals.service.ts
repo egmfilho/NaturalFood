@@ -2,7 +2,7 @@
  * @Author: egmfilho &lt;egmfilho@live.com&gt; 
  * @Date: 2017-11-09 16:56:12 
  * @Last Modified by: egmfilho
- * @Last Modified time: 2017-11-09 17:00:44
+ * @Last Modified time: 2017-11-23 08:48:18
  */
 
 import { Injectable } from '@angular/core';
@@ -18,7 +18,8 @@ export class Globals {
 		this.dictionary = { };
 		this.internal = {
 			'api': 'http://172.16.0.176/app/',
-			'token': null
+			'token': null,
+			'errorMessage': 'Não foi possível estabelecer uma conexão com o servidor. Tente novamente mais tarde.'
 		};
 	}
 

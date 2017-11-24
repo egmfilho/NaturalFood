@@ -13,9 +13,11 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-	<div class="logo"></div>
+	<div class="banner">
+		<div class="logo"></div>
+	</div>
 	
 	<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 		<ion-list>
@@ -26,32 +28,32 @@
 			</ion-item>
 
 			<ion-item>
-				<ion-label floating color="primary">Sobrenome</ion-label>
-				<ion-input type="text" formControlName="person_last_name"></ion-input>
+				<ion-label floating color="primary">CPF</ion-label>
+				<ion-input type="text" formControlName="person_cpf"></ion-input>
 			</ion-item>
 			
 			<ion-item>
 				<ion-label floating color="primary">Email</ion-label>
-				<ion-input type="email" formControlName="person_mail"></ion-input>
+				<ion-input type="email" formControlName="user_mail"></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label floating color="primary">Senha</ion-label>
-				<ion-input type="password" formControlName="person_password"></ion-input>
+				<ion-input type="password" formControlName="user_password"></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label floating color="primary">Repita a senha</ion-label>
-				<ion-input type="password" formControlName="person_confirm_password"></ion-input>
+				<ion-input type="password" formControlName="user_confirm_password"></ion-input>
 			</ion-item>
-			<small ion-text [hidden]="registerForm.controls.person_confirm_password.valid || registerForm.controls.person_confirm_password.pristine" color="danger">As senhas não conferem</small>
+			<small ion-text [hidden]="registerForm.controls.user_confirm_password.valid || registerForm.controls.user_confirm_password.pristine" color="danger">As senhas não conferem</small>
 
 			<ion-grid>
 				<ion-row>
 					<ion-col>
 						<ion-item>
 							<ion-label floating color="primary">DDD</ion-label>
-							<ion-input type="number" formControlName="person_ddd"></ion-input>
+							<ion-input type="number" formControlName="user_ddd"></ion-input>
 						</ion-item>
 						<!-- truque a seguir evita regras idiotas para o last-child do input de cima -->
 						<ion-item style="visibility: hidden"><ion-input></ion-input></ion-item>
@@ -59,7 +61,7 @@
 					<ion-col col-8>
 						<ion-item>
 							<ion-label floating color="primary">Telefone</ion-label>
-							<ion-input type="number" formControlName="person_tel"></ion-input>
+							<ion-input type="number" formControlName="user_tel"></ion-input>
 						</ion-item>
 						<!-- truque a seguir evita regras idiotas para o last-child do input de cima -->
 						<ion-item style="visibility: hidden"><ion-input></ion-input></ion-item>

@@ -5,10 +5,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Globals } from './../services/globals.service';
 
+import { IntroPage } from '../pages/intro/intro';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { ProfilePage } from '../pages/profile/profile';
+import { PreferencesPage } from '../pages/preferences/preferences';
 
 @Component({
 	templateUrl: 'app.html'
@@ -16,7 +18,7 @@ import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 export class MyApp {
 	@ViewChild(Nav) nav: Nav;
 	
-	rootPage: any = LoginPage;
+	rootPage: any;
 	
 	pages: Array<{title: string, component: any}>;
 
@@ -29,8 +31,7 @@ export class MyApp {
 		this.pages = [
 			{ title: 'Home', component: HomePage },
 			{ title: 'Pedidos anteriores', component: ListPage },
-			{ title: 'Ajuda', component: '' },
-			{ title: 'Preferências', component: '' }
+			{ title: 'Preferências', component: PreferencesPage }
 		];
 	}
 	
@@ -38,8 +39,20 @@ export class MyApp {
 		this.platform.ready().then(() => {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
-			this.statusBar.styleDefault();
-			this.splashScreen.hide();
+			this.statusBar.styleLightContent();//.styleDefault();
+
+			this.globals.getPersistent('_credentials').then(res => {
+				if (res) {
+					this.rootPage = LoginPage;
+				} else {
+					this.rootPage = IntroPage;
+				}
+
+				this.splashScreen.hide();
+			}, err => {
+				this.rootPage = IntroPage;
+				this.splashScreen.hide();
+			});
 		});
 	}
 	
@@ -50,7 +63,7 @@ export class MyApp {
 	}
 
 	openProfilePage() {
-		this.nav.push(EditProfilePage);
+		this.nav.push(ProfilePage);
 	}
 
 	getUser() {

@@ -20,7 +20,9 @@ export class LoginPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private utils: Utils) {
 		this.canFingerprint = false;
+	}
 
+	ionViewDidEnter() {
 		if (this.utils.platform.is('cordova')) {
 			this.utils.platform.ready().then(success => {
 				this.fingerPrint.isAvailable().then(res => {
@@ -35,10 +37,6 @@ export class LoginPage {
 				}, err => console.log('fingerprint not available'));
 			})
 		}
-	}
-
-	ionViewDidLoad() {
-		
 	}
 
 	showFingerprint() {
@@ -79,7 +77,11 @@ export class LoginPage {
 			this.utils.globals.set('user', {
 				name: success.data.user_name,
 				email: success.data.user_mail,
-				avatar: success.data.image.image_uri + 'small.jpg'
+				avatar: success.data.image.image_uri + 'small.jpg',
+				plan: {
+					name: success.data.plan.plan_name,
+					price: success.data.plan.plan_value
+				}
 			});
 			loading.dismiss();
 			this.navCtrl.setRoot(HomePage);
@@ -90,7 +92,7 @@ export class LoginPage {
 			switch (error.status) {
 				case 0: {
 					title = 'Erro';
-					msg = 'Não foi possível estabelecer uma conexão com o servidor. Tente novamente mais tarde.';
+					msg = this.utils.globals.getInternal('errorMessage');
 					break;
 				}
 

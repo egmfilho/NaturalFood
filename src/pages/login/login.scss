@@ -7,7 +7,7 @@ page-login {
         background-image: url('../assets/images/fundo-login.jpg');
         background-position: center;
         background-size: cover;
-        opacity: .6;
+        opacity: .8;
     }
 
     .scroll-content {
@@ -23,7 +23,7 @@ page-login {
 
         .item.item-block {
             margin-bottom: 10px;
-            background-color: rgba(#fff, .25);
+            background-color: rgba(#fff, .17);
             color: white;
             border: none;
             padding-left: 0;
@@ -47,7 +47,7 @@ page-login {
                 }
 
                 ::-webkit-input-placeholder {
-                    color: rgba(#fff, .5);
+                    color: rgba(#fff, .7);
                 }
             }
         }
