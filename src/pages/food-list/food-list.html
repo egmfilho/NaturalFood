@@ -14,11 +14,11 @@
 		<ion-title>Natural Food</ion-title>
 	</ion-navbar>
 
-	<ion-segment color="light">
+	<ion-segment color="light" [(ngModel)]="selectedTabId" *ngIf="plans.length">
 		<ion-segment-button [value]="plan.id" *ngFor="let plan of plans">
 			{{plan.name}}
 		</ion-segment-button>
-		<ion-segment-button [value]="-1">
+		<ion-segment-button [value]="">
 			Todos
 		</ion-segment-button>
 	</ion-segment>
@@ -28,7 +28,7 @@
 
 <ion-content>
 	
-	<food-card *ngFor="let food of foods | foodFilter:searchQuery" [food]="food" [selectCallback]="selectFood"></food-card>
+	<food-card *ngFor="let food of foods | foodFilter:searchQuery:selectedTabId" [food]="food" [selectCallback]="selectFood"></food-card>
 
 </ion-content>
 

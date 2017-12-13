@@ -12,6 +12,7 @@ export class Food {
     public images: string[];
     public price: number;
     public description: string;
+    public planId: number;
 
     public tags: string[];
     public relevance: number;
@@ -22,6 +23,7 @@ export class Food {
         this.images = foodInfo.images;
         this.price = foodInfo.price;
         this.description = foodInfo.description;
+        this.planId = foodInfo.planId;
         
         this.tags = foodInfo.tags || [];
         this.relevance = 0;
@@ -34,6 +36,7 @@ export class Food {
             images: food.images.map(i => i.image_uri + 'large.jpg'),
             price: food.price.product_price_value,
             description: food.product_description || '(Sem descrição)',
+            planId: food.plan_id,
             tags: food.product_tags
         }
     }

@@ -25,22 +25,14 @@ export class FoodListPage {
 	@ViewChild(Content) content: Content;
 
 	category: Category;
-	plans: any;
+	selectedTabId: number;
+	plans: any[];
 	foods: Food[];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private basket: BasketService, private utils: Utils) {
 		// this.category = navParams.get('category') as Category;
-
-		this.plans = [{
-			id: '0',
-			name: 'Low carb'
-		}, {
-			id: '1',
-			name: 'Fit'
-		}, {
-			id: '2',
-			name: 'Vegetariano'
-		}];
+		this.plans = [];
+		this.selectedTabId = null;
 	}
 	
 	ionViewDidLoad() {
@@ -48,7 +40,25 @@ export class FoodListPage {
 	}
 
 	ngOnInit() {
+		this.getPlans();
 		this.getFoodList();
+	}
+
+	getPlans() {
+		this.utils.getHttp().get('plan.php?action=getList').subscribe(success => {
+			this.plans = success.data.map((p) => {
+				if (p.plan_active == 'Y') {
+					return {
+						id: p.plan_id,
+						name: p.plan_name
+					}
+				}
+			});
+			this.content.resize();
+			console.log(this.plans);
+		}, error => {
+			console.log(error);
+		});
 	}
 
 	getFoodList() {
