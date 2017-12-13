@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
-import { HomePage } from './../home/home';
+// import { HomePage } from './../home/home';
+import { FoodListPage } from '../food-list/food-list';
 import { RegisterPage } from './../register/register';
 import { Utils } from '../../services/utils.service';
 
@@ -77,14 +78,15 @@ export class LoginPage {
 			this.utils.globals.set('user', {
 				name: success.data.user_name,
 				email: success.data.user_mail,
-				avatar: success.data.image.image_uri + 'small.jpg',
+				avatar: success.data.image && success.data.image.image_uri + 'small.jpg',
 				plan: {
-					name: success.data.plan.plan_name,
-					price: success.data.plan.plan_value
+					name: success.data.plan && success.data.plan.plan_name,
+					price: success.data.plan && success.data.plan.plan_value
 				}
 			});
 			loading.dismiss();
-			this.navCtrl.setRoot(HomePage);
+			// this.navCtrl.setRoot(HomePage);
+			this.navCtrl.setRoot(FoodListPage);
 		}, error => {
 			loading.dismiss();
 			let title, msg;

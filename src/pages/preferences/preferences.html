@@ -7,6 +7,9 @@
 <ion-header>
 	
 	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
 		<ion-title>Preferências</ion-title>
 	</ion-navbar>
 	
@@ -18,7 +21,8 @@
 	<ion-item-group>
 		<button ion-item (click)="openProfile()">
 			<ion-avatar item-start>
-				<img [src]="user.avatar" alt="">
+				<ion-icon name="contact" *ngIf="!user.avatar"></ion-icon>
+				<img [src]="user.avatar" *ngIf="user.avatar" alt="">
 			</ion-avatar>
 			<h2>{{user.name}}</h2>
 			<h3>Plano {{user.plan.name}}</h3>

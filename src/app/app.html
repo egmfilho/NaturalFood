@@ -1,10 +1,10 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" swypeEnabled="false">
 	<ion-header>
 		<ion-toolbar>
 			<div class="user-data" menuClose (click)="openProfilePage()" *ngIf="getUser()">
 				<div class="avatar">
 					<ion-icon name="contact" *ngIf="!getUser().avatar"></ion-icon>
-					<img [src]="getUser().avatar" />
+					<img [src]="getUser().avatar" *ngIf="getUser().avatar"/>
 				</div>
 				<div class="info">
 					<b class="name">{{getUser().name}}</b>

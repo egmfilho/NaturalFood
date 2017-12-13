@@ -25,11 +25,22 @@ export class FoodListPage {
 	@ViewChild(Content) content: Content;
 
 	category: Category;
-
+	plans: any;
 	foods: Food[];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private basket: BasketService, private utils: Utils) {
-		this.category = navParams.get('category') as Category;
+		// this.category = navParams.get('category') as Category;
+
+		this.plans = [{
+			id: '0',
+			name: 'Low carb'
+		}, {
+			id: '1',
+			name: 'Fit'
+		}, {
+			id: '2',
+			name: 'Vegetariano'
+		}];
 	}
 	
 	ionViewDidLoad() {

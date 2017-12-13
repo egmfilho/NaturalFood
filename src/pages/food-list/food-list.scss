@@ -1,6 +1,24 @@
 page-food-list {
 	.scroll-content {
-		background-color: #ddd !important;
+		// $brightened: lighten(color($colors, primary), 55%);
+		// $desaturated: desaturate($brightened, 55%);
+		background-color: #cdcdcd !important;
+	}
+
+	.segment.segment-ios {
+		padding: 0 7px;
+	}
+
+	ion-segment {
+		background-color: color($colors, primary);
+
+		&.segment.segment-ios {
+			padding: 7px;
+
+			.segment-button {
+				border-color: rgba(#fff, .4);
+			}
+		}
 	}
 
 	ion-card {

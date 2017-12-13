@@ -34,14 +34,16 @@ export class ProfilePage {
 
 	ngAfterViewInit() {
         this.content.ionScroll.subscribe(data => {
-			var alpha = Math.min(1, data['scrollTop'] / 160.0) || 0;
+			var alpha = Math.min(1, data['scrollTop'] / 130.0) || 0;
 			this.headerRGBA = `rgba(8, 78, 41, ${alpha})`;
 			this.changeDetector.detectChanges();
 		});
 	}
 
 	getAvatar() {
-		return `url(${this.user.avatar})`;
+		var avatar = this.user.avatar || '../assets/images/no-pic.png';
+
+		return `url(${avatar})`;
 	}
 
 	editProfile() {

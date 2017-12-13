@@ -7,7 +7,8 @@ import { Globals } from './../services/globals.service';
 
 import { IntroPage } from '../pages/intro/intro';
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
+// import { HomePage } from '../pages/home/home';
+import { FoodListPage } from '../pages/food-list/food-list';
 import { ListPage } from '../pages/list/list';
 import { ProfilePage } from '../pages/profile/profile';
 import { PreferencesPage } from '../pages/preferences/preferences';
@@ -29,7 +30,8 @@ export class MyApp {
 		
 		// used for an example of ngFor and navigation
 		this.pages = [
-			{ title: 'Home', component: HomePage },
+			// { title: 'Home', component: HomePage },
+			{ title: 'Início', component: FoodListPage },
 			{ title: 'Pedidos anteriores', component: ListPage },
 			{ title: 'Preferências', component: PreferencesPage }
 		];
@@ -41,7 +43,8 @@ export class MyApp {
 			// Here you can do any higher level native things you might need.
 			this.statusBar.styleLightContent();//.styleDefault();
 
-			this.globals.getPersistent('_credentials').then(res => {
+			// Alterar a chave aqui para forçar a exibição da introdução
+			this.globals.getPersistent('credentials').then(res => {
 				if (res) {
 					this.rootPage = LoginPage;
 				} else {

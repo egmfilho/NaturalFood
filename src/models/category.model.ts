@@ -22,7 +22,7 @@ export class Category {
 	static convertToInternal(product_category: any) {
 		return {
 			id: product_category.product_category_id,
-			imageUrl: product_category.image.image_uri + 'large.jpg',
+			imageUrl: product_category.image && product_category.image.image_uri + 'large.jpg',
 			title: product_category.product_category_name,
 			subtitle: product_category.product_category_description,
 		}

@@ -7,12 +7,21 @@
 <ion-header>
 	
 	<ion-navbar color="primary">
-		<ion-title>{{category.title}}</ion-title>
+		<!-- <ion-title>{{category.title}}</ion-title> -->
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Natural Food</ion-title>
 	</ion-navbar>
 
-	<ion-toolbar color="primary">
-		<ion-searchbar [(ngModel)]="searchQuery"></ion-searchbar>
-	</ion-toolbar>
+	<ion-segment color="light">
+		<ion-segment-button [value]="plan.id" *ngFor="let plan of plans">
+			{{plan.name}}
+		</ion-segment-button>
+		<ion-segment-button [value]="-1">
+			Todos
+		</ion-segment-button>
+	</ion-segment>
 	
 </ion-header>
 
