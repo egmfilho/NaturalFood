@@ -35,7 +35,7 @@ export class ProfilePage {
 	ngAfterViewInit() {
         this.content.ionScroll.subscribe(data => {
 			var alpha = Math.min(1, data['scrollTop'] / 130.0) || 0;
-			this.headerRGBA = `rgba(8, 78, 41, ${alpha})`;
+			this.headerRGBA = `rgba(30, 63, 13, ${alpha})`;
 			this.changeDetector.detectChanges();
 		});
 	}

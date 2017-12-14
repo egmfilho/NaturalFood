@@ -52,5 +52,13 @@ export class OrderItemsPage {
 
 		this.utils.alert('Aviso', 'Deseja remover este prato?', buttons).present();
 	}
+
+	back() {
+		this.navCtrl.pop();
+	}
+
+	finish() {
+		
+	}
 	
 }

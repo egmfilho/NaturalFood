@@ -53,7 +53,7 @@
 
 	</ion-list>
 
-	<button ion-button clear block class="offset-bottom-15" (click)="backToHome()">
+	<button ion-button clear block class="offset-bottom-15" (click)="back()">
 		Continuar comprando
 	</button>
 	
@@ -67,7 +67,7 @@
 				<ion-col class="text-md text-right text-primary">{{basket.getPrice() | currency:'R$ '}}</ion-col>
 			</ion-row>
 		</ion-grid>
-		<button ion-button block icon-right>
+		<button ion-button block icon-right (click)="finish()">
 			Finalizar pedido
 			<ion-icon name="arrow-forward"></ion-icon>
 		</button>

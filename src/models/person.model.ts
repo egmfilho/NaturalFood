@@ -6,30 +6,23 @@
  */
 
 export class Person {
+	public id: number;
 	public name: string;
-	public lastName: string;
-	public email: string;
+	public birthDate: Date;
+	public cpf: string;
+	public rg: string;
+	public gender: string;
 	public password: string;
-	public ddd: number;
-	public tel: number;
 
 	constructor(person: any) {
 		this.name = person.name;
-		this.lastName = person.lastName;
-		this.email = person.email;
 		this.password = person.password;
-		this.ddd = person.ddd;
-		this.tel = person.tel;
 	}
 
 	convertToPost() {
 		return {
 			person_name: this.name,
-			person_last_name: this.lastName,
-			person_mail: this.email,
-			person_password: this.password,
-			person_ddd: this.ddd,
-			person_tel: this.tel
+			person_password: this.password
 		}
 	}
 }

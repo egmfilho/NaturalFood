@@ -32,7 +32,7 @@ export class FoodListPage {
 	constructor(public navCtrl: NavController, public navParams: NavParams, private basket: BasketService, private utils: Utils) {
 		// this.category = navParams.get('category') as Category;
 		this.plans = [];
-		this.selectedTabId = null;
+		this.selectedTabId = 0;
 	}
 	
 	ionViewDidLoad() {
@@ -55,6 +55,7 @@ export class FoodListPage {
 				}
 			});
 			this.content.resize();
+			this.selectedTabId = this.plans[0].id;
 			console.log(this.plans);
 		}, error => {
 			console.log(error);
