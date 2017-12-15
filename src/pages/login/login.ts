@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
+import { Push } from '@ionic-native/push';
 
 // import { HomePage } from './../home/home';
 import { FoodListPage } from '../food-list/food-list';
@@ -20,7 +21,7 @@ export class LoginPage {
 
 	private canFingerprint;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private push: Push, private utils: Utils) {
 		this.canFingerprint = false;
 	}
 
@@ -31,6 +32,21 @@ export class LoginPage {
 		// 	})
 		// }
 		this.autoLogin();
+	}
+
+	setPushNotifications() {
+		if (this.utils.platform.is('cordova')) {
+			this.push.hasPermission()
+				.then((res: any) => {
+
+					if (res.isEnabled) {
+						this.utils.alert('', 'We have permission to send push notifications', ['ok']).present();
+					} else {
+						this.utils.alert('', 'We do not have permission to send push notifications', ['ok']).present();
+					}
+
+				});
+		}
 	}
 
 	autoLogin() {
@@ -83,6 +99,8 @@ export class LoginPage {
 			user_user: username,
 			user_pass: password
 		}).subscribe(success => {
+			this.setPushNotifications();
+
 			this.utils.globals.setPersistent('credentials', {
 				username: username,
 				password: password

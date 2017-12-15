@@ -69,7 +69,9 @@
       "cordova-plugin-datepicker": {},
       "phonegap-plugin-push": {}
     },
-    "platforms": []
+    "platforms": [
+      "ios"
+    ]
   },
   "config": {
     "ionic_copy": "./copy-custom-libs.js"
