@@ -5,6 +5,8 @@ import { Utils } from '../../services/utils.service';
 import { ProfilePage } from '../profile/profile';
 import { AboutPage } from '../about/about';
 import { AgreementPage } from '../agreement/agreement';
+import { User } from '../../models/user.model';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the PreferencesPage page.
@@ -20,10 +22,10 @@ import { AgreementPage } from '../agreement/agreement';
 })
 export class PreferencesPage {
 	
-	user: any;
+	user: User;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private popover: PopoverController, private utils: Utils) {
-		this.user =  this.utils.globals.get('user');
+		this.user =  new User(this.utils.globals.get('user'));
 	}
 	
 	ionViewDidLoad() {
@@ -59,6 +61,22 @@ export class PreferencesPage {
 
 	openAbout() {
 		this.navCtrl.push(AboutPage);
+	}
+
+	logout() {
+		let loading = this.utils.loading('Desconectando');
+		loading.present();
+
+		this.utils.getHttp().get('logout.php')
+			.subscribe(s => {
+				loading.dismiss();
+				this.utils.globals.removePersistent('credentials')
+					.then(s => this.navCtrl.setRoot(LoginPage), 
+						  e => this.navCtrl.setRoot(LoginPage));
+			}, e => {
+				loading.dismiss();
+				console.log(e);
+			});
 	}
 	
 }

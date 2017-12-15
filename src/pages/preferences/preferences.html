@@ -21,8 +21,8 @@
 	<ion-item-group>
 		<button ion-item (click)="openProfile()">
 			<ion-avatar item-start>
-				<ion-icon name="contact" *ngIf="!user.avatar"></ion-icon>
-				<img [src]="user.avatar" *ngIf="user.avatar" alt="">
+				<ion-icon name="contact" *ngIf="!user.imageUrl"></ion-icon>
+				<img [src]="user.imageUrl" *ngIf="user.imageUrl" alt="">
 			</ion-avatar>
 			<h2>{{user.name}}</h2>
 			<h3>Plano {{user.plan.name}}</h3>
@@ -33,6 +33,9 @@
 	<ion-item-group>
 		<ion-item-divider color="light">Conta</ion-item-divider>
 
+		<button ion-item>
+			Suspender temporariamente
+		</button>
 		<button ion-item>
 			Trocar senha
 		</button>
@@ -63,6 +66,14 @@
 		</button>
 		<button ion-item (click)="openAbout()">
 			Sobre
+		</button>
+	</ion-item-group>
+
+	<ion-item-group>
+		<ion-item-divider color="light">Avançado</ion-item-divider>
+
+		<button ion-item (click)="logout()">
+			Sair
 		</button>
 	</ion-item-group>
 

@@ -3,8 +3,8 @@
 		<ion-toolbar>
 			<div class="user-data" menuClose (click)="openProfilePage()" *ngIf="getUser()">
 				<div class="avatar">
-					<ion-icon name="contact" *ngIf="!getUser().avatar"></ion-icon>
-					<img [src]="getUser().avatar" *ngIf="getUser().avatar"/>
+					<ion-icon name="contact" *ngIf="!getUser().imageUrl"></ion-icon>
+					<img [src]="getUser().imageUrl" *ngIf="getUser().imageUrl"/>
 				</div>
 				<div class="info">
 					<b class="name">{{getUser().name}}</b>

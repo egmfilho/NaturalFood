@@ -15,45 +15,36 @@
 </ion-header>
 
 <ion-content padding>
-	
 	<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 		<ion-list>
 			
 			<ion-item>
 				<ion-label floating color="primary">Nome</ion-label>
-				<ion-input type="text" formControlName="user_name"></ion-input>
+				<ion-input type="text" formControlName="person_name"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating color="primary">Data de nascimento</ion-label>
+				<ion-input type="text" formControlName="person_birth_br" (focus)='showDatePicker()' readonly></ion-input>
 			</ion-item>
 
 			<ion-item>
 				<ion-label floating color="primary">CPF</ion-label>
-				<ion-input type="text" formControlName="user_cpf"></ion-input>
+				<ion-input type="text" formControlName="person_cpf"></ion-input>
 			</ion-item>
-			
+
 			<ion-item>
-				<ion-label floating color="primary">Email</ion-label>
-				<ion-input type="email" formControlName="user_mail"></ion-input>
+				<ion-label floating color="primary">RG</ion-label>
+				<ion-input type="text" formControlName="person_rg"></ion-input>
 			</ion-item>
-			
-			<ion-grid>
-				<ion-row>
-					<ion-col>
-						<ion-item>
-							<ion-label floating color="primary">DDD</ion-label>
-							<ion-input type="number" formControlName="user_ddd"></ion-input>
-						</ion-item>
-						<!-- truque a seguir evita regras idiotas para o last-child do input de cima -->
-						<ion-item style="visibility: hidden"><ion-input></ion-input></ion-item>
-					</ion-col>
-					<ion-col col-8>
-						<ion-item>
-							<ion-label floating color="primary">Telefone</ion-label>
-							<ion-input type="number" formControlName="user_tel"></ion-input>
-						</ion-item>
-						<!-- truque a seguir evita regras idiotas para o last-child do input de cima -->
-						<ion-item style="visibility: hidden"><ion-input></ion-input></ion-item>
-					</ion-col>
-				</ion-row>
-			</ion-grid>
+
+			<ion-item>
+				<ion-label floating color="primary">Sexo</ion-label>
+				<ion-select formControlName="person_gender">
+					<ion-option value="F">Feminino</ion-option>
+					<ion-option value="M">Masculino</ion-option>
+				</ion-select>
+			</ion-item>
 			
 		</ion-list>
 		

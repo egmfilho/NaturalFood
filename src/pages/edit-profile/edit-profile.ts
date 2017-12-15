@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DatePicker } from '@ionic-native/date-picker';
+import { Utils } from '../../services/utils.service';
+import { User } from '../../models/user.model';
 
 /**
  * Generated class for the EditProfilePage page.
@@ -17,9 +20,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class EditProfilePage {
 
 	editForm: FormGroup;
+	user: User;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+	constructor(public navCtrl: NavController, public navParams: NavParams, private datePicker: DatePicker, private utils: Utils) {
+		this.user = new User(this.utils.globals.get('user'));
 	}
 	
 	ionViewDidLoad() {
@@ -27,44 +31,61 @@ export class EditProfilePage {
 	}
 
 	ngOnInit() {
-		var passwordConfirming = ((c: AbstractControl): { invalid : boolean } => {
-			if (c.get('user_password').value !== c.get('user_confirm_password').value) {
-				c.get('user_confirm_password').setErrors({ notEquivalent: true });
-				return { invalid: true };
-			}
-			
-			return null;
-		});
-
 		this.editForm = new FormGroup({
-			'user_name': new FormControl('', [
+			'person_name': new FormControl(this.user.person.name, [
 				Validators.required,
 				Validators.minLength(3)
 			]),
-			'user_cpf': new FormControl('', [
+			'person_birth_br': new FormControl(this.user.person.birthDate.toLocaleDateString('pt-BR'), [
+				Validators.required,
+				Validators.minLength(3)
+			]),
+			'person_cpf': new FormControl(this.user.person.cpf, [
 				Validators.required,
 				Validators.pattern(/^[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}$/)
 			]),
-			'user_mail': new FormControl('', [
+			'person_rg': new FormControl(this.user.person.rg, [
 				Validators.required,
-				Validators.email
+				Validators.pattern(/^[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}$/)
 			]),
-			'user_password': new FormControl('', [
-				Validators.required,
-				Validators.minLength(6)
-			]),
-			'user_confirm_password': new FormControl('', [
-				Validators.required,
-				Validators.minLength(6)
-			]),
-			'user_ddd': new FormControl('', [
-				Validators.required,
-				Validators.pattern(/^[1-9]{2}$/)
-			]),
-			'user_tel': new FormControl('', [
-				Validators.required,
-				Validators.pattern(/^[2-9][0-9]{7,8}$/)
+			'person_gender': new FormControl(this.user.person.gender, [
+				Validators.required
 			])
-		}, passwordConfirming);
+		});
+	}
+
+	showDatePicker() {
+		if (this.utils.platform.is('cordova')) {
+			this.datePicker.show({
+				mode: 'date',
+				date: new Date(this.user.person.birthDate),
+				allowFutureDates: false,
+				okText: 'Selecionar',
+				cancelText: 'Cancelar',
+				doneButtonLabel: 'Selecionar',
+				cancelButtonLabel: 'Cancelar',
+				locale: 'pt-BR'
+			}).then(date => {
+				if (date) {
+					this.editForm.controls['person_birth'].setValue(date.toLocaleDateString('pt-BR'));
+					this.utils.alert('Teste', date.toLocaleDateString('pt-BR'), []).present();
+				}
+			});
+		}
+	}
+
+	onSubmit() {
+		let loading = this.utils.loading('Enviando informações');
+		loading.present();
+
+		this.utils.getHttp().post('teste.php?action=edit', this.editForm.value).subscribe(success => {
+			loading.dismiss();
+			this.utils.alert('Sucesso', 'Informações atualizadas!', ['Ok'])
+				.present()
+				.then(res => this.navCtrl.pop());
+		}, error => {
+			loading.dismiss();
+			this.utils.alert('Erro', 'Não foi possível editar as informações. Tente novamente mais tarde.', ['OK']).present();
+		});
 	}
 }

@@ -36,7 +36,7 @@ export class FoodListPage {
 	}
 	
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad FoodListPage');
+		
 	}
 
 	ngOnInit() {
@@ -56,7 +56,6 @@ export class FoodListPage {
 			});
 			this.content.resize();
 			this.selectedTabId = this.plans[0].id;
-			console.log(this.plans);
 		}, error => {
 			console.log(error);
 		});
@@ -67,7 +66,7 @@ export class FoodListPage {
 
 		loading.present();
 		this.utils.getHttp().get('product.php?action=getList').subscribe(success => {
-			this.foods = success.data.map(n => new Food(Food.convertToInternal(n)));
+			this.foods = success.data.map(n => new Food(n));
 			loading.dismiss();
 		}, error => {
 			loading.dismiss();

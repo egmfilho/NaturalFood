@@ -4,6 +4,7 @@ import { Camera } from '@ionic-native/camera';
 
 import { Utils } from './../../services/utils.service';
 import { EditProfilePage } from '../edit-profile/edit-profile';
+import { User } from '../../models/user.model';
 
 /**
  * Generated class for the ProfilePage page.
@@ -25,7 +26,7 @@ export class ProfilePage {
 	user: any;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private camera: Camera, private utils: Utils) {
-		this.user = this.utils.globals.get('user');
+		this.user = new User(this.utils.globals.get('user'));
 	}
 	
 	ionViewDidLoad() {
@@ -41,7 +42,7 @@ export class ProfilePage {
 	}
 
 	getAvatar() {
-		var avatar = this.user.avatar || '../assets/images/no-pic.png';
+		var avatar = this.user.imageUrl || '../assets/images/no-pic.png';
 
 		return `url(${avatar})`;
 	}

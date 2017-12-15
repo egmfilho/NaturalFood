@@ -6,6 +6,7 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { FoodListPage } from '../food-list/food-list';
 import { RegisterPage } from './../register/register';
 import { Utils } from '../../services/utils.service';
+import { User } from '../../models/user.model';
 
 @IonicPage()
 @Component({
@@ -24,20 +25,20 @@ export class LoginPage {
 	}
 
 	ionViewDidEnter() {
-		if (this.utils.platform.is('cordova')) {
-			this.utils.platform.ready().then(success => {
-				this.fingerPrint.isAvailable().then(res => {
-					this.utils.globals.getPersistent('credentials').then(data => {
-						if (data) {
-							this.user = data.username;
-							this.canFingerprint = true;
-							
-							this.showFingerprint();
-						}
-					});
-				}, err => console.log('fingerprint not available'));
-			})
-		}
+		// if (this.utils.platform.is('cordova')) {
+		// 	this.utils.platform.ready().then(success => {
+		// 		this.logInUsingFingerprint();
+		// 	})
+		// }
+		this.autoLogin();
+	}
+
+	autoLogin() {
+		this.utils.globals.getPersistent('credentials').then(data => {
+			if (data) {
+				this.login(data.username, data.password);
+			}
+		});
 	}
 
 	showFingerprint() {
@@ -60,6 +61,19 @@ export class LoginPage {
 		}
 	}
 
+	logInUsingFingerprint() {
+		this.fingerPrint.isAvailable().then(res => {
+			this.utils.globals.getPersistent('credentials').then(data => {
+				if (data) {
+					this.user = data.username;
+					this.canFingerprint = true;
+					
+					this.showFingerprint();
+				}
+			});
+		}, err => console.log('fingerprint not available'));
+	}
+
 	login(username, password) {
 		let loading = this.utils.loading('Efetuando login');
 
@@ -75,15 +89,7 @@ export class LoginPage {
 			});
 
 			this.utils.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
-			this.utils.globals.set('user', {
-				name: success.data.user_name,
-				email: success.data.user_mail,
-				avatar: success.data.image && success.data.image.image_uri + 'small.jpg',
-				plan: {
-					name: success.data.plan && success.data.plan.plan_name,
-					price: success.data.plan && success.data.plan.plan_value
-				}
-			});
+			this.utils.globals.set('user', new User(success.data));
 			loading.dismiss();
 			// this.navCtrl.setRoot(HomePage);
 			this.navCtrl.setRoot(FoodListPage);

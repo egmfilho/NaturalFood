@@ -28,7 +28,7 @@ export class HomePage {
 		this.utils.getHttp().get('product_category.php?action=getList')
 			.subscribe(success => {
 				this.categories = success.data.map(function(n) {
-					return new Category(Category.convertToInternal(n));
+					return new Category(n);
 				});
 				loading.dismiss();
 			}, error => {

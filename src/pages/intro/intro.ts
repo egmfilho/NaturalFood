@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
+import { Utils } from '../../services/utils.service';
 
 /**
  * Generated class for the IntroPage page.
@@ -20,7 +21,7 @@ export class IntroPage {
 
 	slides: any[];
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, public viewController: ViewController) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public viewController: ViewController, private utils: Utils) {
 		this.slides = [{
 			image: 'url(\'../assets/images/intro-legumes.png\')',
 			title: 'Lorem Ipsum',
@@ -41,10 +42,14 @@ export class IntroPage {
 	}
 
 	skip() {
+		this.utils.globals.setPersistent('skipIntro', true);
+		
 		this.navCtrl.setRoot(LoginPage);
 	}
 
 	register() {
+		this.utils.globals.setPersistent('skipIntro', true);
+
 		this.navCtrl.insert(0, LoginPage);
 		this.navCtrl.push(RegisterPage).then(res => {
 			this.navCtrl.removeView(this.viewController);

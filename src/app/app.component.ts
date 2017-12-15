@@ -12,6 +12,7 @@ import { FoodListPage } from '../pages/food-list/food-list';
 import { ListPage } from '../pages/list/list';
 import { ProfilePage } from '../pages/profile/profile';
 import { PreferencesPage } from '../pages/preferences/preferences';
+import { User } from '../models/user.model';
 
 @Component({
 	templateUrl: 'app.html'
@@ -23,7 +24,7 @@ export class MyApp {
 	
 	pages: Array<{title: string, component: any}>;
 
-	userPic: string;
+	user: User;
 	
 	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private globals: Globals) {
 		this.initializeApp();
@@ -44,7 +45,7 @@ export class MyApp {
 			this.statusBar.styleLightContent();//.styleDefault();
 
 			// Alterar a chave aqui para forçar a exibição da introdução
-			this.globals.getPersistent('credentials').then(res => {
+			this.globals.getPersistent('skipIntro').then(res => {
 				if (res) {
 					this.rootPage = LoginPage;
 				} else {
@@ -70,6 +71,11 @@ export class MyApp {
 	}
 
 	getUser() {
-		return this.globals.get('user');
+		if (!this.user) {
+			var u = new User(this.globals.get('user'));
+			if (u && u.id) this.user = u;
+		}
+
+		return this.user;
 	}
 }

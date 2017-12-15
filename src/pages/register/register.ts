@@ -47,37 +47,37 @@ export class RegisterPage {
 		});
 
 		this.registerForm = new FormGroup({
-			'person_name': new FormControl(this.person.name, [
-				Validators.required,
-				Validators.minLength(3)
-			]),
-			'person_cpf': new FormControl('', [
-				Validators.required,
-				Validators.minLength(3)
-			]),
-			'user_mail': new FormControl(this.person.email, [
-				Validators.required,
-				Validators.email
-			]),
-			'user_password': new FormControl(this.person.password, [
-				Validators.required,
-				Validators.minLength(6)
-			]),
-			'user_confirm_password': new FormControl(this.passwordMatch, [
-				Validators.required,
-				Validators.minLength(6)
-			]),
-			'user_ddd': new FormControl(this.person.ddd, [
-				Validators.required,
-				Validators.pattern(/^[1-9]{2}$/)
-			]),
-			'user_tel': new FormControl(this.person.tel, [
-				Validators.required,
-				Validators.pattern(/^[2-9][0-9]{7,8}$/)
-			]),
-			'agreement': new FormControl(this.agreement, [
-				Validators.requiredTrue
-			])
+			// 'person_name': new FormControl(this.person.name, [
+			// 	Validators.required,
+			// 	Validators.minLength(3)
+			// ]),
+			// 'person_cpf': new FormControl('', [
+			// 	Validators.required,
+			// 	Validators.minLength(3)
+			// ]),
+			// 'user_mail': new FormControl(this.person.email, [
+			// 	Validators.required,
+			// 	Validators.email
+			// ]),
+			// 'user_password': new FormControl(this.person.password, [
+			// 	Validators.required,
+			// 	Validators.minLength(6)
+			// ]),
+			// 'user_confirm_password': new FormControl(this.passwordMatch, [
+			// 	Validators.required,
+			// 	Validators.minLength(6)
+			// ]),
+			// 'user_ddd': new FormControl(this.person.ddd, [
+			// 	Validators.required,
+			// 	Validators.pattern(/^[1-9]{2}$/)
+			// ]),
+			// 'user_tel': new FormControl(this.person.tel, [
+			// 	Validators.required,
+			// 	Validators.pattern(/^[2-9][0-9]{7,8}$/)
+			// ]),
+			// 'agreement': new FormControl(this.agreement, [
+			// 	Validators.requiredTrue
+			// ])
 		}, passwordConfirming);
 	}
 

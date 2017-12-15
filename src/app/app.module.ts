@@ -13,6 +13,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { Interceptor } from './../services/interceptor.service';
 
@@ -106,6 +107,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		SplashScreen,
 		Camera,
 		FingerprintAIO,
+		DatePicker,
 		Globals,
 		Utils,
 		BasketService,
