@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from '../../services/utils.service';
 import { User } from '../../models/user.model';
 
@@ -22,7 +21,7 @@ export class EditProfilePage {
 	editForm: FormGroup;
 	user: User;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private datePicker: DatePicker, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
 		this.user = new User(this.utils.globals.get('user'));
 	}
 	
@@ -36,9 +35,8 @@ export class EditProfilePage {
 				Validators.required,
 				Validators.minLength(3)
 			]),
-			'person_birth_br': new FormControl(this.user.person.birthDate.toLocaleDateString('pt-BR'), [
-				Validators.required,
-				Validators.minLength(3)
+			'person_birth': new FormControl(this.user.person.birthDate.toISOString(), [
+				Validators.required
 			]),
 			'person_cpf': new FormControl(this.user.person.cpf, [
 				Validators.required,
@@ -54,31 +52,15 @@ export class EditProfilePage {
 		});
 	}
 
-	showDatePicker() {
-		if (this.utils.platform.is('cordova')) {
-			this.datePicker.show({
-				mode: 'date',
-				date: new Date(this.user.person.birthDate),
-				allowFutureDates: false,
-				okText: 'Selecionar',
-				cancelText: 'Cancelar',
-				doneButtonLabel: 'Selecionar',
-				cancelButtonLabel: 'Cancelar',
-				locale: 'pt-BR'
-			}).then(date => {
-				if (date) {
-					this.editForm.controls['person_birth'].setValue(date.toLocaleDateString('pt-BR'));
-					this.utils.alert('Teste', date.toLocaleDateString('pt-BR'), []).present();
-				}
-			});
-		}
-	}
-
 	onSubmit() {
 		let loading = this.utils.loading('Enviando informações');
 		loading.present();
 
-		this.utils.getHttp().post('teste.php?action=edit', this.editForm.value).subscribe(success => {
+		var formData = Object.assign({}, this.editForm.value, {
+			person_id: this.user.person.id
+		});
+
+		this.utils.getHttp().post('person.php?action=edit', formData).subscribe(success => {
 			loading.dismiss();
 			this.utils.alert('Sucesso', 'Informações atualizadas!', ['Ok'])
 				.present()

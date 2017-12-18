@@ -26,6 +26,7 @@ export class LoginPage {
 	}
 
 	ionViewDidEnter() {
+		/* Login via impressao digital */
 		// if (this.utils.platform.is('cordova')) {
 		// 	this.utils.platform.ready().then(success => {
 		// 		this.logInUsingFingerprint();
@@ -36,6 +37,48 @@ export class LoginPage {
 
 	setPushNotifications() {
 		if (this.utils.platform.is('cordova')) {
+			// https://console.firebase.google.com
+
+			/**
+			 * POST
+			 *
+			 * URL
+			 * https://fcm.googleapis.com/fcm/send
+			 * 
+			 * HEADER
+			 * Content-Type:application/json
+			 * Authorization:key=AAAAMmuVIfU:APA91bGXe55IjlrVBnOmpdOZgn4v0kiDMXgsgu0qvDrrs7PAim6N2mmaLN9LxzbpRisaXzkrPCoxEh5OQHdmOeIBjHfubH27n7U-eXy4QL05gC0_lPH4Szs0d2vSEAHI7TGtnTA1kCra
+			 * 
+			 * BODY 
+			 * {
+			 *		"notification": {
+			 *			"title": "Teste post",
+			 *			"body": "Nem sei se isso aqui chega a aparecer"
+			 *		},
+			 *		"to": "cOaFSBYGvy4:APA91bGYtxFbJ5j2jg08g_1bjCcsVciHGF40uoCUczHU9x8_LhwPdPeUVbXeYAiwjkVlfTtSm-GPAAO2a46hqvHFRhDVHWQIoyG6PhSSPffJVqSq1KOB5YGsi9_tzhzz6KPWVMLyisiX"
+			 *	}
+			 * 
+			 * 
+			 * 
+			 */
+			const p = this.push.init({
+				android: { 
+					senderID: '216553300469',
+					vibrate:true
+				},
+				ios: {
+					// https://medium.com/@felipeevangelistapucinelli/how-to-add-push-notifications-in-your-cordova-application-using-firebase-69fac067e821
+					alert: "true",
+					badge: "true",
+					sound: "true"
+				}
+			});
+
+			p.on('registration').subscribe(data => {
+				var id = data.registrationId;
+				prompt('Registration ID', id);
+			});
+
 			this.push.hasPermission()
 				.then((res: any) => {
 
