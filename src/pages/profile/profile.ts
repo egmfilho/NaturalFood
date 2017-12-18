@@ -91,8 +91,7 @@ export class ProfilePage {
 
 		loading.present();
 		this.camera.getPicture(options).then(imageData => {
-			this.utils.globals.get('user').avatar = 'data:image/jpeg;base64,' + imageData;
-			this.teste = 'data:image/jpeg;base64,' + imageData;
+			this.utils.globals.get('user').imageUrl = 'data:image/jpeg;base64,' + imageData;
 			loading.dismiss();
 		}, err => {
 			loading.dismiss();
