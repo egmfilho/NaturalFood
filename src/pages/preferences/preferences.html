@@ -34,25 +34,26 @@
 		<ion-item-divider color="light">Conta</ion-item-divider>
 
 		<button ion-item>
-			Suspender temporariamente
-		</button>
-		<button ion-item>
 			Trocar senha
 		</button>
 		<button ion-item>
 			Meus endereços
+		</button>
+		<button ion-item>
+			Suspender serviço
 		</button>
 	</ion-item-group>
 
 	<ion-item-group>
 		<ion-item-divider color="light">Privacidade</ion-item-divider>
 
-		<button ion-item>
+		<button ion-item *ngIf="false">
 			Localização
 		</button>
-		<button ion-item>
-			Notificações
-		</button>
+		<ion-item>
+			<ion-label>Notificações</ion-label>
+			<ion-toggle [(ngModel)]="isNotificationOn" (ngModelChange)="toggleNotifications()"></ion-toggle>
+		</ion-item>
 	</ion-item-group>
 
 	<ion-item-group>

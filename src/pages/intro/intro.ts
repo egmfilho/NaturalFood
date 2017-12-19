@@ -23,32 +23,32 @@ export class IntroPage {
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, public viewController: ViewController, private utils: Utils) {
 		this.slides = [{
-			image: 'url(\'../assets/images/intro-legumes.png\')',
+			image: 'url(\'assets/images/intro-legumes.png\')',
 			title: 'Lorem Ipsum',
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis justo mollis maximus placerat.'
 		}, {
-			image: 'url(\'../assets/images/intro-dinheiro.png\')',
+			image: 'url(\'assets/images/intro-dinheiro.png\')',
 			title: 'Proin tellus magna',
 			description: 'Phasellus hendrerit, leo sed pellentesque tristique, sem leo varius magna, finibus consectetur sapien mauris eget nisi. Aliquam ornare massa libero, vitae lacinia sem accumsan vel.'
 		}, {
-			image: 'url(\'../assets/images/intro-logistica.png\')',
+			image: 'url(\'assets/images/intro-logistica.png\')',
 			title: 'Maecenas viverra',
 			description: 'Cras laoreet tellus quis nulla volutpat efficitur. Ut in volutpat velit. Maecenas leo enim, porta hendrerit libero in, feugiat dapibus velit. Morbi turpis erat, aliquet quis lectus in, bibendum semper sapien.'
-		}]
+		}];
 	}
 	
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad IntroPage');
+		this.utils.globals.setPersistent(this.utils.constants.RECEIVE_NOTIFICATIONS, true);
 	}
 
 	skip() {
-		this.utils.globals.setPersistent('skipIntro', true);
+		this.utils.globals.setPersistent(this.utils.constants.SKIP_INTRO, true);
 		
 		this.navCtrl.setRoot(LoginPage);
 	}
 
 	register() {
-		this.utils.globals.setPersistent('skipIntro', true);
+		this.utils.globals.setPersistent(this.utils.constants.SKIP_INTRO, true);
 
 		this.navCtrl.insert(0, LoginPage);
 		this.navCtrl.push(RegisterPage).then(res => {

@@ -18,10 +18,12 @@ export class LoginPage {
 
 	user: string;
 	pass: string;
+	isLoading: boolean;
 
 	private canFingerprint;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private push: Push, private utils: Utils) {
+		this.isLoading = false;
 		this.canFingerprint = false;
 	}
 
@@ -135,9 +137,9 @@ export class LoginPage {
 
 	login(username, password) {
 		let loading = this.utils.loading('Efetuando login');
-
 		loading.present();
 		
+		this.isLoading = true;
 		this.utils.getHttp().post('login.php', {
 			user_user: username,
 			user_pass: password
@@ -152,12 +154,16 @@ export class LoginPage {
 			this.utils.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
 			this.utils.globals.set('user', new User(success.data));
 			loading.dismiss();
+
+			this.isLoading = false;
+
 			// this.navCtrl.setRoot(HomePage);
 			this.navCtrl.setRoot(FoodListPage);
 		}, error => {
 			loading.dismiss();
 			let title, msg;
 
+			this.isLoading = false;
 			switch (error.status) {
 				case 0: {
 					title = 'Erro';

@@ -42,7 +42,7 @@ export class ProfilePage {
 	}
 
 	getAvatar() {
-		var avatar = this.user.imageUrl || '../assets/images/no-pic.png';
+		var avatar = this.user.imageUrl || 'assets/images/no-pic.png';
 
 		return `url(${avatar})`;
 	}

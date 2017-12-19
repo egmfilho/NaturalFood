@@ -3,7 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Globals } from './../services/globals.service';
+import { Utils } from '../services/utils.service';
 
 import { IntroPage } from '../pages/intro/intro';
 import { LoginPage } from '../pages/login/login';
@@ -26,7 +26,7 @@ export class MyApp {
 
 	user: User;
 	
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private globals: Globals) {
+	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private utils: Utils) {
 		this.initializeApp();
 		
 		// used for an example of ngFor and navigation
@@ -45,7 +45,7 @@ export class MyApp {
 			this.statusBar.styleLightContent();//.styleDefault();
 
 			// Alterar a chave aqui para forçar a exibição da introdução
-			this.globals.getPersistent('skipIntro').then(res => {
+			this.utils.globals.getPersistent(this.utils.constants.SKIP_INTRO).then(res => {
 				if (res) {
 					this.rootPage = LoginPage;
 				} else {
@@ -72,7 +72,7 @@ export class MyApp {
 
 	getUser() {
 		if (!this.user) {
-			var u = new User(this.globals.get('user'));
+			var u = new User(this.utils.globals.get('user'));
 			if (u && u.id) this.user = u;
 		}
 

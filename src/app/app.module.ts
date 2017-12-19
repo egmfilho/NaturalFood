@@ -39,6 +39,7 @@ import { CategoryCardComponent } from './../components/category-card/category-ca
 import { BasketComponent } from './../components/basket/basket';
 import { FoodCardComponent } from '../components/food-card/food-card';
 
+import { Constants } from '../services/constants.service';
 import { Globals } from './../services/globals.service';
 import { Utils } from './../services/utils.service';
 import { BasketService } from './../services/basket.service';
@@ -108,6 +109,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		Camera,
 		FingerprintAIO,
 		Push,
+		Constants,
 		Globals,
 		Utils,
 		BasketService,

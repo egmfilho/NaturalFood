@@ -6,7 +6,6 @@ import { PopoverController } from 'ionic-angular/components/popover/popover-cont
 import { Utils } from '../../services/utils.service';
 import { LoginPage } from '../login/login';
 import { AgreementPage } from '../agreement/agreement';
-import { Person } from '../../models/person.model';
 
 /**
 * Generated class for the RegisterPage page.
@@ -22,13 +21,11 @@ import { Person } from '../../models/person.model';
 })
 export class RegisterPage {
 
-	person: Person;
 	registerForm: FormGroup;
 	passwordMatch: string;
 	agreement: boolean;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private popover: PopoverController, private utils: Utils) {
-		this.person = new Person({});
 		this.agreement = false;
 	}
 	
@@ -37,9 +34,14 @@ export class RegisterPage {
 	}
 
 	ngOnInit() {
-		var passwordConfirming = ((c: AbstractControl): { invalid : boolean } => {
+		var doubleChecking = ((c: AbstractControl): { invalid : boolean } => {
 			if (c.get('user_password').value !== c.get('user_confirm_password').value) {
 				c.get('user_confirm_password').setErrors({ notEquivalent: true });
+				return { invalid: true };
+			}
+
+			if (c.get('user_mail').value !== c.get('user_confirm_mail').value) {
+				c.get('user_confirm_mail').setErrors({ notEquivalent: true });
 				return { invalid: true };
 			}
 			
@@ -47,38 +49,42 @@ export class RegisterPage {
 		});
 
 		this.registerForm = new FormGroup({
-			// 'person_name': new FormControl(this.person.name, [
-			// 	Validators.required,
-			// 	Validators.minLength(3)
-			// ]),
-			// 'person_cpf': new FormControl('', [
-			// 	Validators.required,
-			// 	Validators.minLength(3)
-			// ]),
-			// 'user_mail': new FormControl(this.person.email, [
-			// 	Validators.required,
-			// 	Validators.email
-			// ]),
-			// 'user_password': new FormControl(this.person.password, [
-			// 	Validators.required,
-			// 	Validators.minLength(6)
-			// ]),
-			// 'user_confirm_password': new FormControl(this.passwordMatch, [
-			// 	Validators.required,
-			// 	Validators.minLength(6)
-			// ]),
-			// 'user_ddd': new FormControl(this.person.ddd, [
-			// 	Validators.required,
-			// 	Validators.pattern(/^[1-9]{2}$/)
-			// ]),
-			// 'user_tel': new FormControl(this.person.tel, [
-			// 	Validators.required,
-			// 	Validators.pattern(/^[2-9][0-9]{7,8}$/)
-			// ]),
-			// 'agreement': new FormControl(this.agreement, [
-			// 	Validators.requiredTrue
-			// ])
-		}, passwordConfirming);
+			'person_name': new FormControl('', [
+				Validators.required,
+				Validators.minLength(3)
+			]),
+			'person_cpf': new FormControl('', [
+				Validators.required,
+				Validators.minLength(3)
+			]),
+			'user_mail': new FormControl('', [
+				Validators.required,
+				Validators.email
+			]),
+			'user_confirm_mail': new FormControl('', [
+				Validators.required,
+				Validators.email
+			]),
+			'user_password': new FormControl('', [
+				Validators.required,
+				Validators.minLength(6)
+			]),
+			'user_confirm_password': new FormControl('', [
+				Validators.required,
+				Validators.minLength(6)
+			]),
+			'user_ddd': new FormControl('', [
+				Validators.required,
+				Validators.pattern(/^[1-9]{2}$/)
+			]),
+			'user_tel': new FormControl('', [
+				Validators.required,
+				Validators.pattern(/^[2-9][0-9]{7,8}$/)
+			]),
+			'agreement': new FormControl(false, [
+				Validators.requiredTrue
+			])
+		}, doubleChecking);
 	}
 
 	openAgreement(event: MouseEvent) {

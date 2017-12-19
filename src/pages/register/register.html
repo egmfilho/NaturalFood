@@ -38,6 +38,12 @@
 			</ion-item>
 
 			<ion-item>
+				<ion-label floating color="primary">Repita o email</ion-label>
+				<ion-input type="email" formControlName="user_confirm_mail"></ion-input>
+			</ion-item>
+			<small ion-text [hidden]="registerForm.controls.user_confirm_mail.valid || registerForm.controls.user_confirm_mail.pristine" color="danger">Os emails não conferem</small>
+
+			<ion-item>
 				<ion-label floating color="primary">Senha</ion-label>
 				<ion-input type="password" formControlName="user_password"></ion-input>
 			</ion-item>
