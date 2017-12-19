@@ -91,11 +91,24 @@ export class ProfilePage {
 
 		loading.present();
 		this.camera.getPicture(options).then(imageData => {
-			this.utils.globals.get('user').imageUrl = 'data:image/jpeg;base64,' + imageData;
-			loading.dismiss();
+			this.sendPicture(imageData).subscribe(success => {
+				console.log(success);
+				this.utils.globals.get('user').imageUrl = success.data.image_uri;
+				loading.dismiss();
+			}, error => {
+				console.log(error);
+				loading.dismiss();
+				this.utils.alert('Erro', error.error.description, ['Ok']).present();
+			});
 		}, err => {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Não foi possível carregar a imagem.', ['OK']).present();
+		});
+	}
+
+	sendPicture(data: string) {
+		return this.utils.getHttp().post('user.php?action=avatar', {
+			user_avatar: data
 		});
 	}
 	
