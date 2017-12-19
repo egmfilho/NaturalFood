@@ -95,7 +95,7 @@ export class LoginPage {
 	}
 
 	autoLogin() {
-		this.utils.globals.getPersistent('credentials').then(data => {
+		this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS).then(data => {
 			if (data) {
 				this.login(data.username, data.password);
 			}
@@ -107,7 +107,7 @@ export class LoginPage {
 		
 			this.fingerPrint.isAvailable().then(res => {
 				
-				this.utils.globals.getPersistent('credentials').then(data => {
+				this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS).then(data => {
 					this.fingerPrint.show({
 						clientId: 'Natural Food',
 						localizedFallbackTitle: 'Usar senha',
@@ -124,7 +124,7 @@ export class LoginPage {
 
 	logInUsingFingerprint() {
 		this.fingerPrint.isAvailable().then(res => {
-			this.utils.globals.getPersistent('credentials').then(data => {
+			this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS).then(data => {
 				if (data) {
 					this.user = data.username;
 					this.canFingerprint = true;
@@ -146,12 +146,12 @@ export class LoginPage {
 		}).subscribe(success => {
 			this.setPushNotifications();
 
-			this.utils.globals.setPersistent('credentials', {
+			this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
 				username: username,
 				password: password
 			});
 
-			this.utils.globals.setInternal('token', success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
+			this.utils.globals.setInternal(this.utils.constants.TOKEN, success.data.user_id + ':'  + success.data.user_current_session.user_session_value);
 			this.utils.globals.set('user', new User(success.data));
 			loading.dismiss();
 
@@ -167,7 +167,7 @@ export class LoginPage {
 			switch (error.status) {
 				case 0: {
 					title = 'Erro';
-					msg = this.utils.globals.getInternal('errorMessage');
+					msg = this.utils.globals.getInternal(this.utils.constants.ERROR_MESSAGE);
 					break;
 				}
 

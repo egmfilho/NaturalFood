@@ -11,4 +11,7 @@ import { Injectable } from "@angular/core";
 export class Constants {
 	public RECEIVE_NOTIFICATIONS: string = 'receive-notifications';
 	public SKIP_INTRO: string = 'skip-intro';
+	public CREDENTIALS: string = 'credentials';
+	public TOKEN: string = 'token';
+	public ERROR_MESSAGE: string = 'errorMessage';
 }

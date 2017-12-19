@@ -45,6 +45,10 @@ export class Globals {
 		this.internal[key] = value;
 	}
 
+	removeInternal(key: string) {
+		delete this.internal[key];
+	}
+
 	getInternal(key: string) {
 		return this.internal[key];
 	}
