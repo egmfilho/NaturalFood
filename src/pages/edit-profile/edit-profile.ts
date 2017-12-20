@@ -22,7 +22,7 @@ export class EditProfilePage {
 	user: User;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
-		this.user = new User(this.utils.globals.get('user'));
+		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
 	}
 	
 	ionViewDidLoad() {

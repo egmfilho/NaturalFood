@@ -1,0 +1,28 @@
+page-addresses {
+
+	.scroll-content {
+		background-color: #cdcdcd !important;
+	}
+
+	.bar-buttons {
+		&.bar-buttons-md {
+			width: 48px;
+		}
+		
+		.add-button {
+			width: 48px;
+			min-width: 48px;
+			text-align: center;
+			font-size: 18px;
+		}
+	}
+
+	.card{
+		i.fa {
+			margin-right: 5px;
+			font-size: 1.1em;
+			padding-bottom: 3px;
+		}
+	}
+
+}

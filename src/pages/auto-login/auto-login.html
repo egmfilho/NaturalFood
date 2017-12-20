@@ -1,0 +1,32 @@
+<!--
+	Generated template for the AutoLoginPage page.
+	
+	See http://ionicframework.com/docs/components/#navigation for more info on
+	Ionic pages and navigation.
+-->
+
+<ion-content padding>
+
+	<div class="logo"></div>
+
+	<div class="avatar" [style.background-image]="avatar" *ngIf="!isLoading"></div>
+
+	<ion-grid *ngIf="!isLoading">
+		<ion-row>
+			<ion-col>
+				<h3>{{name}}</h3>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<button class="text-white" ion-button full color="primary" (click)="login(username, password)">Entrar</button>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<a href="" (click)="useAnotherAccount()">Entrar com outra conta</a>	
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	
+</ion-content>

@@ -26,7 +26,7 @@ export class ProfilePage {
 	user: any;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private camera: Camera, private utils: Utils) {
-		this.user = new User(this.utils.globals.get('user'));
+		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
 	}
 	
 	ionViewDidLoad() {
@@ -93,7 +93,7 @@ export class ProfilePage {
 		this.camera.getPicture(options).then(imageData => {
 			this.sendPicture(imageData).subscribe(success => {
 				console.log(success);
-				this.utils.globals.get('user').imageUrl = success.data.image_uri;
+				this.utils.globals.get(this.utils.constants.USER).imageUrl = success.data.image_uri;
 				loading.dismiss();
 			}, error => {
 				console.log(error);

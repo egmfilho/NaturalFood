@@ -7,6 +7,7 @@ import { Utils } from '../services/utils.service';
 
 import { IntroPage } from '../pages/intro/intro';
 import { LoginPage } from '../pages/login/login';
+import { AutoLoginPage } from '../pages/auto-login/auto-login';
 // import { HomePage } from '../pages/home/home';
 import { FoodListPage } from '../pages/food-list/food-list';
 import { ListPage } from '../pages/list/list';
@@ -47,7 +48,13 @@ export class MyApp {
 			// Alterar a chave aqui para forçar a exibição da introdução
 			this.utils.globals.getPersistent(this.utils.constants.SKIP_INTRO).then(res => {
 				if (res) {
-					this.rootPage = LoginPage;
+					this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS).then(credentials => {
+						if (credentials) {
+							this.rootPage = AutoLoginPage;
+						} else {
+							this.rootPage = LoginPage;
+						}
+					});
 				} else {
 					this.rootPage = IntroPage;
 				}
@@ -72,7 +79,7 @@ export class MyApp {
 
 	getUser() {
 		if (!this.user) {
-			var u = new User(this.utils.globals.get('user'));
+			var u = new User(this.utils.globals.get(this.utils.constants.USER));
 			if (u && u.id) this.user = u;
 		}
 

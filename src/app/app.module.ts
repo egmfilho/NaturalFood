@@ -20,6 +20,7 @@ import { Interceptor } from './../services/interceptor.service';
 import { MyApp } from './app.component';
 import { IntroPage } from '../pages/intro/intro';
 import { LoginPage } from '../pages/login/login';
+import { AutoLoginPage } from '../pages/auto-login/auto-login';
 import { RegisterPage } from './../pages/register/register';
 import { HomePage } from '../pages/home/home';
 import { FoodListPage } from '../pages/food-list/food-list';
@@ -30,7 +31,9 @@ import { EditProfilePage } from './../pages/edit-profile/edit-profile';
 import { PreferencesPage } from '../pages/preferences/preferences';
 import { LogoutPage } from './../pages/logout/logout';
 import { AgreementPage } from '../pages/agreement/agreement';
+import { AddressesPage } from '../pages/addresses/addresses';
 import { AboutPage } from '../pages/about/about';
+import { MapPage } from '../pages/map/map';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -51,6 +54,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		MyApp,
 		IntroPage,
 		LoginPage,
+		AutoLoginPage,
 		RegisterPage,
 		HomePage,
 		FoodListPage,
@@ -62,6 +66,8 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		LogoutPage,
 		AgreementPage,
 		AboutPage,
+		MapPage,
+		AddressesPage,
 		CategoryCardComponent,
 		FoodCardComponent,
 		BasketComponent,
@@ -88,6 +94,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		MyApp,
 		IntroPage,
 		LoginPage,
+		AutoLoginPage,
 		RegisterPage,
 		HomePage,
 		FoodListPage,
@@ -98,7 +105,9 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		PreferencesPage,
 		LogoutPage,
 		AgreementPage,
+		AddressesPage,
 		AboutPage,
+		MapPage,
 		CategoryCardComponent,
 		FoodCardComponent,
 		BasketComponent

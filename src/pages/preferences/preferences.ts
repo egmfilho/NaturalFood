@@ -7,6 +7,7 @@ import { AboutPage } from '../about/about';
 import { AgreementPage } from '../agreement/agreement';
 import { User } from '../../models/user.model';
 import { LoginPage } from '../login/login';
+import { AddressesPage } from '../addresses/addresses';
 
 /**
  * Generated class for the PreferencesPage page.
@@ -26,7 +27,7 @@ export class PreferencesPage {
 	isNotificationOn: boolean;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private popover: PopoverController, private alert: AlertController, private utils: Utils) {
-		this.user =  new User(this.utils.globals.get('user'));
+		this.user =  new User(this.utils.globals.get(this.utils.constants.USER));
 		this.utils.globals.getPersistent(this.utils.constants.RECEIVE_NOTIFICATIONS)
 			.then(data => {
 				this.isNotificationOn = !!data;
@@ -183,6 +184,10 @@ export class PreferencesPage {
 			loading.dismiss();
 			console.log(e);
 		});
+	}
+
+	showAddresses() {
+		this.navCtrl.push(AddressesPage);
 	}
 	
 }

@@ -1,71 +1,56 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
-
-// import { HomePage } from './../home/home';
-import { FoodListPage } from '../food-list/food-list';
-import { RegisterPage } from './../register/register';
 import { Utils } from '../../services/utils.service';
+import { LoginPage } from '../login/login';
 import { User } from '../../models/user.model';
+import { FoodListPage } from '../food-list/food-list';
+
+/**
+ * Generated class for the AutoLoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
-	selector: 'page-login',
-	templateUrl: 'login.html'
+	selector: 'page-auto-login',
+	templateUrl: 'auto-login.html',
 })
-export class LoginPage {
-
-	user: string;
-	pass: string;
+export class AutoLoginPage {
+	
+	avatar: string;
+	name: string;
+	username: string;
+	password: string;
 	isLoading: boolean;
 
-	private canFingerprint;
+	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+		this.avatar = 'url(\'assets/images/no-pic.png\')';
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private utils: Utils) {
-		this.isLoading = false;
-		this.canFingerprint = false;
-	}
-
-	ionViewDidEnter() {
-		/* Login via impressao digital */
-		// if (this.utils.platform.is('cordova')) {
-		// 	this.utils.platform.ready().then(success => {
-		// 		this.logInUsingFingerprint();
-		// 	})
-		// }
-	}
-
-	showFingerprint() {
-		if (this.canFingerprint) {
-		
-			this.fingerPrint.isAvailable().then(res => {
-				
-				this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS).then(data => {
-					this.fingerPrint.show({
-						clientId: 'Natural Food',
-						localizedFallbackTitle: 'Usar senha',
-						localizedReason: 'Acesse sua conta'
-					}).then(res => {
-						this.login(data.username, data.password);
-					});
-				});
-
-			});
-
-		}
-	}
-
-	logInUsingFingerprint() {
-		this.fingerPrint.isAvailable().then(res => {
-			this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS).then(data => {
-				if (data) {
-					this.user = data.username;
-					this.canFingerprint = true;
-					
-					this.showFingerprint();
+		this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS)
+			.then(credentials => {
+				if (credentials) {
+					this.avatar = credentials.avatar ? `url(${credentials.avatar})` : 'url(\'assets/images/no-pic.png\')';;
+					this.name = credentials.name;
+					this.username = credentials.username;
+					this.password = credentials.password;
+					this.login(this.username, this.password);
+				} else {
+					this.useAnoterAccount();
 				}
 			});
-		}, err => console.log('fingerprint not available'));
+	}
+	
+	ionViewDidLoad() {
+		
+	}
+
+	useAnoterAccount() {
+		this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS)
+			.then(res => {
+				this.navCtrl.setRoot(LoginPage);
+			});
 	}
 
 	login(username, password) {
@@ -127,13 +112,5 @@ export class LoginPage {
 			this.utils.alert(title, msg, ['OK']).present();
 		});
 	}
-
-	forgottenPass() {
-
-	}
-
-	register() {
-		this.navCtrl.push(RegisterPage);
-	}
-
+	
 }

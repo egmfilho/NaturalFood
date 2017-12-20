@@ -1,3 +1,5 @@
+import { District } from "./district.model";
+
 /*
  * @Author: egmfilho &lt;egmfilho@live.com&gt; 
  * @Date: 2017-12-15 08:27:16 
@@ -14,6 +16,7 @@ export class Address {
 	public number: number;
 	public publicPlace: string;
 	public districtId: number;
+	public district: District;
 
 	constructor(address: any) {
 		if (!(address instanceof Address)) {
@@ -28,6 +31,7 @@ export class Address {
 		this.number = address.number;
 		this.publicPlace = address.publicPlace;
 		this.districtId = address.districtId;
+		this.district = new District(address.district);
 	}
 
 	public static convertFromPost(address: any) {
@@ -41,7 +45,8 @@ export class Address {
 			isMain: address.address_main == 'Y',
 			number: address.address_number,
 			publicPlace: address.address_public_place,
-			districtId: address.district_id
+			districtId: address.district_id,
+			district: address.district
 		}
 	}
 

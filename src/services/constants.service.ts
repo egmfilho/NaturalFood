@@ -13,5 +13,6 @@ export class Constants {
 	public SKIP_INTRO: string = 'skip-intro';
 	public CREDENTIALS: string = 'credentials';
 	public TOKEN: string = 'token';
+	public USER: string = 'user';
 	public ERROR_MESSAGE: string = 'errorMessage';
 }
