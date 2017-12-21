@@ -48,9 +48,7 @@ export class AutoLoginPage {
 
 	useAnoterAccount() {
 		this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS)
-			.then(res => {
-				this.navCtrl.setRoot(LoginPage);
-			});
+			this.navCtrl.setRoot(LoginPage);
 	}
 
 	login(username, password) {
@@ -67,18 +65,17 @@ export class AutoLoginPage {
 			this.utils.globals.setInternal(this.utils.constants.TOKEN, user.id + ':'  + success.data.user_current_session.user_session_value);
 			this.utils.globals.set(this.utils.constants.USER, user);
 
-			this.utils.getBase64Image(user.imageUrl).then(res => {
-				this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
-					avatar: res,
-					name: user.name,
-					username: username,
-					password: password
-				});
-
-				loading.dismiss();
-				this.isLoading = false;
-				this.navCtrl.setRoot(FoodListPage);
-			});
+			// this.utils.getBase64Image(user.imageUrl).then(res => {
+			// 	this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
+			// 		avatar: res || '',
+			// 		name: user.name,
+			// 		username: username,
+			// 		password: password
+			// 	});
+			// });
+			loading.dismiss();
+			this.isLoading = false;
+			this.navCtrl.setRoot(FoodListPage);
 		}, error => {
 			loading.dismiss();
 			let title, msg;
@@ -91,9 +88,12 @@ export class AutoLoginPage {
 					break;
 				}
 
+				case 401:
 				case 404: {
 					title = 'Aviso';
 					msg = 'Usuário ou senha incorretos.';
+					this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS);
+					this.navCtrl.setRoot(LoginPage);
 					break;
 				}
 

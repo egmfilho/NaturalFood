@@ -14,5 +14,21 @@
 
 
 <ion-content fullscreen>
+
+	<div #mapCanvas id="map_canvas">
+		<span class="marker-v"></span>
+		<span class="marker-h"></span>
+	</div>
+
+	<h4>Camera position</h4>
+	<p *ngIf="mapReady">
+		{{getCoords().lat}}
+		<br>
+		{{getCoords().lng}}
+	</p>
+	<br>
+	<p>
+		{{route}}
+	</p>
 	
 </ion-content>

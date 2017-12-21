@@ -84,16 +84,15 @@ export class LoginPage {
 
 			this.utils.getBase64Image(user.imageUrl).then(res => {
 				this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
-					avatar: res,
+					avatar: res || '',
 					name: user.name,
 					username: username,
 					password: password
 				});
-
-				loading.dismiss();
-				this.isLoading = false;
-				this.navCtrl.setRoot(FoodListPage);
 			});
+			loading.dismiss();
+			this.isLoading = false;
+			this.navCtrl.setRoot(FoodListPage);
 		}, error => {
 			loading.dismiss();
 			let title, msg;

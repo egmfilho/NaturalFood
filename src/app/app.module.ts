@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { Push } from '@ionic-native/push';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 import { Interceptor } from './../services/interceptor.service';
 
@@ -118,6 +119,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		Camera,
 		FingerprintAIO,
 		Push,
+		GoogleMaps,
 		Constants,
 		Globals,
 		Utils,

@@ -1,5 +1,34 @@
 page-map {
 	.scroll-content {
-		background-color: #cdcdcd !important;
+		// background-color: #cdcdcd !important;
+	}
+
+	#map_canvas {
+		min-width: 100%;
+		min-height: 300px;
+		width: 100%;
+		height: 300px;
+		background-color: black;
+		position: relative;
+
+		.marker-v, .marker-h {
+			position: absolute;
+			margin: auto;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: red;
+		}
+
+		.marker-v {
+			width: 1px;
+			height: 30px;
+		}
+
+		.marker-h {
+			width: 30px;
+			height: 1px;
+		}
 	}
 }

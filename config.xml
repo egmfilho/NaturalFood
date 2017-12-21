@@ -3,7 +3,7 @@
     <name>Natural Food</name>
     <description>Aplicativo de delivery Natural Food.</description>
     <author email="hi@ionicframework" href="http://futuraagencia.com.br/">Futura Agência</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://172.16.0.81:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -40,6 +40,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <resource-file src="google-services.json" target="app/google-services.json" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -76,9 +77,11 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <resource-file src="GoogleService-Info.plist" />
     </platform>
     <allow-navigation href="http://172.16.0.81:8101" />
     <allow-navigation href="http://172.16.0.81:8100" />
+    <allow-navigation href="http://172.16.0.168:8101" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
@@ -93,4 +96,10 @@
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
     <plugin name="cordova-plugin-fingerprint-aio" spec="^1.3.3" />
     <plugin name="phonegap-plugin-push" spec="^2.1.2" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBRwlSWJZafyKqWQnUU3VhA89oZiwlCV0M" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyB9peoZimBXaQMbspRIf2g5TlU9uhLvUUo" />
+        <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Show your location on the map" />
+        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Trace your location on the map" />
+    </plugin>
 </widget>
