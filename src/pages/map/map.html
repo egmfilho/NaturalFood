@@ -13,22 +13,50 @@
 </ion-header>
 
 
-<ion-content fullscreen>
+<ion-content fullscreen no-bounce>
 
 	<div #mapCanvas id="map_canvas">
 		<span class="marker-v"></span>
 		<span class="marker-h"></span>
+		<p *ngIf="mapReady">
+			{{getLocality().lat}}
+			<br>
+			{{getLocality().lng}}
+		</p>
 	</div>
 
-	<h4>Camera position</h4>
-	<p *ngIf="mapReady">
-		{{getCoords().lat}}
-		<br>
-		{{getCoords().lng}}
-	</p>
-	<br>
-	<p>
-		{{route}}
-	</p>
+	<div class="info">
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<b>Rua: </b>
+					{{getLocality().route}}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<b>Bairro: </b>
+					{{getLocality().district}}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<b>Cidade: </b>
+					{{getLocality().city}}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<b>Estado: </b>
+					{{getLocality().state}}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<button ion-button full>Selecionar</button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
 	
 </ion-content>

@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
 import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Utils } from '../../services/utils.service';
+import { HttpClient } from '@angular/common/http';
 
 
 /**
@@ -26,9 +26,14 @@ export class MapPage {
 	mapReady: boolean;
 
 	route: string;
+	district: string;
+	city: string;
+	state: string;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private utils: Utils) {
 		this.mapReady = false;
+
+		console.log(JSON.stringify(GoogleMaps.getPluginInstallName()));
 	}
 	
 	ionViewDidLoad() {
@@ -54,61 +59,83 @@ export class MapPage {
 				console.log(' ### MAPA CARREGADO');
 				this.mapReady = true;
 				this.utils.alert('Aviso', 'Mapa carregado', ['Ok']);
+
+				this.map.setMyLocationEnabled(true);
+				this.map.getMyLocation()
+					.then(location => {
+						this.map.moveCamera(location);
+						this.getGoogleInfo(location.latLng.lat, location.latLng.lng);
+					}, err => {
+						console.log('### NAO FOI POSSIVEL DETECTAR A LOCALIZACAO ATUAL DO DISPOSITIVO');
+					});
 			});
 
-		this.map.one(GoogleMapsEvent.CAMERA_MOVE_END)
-			.then(data => {
+		this.map.on(GoogleMapsEvent.MAP_DRAG_END)
+			.subscribe(data => {
 				var coords = this.map.getCameraPosition().target;
 				this.getGoogleInfo(coords.lat, coords.lng);
 			});
-
-		// this.map = GoogleMaps.create(document.getElementById('map_canvas'), mapOptions);
-
-		// Wait the MAP_READY before using any methods.
-		// this.map.one(GoogleMapsEvent.MAP_READY)
-		// 	.then(() => {
-		// 		console.log('Map is ready!');
-
-		// 		//  Now you can use all methods safely.
-		// 		this.map.addMarker({
-		// 			title: 'Edu',
-		// 			icon: 'green',
-		// 			animation: 'DROP',
-		// 			position: {
-		// 				lat: -22.424031, 
-		// 				lng: -42.9748269
-		// 			}
-		// 		}).then(marker => {
-		// 			marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-		// 				alert('clicked');
-		// 			});
-		// 		});
-		// 	});
 	}
 
-	getCoords() {
+	getLocality() {
 		return {
 			lat: this.mapReady ? this.map.getCameraPosition().target.lat : 0,
-			lng: this.mapReady ? this.map.getCameraPosition().target.lng : 0
+			lng: this.mapReady ? this.map.getCameraPosition().target.lng : 0,
+			route: this.route,
+			district: this.district,
+			city: this.city,
+			state: this.state
 		}
 	}
 
 	getGoogleInfo(lat, lng) {
 		lat = lat.toFixed(7);
 		lng = lng.toFixed(7);
-		var url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}`;
+		var key = 'AIzaSyB9peoZimBXaQMbspRIf2g5TlU9uhLvUUo';
+		var url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`;
+
+		let loading = this.utils.loading('');
+		loading.present();
 
 		this.http.get(url).subscribe(res => {
-			var components = res['results'][0].address_components;
+			var results: Array<any> = res['results'];
 
-			components.forEach(element => {
-				if (element.types.find(n => n == 'route') >= 0) {
-					this.route = element.long_name;
-				}
-			});
+			if (results.length) {
+				var components: Array<any> = results[0]['address_components'];
+				components.forEach(c => {
+					if (c.types.find(t => t == 'route')) {
+						this.route = c.long_name;
+					} else if (c.types.find(t => t == 'sublocality_level_1')) {
+						this.district = c.long_name;
+					} else if (c.types.find(t => t == 'administrative_area_level_2')) {
+						this.city = c.long_name;
+					} else if (c.types.find(t => t == 'administrative_area_level_1')) {
+						this.state = c.long_name;
+					}
+				});
+
+				this.getCityDistricts(this.city);
+			} else {
+				console.log('### NENHUM ENDEREÇO ENCONTRADO');
+				this.route = '';
+			}
+			loading.dismiss();
 		}, err => {
-			// this.utils.alert('Erro', 'Erro ao obter informações do endereço', ['Ok']).present();
-			prompt(url, JSON.stringify(err));
+			loading.dismiss();
+			this.utils.alert('Erro', 'Erro ao obter informações do endereço', ['Ok']).present();
+		});
+	}
+	
+
+	getCityDistricts(cityName: string) {
+		let loading = this.utils.loading('');
+
+		this.utils.getHttp().post('district.php?action=getList', {
+			city_name: cityName
+		}).subscribe(success => {
+			console.log(JSON.stringify(success.data));
+		}, err => {
+			this.utils.alert('Erro', 'Erro ao receber as paradas', ['Ok']).present();
 		});
 	}
 	

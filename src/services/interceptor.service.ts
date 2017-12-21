@@ -21,16 +21,21 @@ export class Interceptor implements HttpInterceptor {
 
 	intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>> {
 
-		let cloneReq = req.clone({
-			headers: req.headers.set('x-current-device', 'mobile')
-		});
+		if (req.url.indexOf(this.globals.getInternal('api')) != -1) {
 
-		if (this.globals.getInternal('token')) {
-			cloneReq = cloneReq.clone({
-				headers: req.headers.set('x-session-token', this.globals.getInternal('token'))
-			});	
+			let cloneReq = req.clone({
+				headers: req.headers.set('x-current-device', 'mobile')
+			});
+
+			if (this.globals.getInternal('token')) {
+				cloneReq = cloneReq.clone({
+					headers: req.headers.set('x-session-token', this.globals.getInternal('token'))
+				});	
+			}
+			
+			return next.handle(cloneReq);
 		}
-		
-		return next.handle(cloneReq);
+
+		return next.handle(req);
 	}
 }
