@@ -46,6 +46,8 @@ export class MyApp {
 			this.statusBar.styleLightContent();
 			this.statusBar.backgroundColorByHexString('#162f0a');
 
+			// this.utils.globals.setInternal('api', prompt('API', this.utils.globals.getInternal('api')));
+
 			// Alterar a chave aqui para forçar a exibição da introdução
 			this.utils.globals.getPersistent(this.utils.constants.SKIP_INTRO).then(res => {
 				if (res) {

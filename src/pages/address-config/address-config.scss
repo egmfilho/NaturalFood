@@ -1,5 +1,4 @@
-page-addresses {
-
+page-address-config {
 	.scroll-content {
 		background-color: #cdcdcd !important;
 	}
@@ -18,9 +17,10 @@ page-addresses {
 	}
 
 	.card{
-		button {
-			margin-top: 15px;
+		i.fa {
+			margin-right: 5px;
+			font-size: 1.1em;
+			padding-bottom: 3px;
 		}
 	}
-
 }

@@ -24,8 +24,8 @@ export class Globals {
 	}
 
     set(key: string, value: any) {
-		if (key == 'internal')
-			return;
+		// if (key == 'internal')
+			// return;
 
         this.dictionary[key] = value;
 	}

@@ -50,6 +50,7 @@ import { Utils } from './../services/utils.service';
 import { BasketService } from './../services/basket.service';
 import { FoodFilterPipe } from '../pipes/food-filter.pipe';
 import { InputMaskDirective } from '../directives/input-mask.directive';
+import { AddressConfigPage } from '../pages/address-config/address-config';
 
 @NgModule({
 	declarations: [
@@ -71,6 +72,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		OrderSummaryPage,
 		MapPage,
 		AddressesPage,
+		AddressConfigPage,
 		CategoryCardComponent,
 		FoodCardComponent,
 		BasketComponent,
@@ -109,6 +111,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		LogoutPage,
 		AgreementPage,
 		AddressesPage,
+		AddressConfigPage,
 		AboutPage,
 		OrderSummaryPage,
 		MapPage,

@@ -7,7 +7,7 @@ import { AboutPage } from '../about/about';
 import { AgreementPage } from '../agreement/agreement';
 import { User } from '../../models/user.model';
 import { LoginPage } from '../login/login';
-import { AddressesPage } from '../addresses/addresses';
+import { AddressConfigPage } from '../address-config/address-config';
 
 /**
  * Generated class for the PreferencesPage page.
@@ -187,7 +187,7 @@ export class PreferencesPage {
 	}
 
 	showAddresses() {
-		this.navCtrl.push(AddressesPage);
+		this.navCtrl.push(AddressConfigPage);
 	}
 	
 }

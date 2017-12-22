@@ -5,6 +5,8 @@ import { User } from '../../models/user.model';
 import { BasketService } from '../../services/basket.service';
 import { FoodListPage } from '../food-list/food-list';
 import { Address } from '../../models/address.model';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
+import { AddressesPage } from '../addresses/addresses';
 
 /**
  * Generated class for the OrderSummaryPage page.
@@ -24,7 +26,7 @@ export class OrderSummaryPage {
 	basket: BasketService;
 	address: Address;
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, public basketService: BasketService, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, public basketService: BasketService, private utils: Utils) {
 		this.user = this.utils.globals.get(this.utils.constants.USER);
 		this.address = new Address(this.user.person.address[0]);
 		this.basket = this.basketService;
@@ -57,6 +59,11 @@ export class OrderSummaryPage {
 			}),
 			order_value_total: this.basket.getPrice()
 		}
+	}
+
+	chooseAddress() {
+		let modal = this.modalCtrl.create(AddressesPage);
+		modal.present();
 	}
 
 	confirm() {

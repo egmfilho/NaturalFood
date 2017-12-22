@@ -1,0 +1,45 @@
+<!--
+	Generated template for the AddressConfigPage page.
+	
+	See http://ionicframework.com/docs/components/#navigation for more info on
+	Ionic pages and navigation.
+-->
+<ion-header>
+	
+	<ion-navbar color="primary">
+		<ion-title>Meus endereços</ion-title>
+		<ion-buttons end>
+			<button class="add-button" ion-button icon-only color="white" (click)="addAddress()">
+				<i class="fa fa-plus"></i>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+	
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card *ngFor="let a of address">
+		<ion-card-header>Endereço {{a.code}}</ion-card-header>
+		<ion-card-content>
+			{{a.toString()}}
+		</ion-card-content>
+		<ion-row>
+			<ion-col></ion-col>
+			<ion-col col-auto>
+				<button ion-button clear small>
+					<i class="fa fa-pencil"></i>
+					Editar
+				</button>
+			</ion-col>
+			<ion-col col-auto>
+				<button ion-button clear small>
+					<i class="fa fa-trash-o"></i>
+					Remover
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-card>
+	
+</ion-content>
