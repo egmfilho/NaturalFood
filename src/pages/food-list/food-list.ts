@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { BasketService } from '../../services/basket.service';
 import { Utils } from './../../services/utils.service';
@@ -29,14 +30,14 @@ export class FoodListPage {
 	plans: any[];
 	foods: Food[];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private basket: BasketService, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private statusBar: StatusBar, private basket: BasketService, private utils: Utils) {
 		// this.category = navParams.get('category') as Category;
 		this.plans = [];
 		this.selectedTabId = 0;
 	}
 	
 	ionViewDidLoad() {
-		
+		this.statusBar.overlaysWebView(false);
 	}
 
 	ngOnInit() {

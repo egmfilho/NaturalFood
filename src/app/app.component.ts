@@ -43,7 +43,8 @@ export class MyApp {
 		this.platform.ready().then(() => {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
-			this.statusBar.styleLightContent();//.styleDefault();
+			this.statusBar.styleLightContent();
+			this.statusBar.backgroundColorByHexString('#162f0a');
 
 			// Alterar a chave aqui para forçar a exibição da introdução
 			this.utils.globals.getPersistent(this.utils.constants.SKIP_INTRO).then(res => {

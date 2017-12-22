@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Utils } from '../../services/utils.service';
 import { HttpClient } from '@angular/common/http';
@@ -30,14 +31,19 @@ export class MapPage {
 	city: string;
 	state: string;
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private statusBar: StatusBar, private utils: Utils) {
 		this.mapReady = false;
-
-		console.log(JSON.stringify(GoogleMaps.getPluginInstallName()));
 	}
 	
 	ionViewDidLoad() {
+		this.statusBar.styleDefault();
+		this.statusBar.overlaysWebView(true);
 		this.loadMap();
+	}
+
+	ionViewWillLeave() {
+		this.statusBar.styleLightContent();
+		this.statusBar.overlaysWebView(false);
 	}
 
 	loadMap() {
@@ -60,14 +66,8 @@ export class MapPage {
 				this.mapReady = true;
 				this.utils.alert('Aviso', 'Mapa carregado', ['Ok']);
 
-				this.map.setMyLocationEnabled(true);
-				this.map.getMyLocation()
-					.then(location => {
-						this.map.moveCamera(location);
-						this.getGoogleInfo(location.latLng.lat, location.latLng.lng);
-					}, err => {
-						console.log('### NAO FOI POSSIVEL DETECTAR A LOCALIZACAO ATUAL DO DISPOSITIVO');
-					});
+				// this.map.setMyLocationEnabled(true);
+				this.goToDeviceLocation();
 			});
 
 		this.map.on(GoogleMapsEvent.MAP_DRAG_END)
@@ -124,6 +124,19 @@ export class MapPage {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Erro ao obter informações do endereço', ['Ok']).present();
 		});
+	}
+
+	goToDeviceLocation() {
+		if (this.mapReady) {
+			this.map.getMyLocation()
+				.then(location => {
+					console.log(JSON.stringify(location));
+					this.map.setCameraTarget(location.latLng);
+					this.getGoogleInfo(location.latLng.lat, location.latLng.lng);
+				}, err => {
+					console.log('### NAO FOI POSSIVEL DETECTAR A LOCALIZACAO ATUAL DO DISPOSITIVO');
+				});
+		}
 	}
 	
 
