@@ -15,7 +15,7 @@ export class BasketService {
 
     private list: BasketItem[] = [];
 
-    getItems() {
+    getItems(): BasketItem[] {
         return this.list;
     }
     

@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BasketService } from '../../services/basket.service';
 import { BasketItem } from '../../models/basketItem.model';
 import { Utils } from '../../services/utils.service';
+import { User } from '../../models/user.model';
+import { OrderSummaryPage } from '../order-summary/order-summary';
 
 /**
  * Generated class for the OrderItemsPage page.
@@ -19,7 +21,10 @@ import { Utils } from '../../services/utils.service';
 })
 export class OrderItemsPage {
 	
+	user: User;
+
 	constructor(public navCtrl: NavController, public navParams: NavParams, public basket: BasketService, private utils: Utils) {
+		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
 	}
 	
 	ionViewDidLoad() {
@@ -57,8 +62,8 @@ export class OrderItemsPage {
 		this.navCtrl.pop();
 	}
 
-	finish() {
-		
+	finishOrder() {
+		this.navCtrl.push(OrderSummaryPage);
 	}
 	
 }

@@ -33,25 +33,25 @@
 			<ion-row>
 				<ion-col>
 					<b>Rua: </b>
-					{{getLocality().route}}
+					{{getLocality().route || 'Indisponível'}}
 				</ion-col>
 			</ion-row>
 			<ion-row>
 				<ion-col>
 					<b>Bairro: </b>
-					{{getLocality().district}}
+					{{getLocality().district || 'Indisponível'}}
 				</ion-col>
 			</ion-row>
 			<ion-row>
 				<ion-col>
 					<b>Cidade: </b>
-					{{getLocality().city}}
+					{{getLocality().city || 'Indisponível'}}
 				</ion-col>
 			</ion-row>
 			<ion-row>
 				<ion-col>
 					<b>Estado: </b>
-					{{getLocality().state}}
+					{{getLocality().state || 'Indisponível'}}
 				</ion-col>
 			</ion-row>
 			<ion-row>

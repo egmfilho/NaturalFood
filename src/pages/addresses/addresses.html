@@ -20,11 +20,10 @@
 
 <ion-content>
 
-	<ion-card *ngFor="let i of [1, 2, 3]">
-		<ion-card-header>Endereço 01</ion-card-header>
+	<ion-card *ngFor="let a of address">
+		<ion-card-header>Endereço {{a.code}}</ion-card-header>
 		<ion-card-content>
-			Latitude = position.coords.latitude;
-			Longitude = position.coords.longitude;			
+			{{a.toString()}}
 		</ion-card-content>
 		<ion-row>
 			<ion-col></ion-col>

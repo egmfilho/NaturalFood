@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 // import { HomePage } from './../home/home';
@@ -21,12 +22,14 @@ export class LoginPage {
 
 	private canFingerprint;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private fingerPrint: FingerprintAIO, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private statusBar: StatusBar, private fingerPrint: FingerprintAIO, private utils: Utils) {
 		this.isLoading = false;
 		this.canFingerprint = false;
 	}
 
 	ionViewDidEnter() {
+		this.statusBar.overlaysWebView(true);
+
 		/* Login via impressao digital */
 		// if (this.utils.platform.is('cordova')) {
 		// 	this.utils.platform.ready().then(success => {

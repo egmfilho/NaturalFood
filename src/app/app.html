@@ -2,17 +2,24 @@
 	<ion-header>
 		<ion-toolbar>
 			<div class="user-data" menuClose (click)="openProfilePage()" *ngIf="getUser()">
-				<div class="avatar">
-					<ion-icon name="contact" *ngIf="!getUser().imageUrl"></ion-icon>
-					<img [src]="getUser().imageUrl" *ngIf="getUser().imageUrl"/>
-				</div>
-				<div class="info">
-					<b class="name">{{getUser().name}}</b>
-					<span class="email">{{getUser().email}}</span>
-				</div>
-				<div class="see-more">
-					<ion-icon name="arrow-dropright"></ion-icon>
-				</div>
+				<ion-grid>
+					<ion-row>
+						<ion-col class="avatar" col-auto>
+							<ion-icon name="contact" *ngIf="!getUser().imageUrl"></ion-icon>
+							<img [src]="getUser().imageUrl" *ngIf="getUser().imageUrl"/>
+						</ion-col>
+						<ion-col class="info">
+							<b class="name">{{getUser().name}}</b>
+							<span class="email">{{getUser().email}}</span>
+							<span class="credits">
+								20 créditos
+							</span>
+						</ion-col>
+						<ion-col class="see-more" col-auto>
+							<ion-icon name="arrow-dropright"></ion-icon>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
 			</div>
 		</ion-toolbar>
 	</ion-header>

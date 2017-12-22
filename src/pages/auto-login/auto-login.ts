@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { Utils } from '../../services/utils.service';
 import { LoginPage } from '../login/login';
 import { User } from '../../models/user.model';
@@ -25,7 +26,7 @@ export class AutoLoginPage {
 	password: string;
 	isLoading: boolean;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private statusBar: StatusBar, private utils: Utils) {
 		this.avatar = 'url(\'assets/images/no-pic.png\')';
 
 		this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS)
@@ -43,7 +44,7 @@ export class AutoLoginPage {
 	}
 	
 	ionViewDidLoad() {
-		
+		this.statusBar.overlaysWebView(true);
 	}
 
 	useAnoterAccount() {

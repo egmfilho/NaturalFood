@@ -51,7 +51,7 @@ export class Address {
 	}
 
 	toString() {
-		return `${this.publicPlace} ${this.number}`;
+		return `${this.publicPlace} ${this.number} - ${this.district.name}, ${this.district.city.name} - ${this.district.city.uf.name}`;
 	}
 
 	convertToPost() {

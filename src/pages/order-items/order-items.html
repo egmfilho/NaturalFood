@@ -24,7 +24,7 @@
 						<ion-col>
 							<h2 class="item-label">{{item.quantity}}x {{item.food.name}}</h2>
 						</ion-col>
-						<ion-col col-auto>
+						<ion-col col-auto align-self-end>
 							<div class="quantity-display">
 								<button ion-button icon-only clear (click)="decreaseItem(item)">
 									<ion-icon name="remove-circle" color="danger"></ion-icon>
@@ -37,7 +37,8 @@
 								</button>
 							</div>
 							<div class="item-price-total">
-								{{item.getPrice() | currency:'R$ '}}
+								<!-- {{item.getPrice() | currency:'R$ '}} -->
+								{{item.getPrice()}} {{item.getPrice() == 1 ? 'crédito' : 'créditos'}}
 							</div>
 						</ion-col>
 					</ion-row>
@@ -63,11 +64,12 @@
 	<ion-toolbar>
 		<ion-grid>
 			<ion-row>
-				<ion-col class="text-md">Total: </ion-col>
-				<ion-col class="text-md text-right text-primary">{{basket.getPrice() | currency:'R$ '}}</ion-col>
+				<ion-col class="text-md">Custo total: </ion-col>
+				<!-- <ion-col class="text-md text-right text-primary">{{basket.getPrice() | currency:'R$ '}}</ion-col> -->
+				<ion-col class="text-md text-right text-primary">{{basket.getPrice()}} {{basket.getPrice() == 1 ? 'crédito' : 'créditos'}}</ion-col>
 			</ion-row>
 		</ion-grid>
-		<button ion-button block icon-right (click)="finish()">
+		<button ion-button block icon-right (click)="finishOrder()">
 			Finalizar pedido
 			<ion-icon name="arrow-forward"></ion-icon>
 		</button>

@@ -35,6 +35,7 @@ import { AgreementPage } from '../pages/agreement/agreement';
 import { AddressesPage } from '../pages/addresses/addresses';
 import { AboutPage } from '../pages/about/about';
 import { MapPage } from '../pages/map/map';
+import { OrderSummaryPage } from '../pages/order-summary/order-summary';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -67,6 +68,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		LogoutPage,
 		AgreementPage,
 		AboutPage,
+		OrderSummaryPage,
 		MapPage,
 		AddressesPage,
 		CategoryCardComponent,
@@ -108,6 +110,7 @@ import { InputMaskDirective } from '../directives/input-mask.directive';
 		AgreementPage,
 		AddressesPage,
 		AboutPage,
+		OrderSummaryPage,
 		MapPage,
 		CategoryCardComponent,
 		FoodCardComponent,

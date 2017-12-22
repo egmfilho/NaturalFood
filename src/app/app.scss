@@ -78,14 +78,14 @@ ion-nav {
 }
 
 .user-data {
-	$height: 40px;
+	$height: 70px;
 	height: $height;
 
 	.avatar {
-		width: $height;
-		height: $height;
-		display: inline-block;
-		margin-left: 5px;
+		width: 65px;
+		height: 65px;
+		// display: inline-block;
+		// margin-left: 5px;
 
 		text-align: center;
 		font-size: 35px;
@@ -101,7 +101,7 @@ ion-nav {
 	.info {
 		width: auto;
 		height: $height;
-		display: inline-block;
+		// display: inline-block;
 		padding-left: 5px;
 
 		.name {
@@ -110,8 +110,16 @@ ion-nav {
 		}
 
 		.email {
+			margin-top: 3px;
 			font-size: 13px;
-			color: #aaa;
+			color: #999;
+			display: block;
+		}
+
+		.credits {
+			margin-top: 3px;
+			font-size: 13px;
+			color: color($colors, primary);
 			display: block;
 		}
 	}

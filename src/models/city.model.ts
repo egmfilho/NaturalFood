@@ -24,7 +24,7 @@ export class City {
 			id: city.city_id,
 			ibge: city.city_ibge,
 			name: city.city_name,
-			uf: city.city_uf
+			uf: city.uf
 		}
 	}
 }
