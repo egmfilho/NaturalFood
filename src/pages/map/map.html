@@ -32,6 +32,12 @@
 		<ion-grid>
 			<ion-row>
 				<ion-col>
+					<b>CEP: </b>
+					{{getLocality().cep || 'Indisponível'}}
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
 					<b>Rua: </b>
 					{{getLocality().route || 'Indisponível'}}
 				</ion-col>

@@ -28,6 +28,7 @@ export class MapPage {
 	map: GoogleMap;
 	mapReady: boolean;
 
+	cep: string;
 	route: string;
 	district: string;
 	city: string;
@@ -86,6 +87,7 @@ export class MapPage {
 		return {
 			lat: this.mapReady ? this.map.getCameraPosition().target.lat : 0,
 			lng: this.mapReady ? this.map.getCameraPosition().target.lng : 0,
+			cep: this.cep || 'Indisponível',
 			route: this.route || 'Indisponível',
 			district: this.district || 'Indisponível',
 			city: this.city || 'Indisponível',
@@ -107,9 +109,12 @@ export class MapPage {
 
 			if (results.length) {
 				var components: Array<any> = results[0]['address_components'];
+console.log(JSON.stringify(components));
 				components.forEach(c => {
 					if (c.types.find(t => t == 'route')) {
 						this.route = c.long_name;
+					} else if (c.types.find(t => t == 'postal_code')) { 
+						this.cep = c.long_name;
 					} else if (c.types.find(t => t == 'sublocality_level_1')) {
 						this.district = c.long_name;
 					} else if (c.types.find(t => t == 'administrative_area_level_2')) {

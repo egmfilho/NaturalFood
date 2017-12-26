@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../services/utils.service';
 import { District } from '../../models/district.model';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
 
 /**
  * Generated class for the EditAddressPage page.
@@ -22,6 +23,7 @@ export class EditAddressPage {
 
 	lat: number;
 	lng: number;
+	cep: string;
 	route: string;
 	district: string;
 	city: string;
@@ -29,9 +31,10 @@ export class EditAddressPage {
 
 	districtArray: District[];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private utils: Utils) {
 		this.lat = navParams.data.lat;
 		this.lng = navParams.data.lng;
+		this.cep = navParams.data.cep;
 		this.route = navParams.data.route;
 		this.district = navParams.data.district;
 		this.city = navParams.data.city;
@@ -45,7 +48,7 @@ export class EditAddressPage {
 
 	initForm() {
 		this.addressForm = new FormGroup({
-			'address_cep': new FormControl('', [
+			'address_cep': new FormControl(this.cep, [
 				Validators.required,
 				Validators.minLength(3)
 			]),
@@ -88,6 +91,10 @@ export class EditAddressPage {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Erro ao receber as paradas', ['Ok']).present();
 		});
+	}
+
+	dismiss(address) {
+		this.viewCtrl.dismiss(address);
 	}
 	
 }
