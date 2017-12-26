@@ -64,6 +64,11 @@ export class OrderSummaryPage {
 	chooseAddress() {
 		let modal = this.modalCtrl.create(AddressesPage);
 		modal.present();
+		modal.onDidDismiss(data => {
+			if (data) {
+				this.address = new Address(data);
+			}
+		});
 	}
 
 	confirm() {

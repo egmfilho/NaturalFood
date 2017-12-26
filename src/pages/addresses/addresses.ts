@@ -52,7 +52,7 @@ export class AddressesPage {
 		this.navCtrl.push(MapPage);
 	}
 
-	dismiss() {
-		this.viewCtrl.dismiss();
+	dismiss(address) {
+		this.viewCtrl.dismiss(address);
 	}
 }

@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Utils } from '../../services/utils.service';
 import { HttpClient } from '@angular/common/http';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
+import { EditAddressPage } from '../edit-address/edit-address';
 
 
 /**
@@ -31,19 +33,22 @@ export class MapPage {
 	city: string;
 	state: string;
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private statusBar: StatusBar, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private statusBar: StatusBar, private modalCtrl: ModalController, private utils: Utils) {
 		this.mapReady = false;
 	}
 	
 	ionViewDidLoad() {
-		this.statusBar.styleDefault();
-		this.statusBar.overlaysWebView(true);
+		if (this.utils.platform.is('iOS')) {
+			this.statusBar.overlaysWebView(true);
+			this.statusBar.styleDefault();
+		}
 		this.loadMap();
 	}
 
 	ionViewWillLeave() {
 		this.statusBar.styleLightContent();
 		this.statusBar.overlaysWebView(false);
+		this.statusBar.backgroundColorByHexString('#162f0a');
 	}
 
 	loadMap() {
@@ -81,10 +86,10 @@ export class MapPage {
 		return {
 			lat: this.mapReady ? this.map.getCameraPosition().target.lat : 0,
 			lng: this.mapReady ? this.map.getCameraPosition().target.lng : 0,
-			route: this.route,
-			district: this.district,
-			city: this.city,
-			state: this.state
+			route: this.route || 'Indisponível',
+			district: this.district || 'Indisponível',
+			city: this.city || 'Indisponível',
+			state: this.state || 'Indisponível'
 		}
 	}
 
@@ -114,7 +119,6 @@ export class MapPage {
 					}
 				});
 
-				this.getCityDistricts(this.city);
 			} else {
 				console.log('### NENHUM ENDEREÇO ENCONTRADO');
 				this.route = '';
@@ -138,18 +142,19 @@ export class MapPage {
 				});
 		}
 	}
-	
 
-	getCityDistricts(cityName: string) {
-		let loading = this.utils.loading('');
+	selectLocation() {
+		var modal = this.modalCtrl.create(EditAddressPage, this.getLocality());
 
-		this.utils.getHttp().post('district.php?action=getList', {
-			city_name: cityName
-		}).subscribe(success => {
-			console.log(JSON.stringify(success.data));
-		}, err => {
-			this.utils.alert('Erro', 'Erro ao receber as paradas', ['Ok']).present();
-		});
+		modal.present();
+	}
+
+	isValid() {
+
+	}
+
+	onSubmit() {
+
 	}
 	
 }

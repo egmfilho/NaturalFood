@@ -36,6 +36,7 @@ import { AddressesPage } from '../pages/addresses/addresses';
 import { AboutPage } from '../pages/about/about';
 import { MapPage } from '../pages/map/map';
 import { OrderSummaryPage } from '../pages/order-summary/order-summary';
+import { EditAddressPage } from '../pages/edit-address/edit-address';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -68,6 +69,7 @@ import { AddressConfigPage } from '../pages/address-config/address-config';
 		PreferencesPage,
 		LogoutPage,
 		AgreementPage,
+		EditAddressPage,
 		AboutPage,
 		OrderSummaryPage,
 		MapPage,
@@ -112,6 +114,7 @@ import { AddressConfigPage } from '../pages/address-config/address-config';
 		AgreementPage,
 		AddressesPage,
 		AddressConfigPage,
+		EditAddressPage,
 		AboutPage,
 		OrderSummaryPage,
 		MapPage,

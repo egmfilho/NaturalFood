@@ -177,6 +177,7 @@ export class PreferencesPage {
 			loading.dismiss();
 			this.utils.unsetPushNotification();
 			this.utils.globals.removeInternal(this.utils.constants.TOKEN);
+			this.utils.globals.setPersistent(this.utils.constants.RECEIVE_NOTIFICATIONS, true);
 			this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS)
 				.then(s => this.navCtrl.setRoot(LoginPage), 
 					  e => this.navCtrl.setRoot(LoginPage));

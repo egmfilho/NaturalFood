@@ -38,6 +38,7 @@ export class FoodListPage {
 	
 	ionViewDidLoad() {
 		this.statusBar.overlaysWebView(false);
+		this.statusBar.backgroundColorByHexString('#162f0a');
 	}
 
 	ngOnInit() {

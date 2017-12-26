@@ -77,37 +77,36 @@ export class Utils {
 			 * 
 			 * 
 			 */
-			const pushNotification = this.push.init({
-				android: { 
-					senderID: '216553300469',
-					vibrate:true
-				},
-				ios: {
-					// https://medium.com/@felipeevangelistapucinelli/how-to-add-push-notifications-in-your-cordova-application-using-firebase-69fac067e821
-					alert: "true",
-					badge: "true",
-					sound: "true"
-				}
-			});
-
-			pushNotification.on('registration').subscribe(data => {
-				var id = data.registrationId;
-				this.globals.setInternal('registrationId', id);
-
-				this.getHttp().post('user.php?action=registerDevice', {
-					user_device_id: id
-				});
-
-				prompt('Registration ID', id);
-			});
 
 			this.push.hasPermission()
 				.then((res: any) => {
-
 					if (res.isEnabled) {
-						this.alert('', 'We have permission to send push notifications', ['ok']).present();
+						this.pushNotification = this.push.init({
+							android: { 
+								senderID: '216553300469',
+								sound: true,
+								vibrate: true
+							},
+							ios: {
+								// https://medium.com/@felipeevangelistapucinelli/how-to-add-push-notifications-in-your-cordova-application-using-firebase-69fac067e821
+								alert: "true",
+								badge: "true",
+								sound: "true"
+							}
+						});
+			
+						this.pushNotification.on('registration').subscribe(data => {
+							var id = data.registrationId;
+							this.globals.setInternal('registrationId', id);
+			
+							this.getHttp().post('user.php?action=registerDevice', {
+								user_device_id: id
+							});
+			
+							prompt('Registration ID', id);
+						});		
 					} else {
-						this.alert('', 'We do not have permission to send push notifications', ['ok']).present();
+						this.alert('Permissão de notificações', 'A permissão para o recebimento de notificações está desativada. Ative-a nos ajustes do aparelho para receber notificações e alertas do Natural Food.', ['ok']).present();
 					}
 
 				});

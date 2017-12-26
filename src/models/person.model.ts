@@ -7,6 +7,7 @@
 
 import { Contact } from "./contact.model";
 import { Address } from "./address.model";
+import { Credit } from "./credit.model";
 
 export class Person {
 	public id: number;
@@ -18,6 +19,7 @@ export class Person {
 	public weight: number;
 	public contact: Contact[];
 	public address: Address[];
+	public credit: Credit[];
 
 	constructor(person: any) {
 		if (!(person instanceof Person)) {
@@ -33,6 +35,7 @@ export class Person {
 		this.weight = person.weight;
 		this.contact = person.contact ? person.contact.map(c => new Contact(c)) : [ ];
 		this.address = person.address ? person.address.map(a => new Address(a)) : [ ];
+		this.credit = person.credit ? person.credit.map(c => new Credit(c)) : [ ];
 	}
 
 	public static convertFromPost(person: any) {
@@ -48,11 +51,16 @@ export class Person {
 			weight: person.person_weight && parseFloat(person.person_weight.replace(',', '.')),
 			contact: person.contact,
 			address: person.address,
+			credit: person.credit
 		}
 	}
 
 	getMainAddress() {
 		return this.address.find(a => a.isMain);
+	}
+
+	getTotalCredit() {
+		return this.credit.reduce((sum, curr) => sum + Number(curr.valueOpen), 0);
 	}
 
 	convertToPost() {

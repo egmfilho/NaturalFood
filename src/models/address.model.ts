@@ -16,6 +16,8 @@ export class Address {
 	public number: number;
 	public publicPlace: string;
 	public districtId: number;
+	public lat: number;
+	public lng: number;
 	public district: District;
 
 	constructor(address: any) {
@@ -31,6 +33,8 @@ export class Address {
 		this.number = address.number;
 		this.publicPlace = address.publicPlace;
 		this.districtId = address.districtId;
+		this.lat = address.lat;
+		this.lng = address.lng;
 		this.district = new District(address.district);
 	}
 

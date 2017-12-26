@@ -24,12 +24,17 @@ export class AddressConfigPage {
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
 		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
+
+		let loading = this.utils.loading('Carregando');
+		loading.present();
 		this.utils.getHttp().post('address.php?action=getList', {
 			person_id: this.user.personId
 		}).subscribe(success => {
 			this.address = success.data.map(a => new Address(a));
 			console.log(this.address);
+			loading.dismiss();
 		}, error => {
+			loading.dismiss();
 			this.utils.alert('Erro', 'Erro ao obter os endereços. Tente novamente mais tarde', ['Ok']).present();
 		});
 	}
@@ -40,6 +45,25 @@ export class AddressConfigPage {
 	
 	addAddress() {
 		this.navCtrl.push(MapPage);
+	}
+
+	removeAddress(address: Address) {
+		let loading = this.utils.loading('');
+		loading.present();
+
+		this.utils.getHttp().post('address.php?action=del', {
+
+		}).subscribe(success => {
+			loading.dismiss();
+			this.utils.alert('Sucesso', 'Endereço removido!', ['Ok']).present();
+		}, err => {
+			loading.dismiss();
+			this.utils.alert('Erro', 'Não foi possível remover o endereço. Tente novamente mais tarde.', ['Ok']).present();
+		});
+	}
+
+	editAddress(address: Address) {
+
 	}
 	
 }

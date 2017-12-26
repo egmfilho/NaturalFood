@@ -12,7 +12,7 @@
 							<b class="name">{{getUser().name}}</b>
 							<span class="email">{{getUser().email}}</span>
 							<span class="credits">
-								20 créditos
+								{{getUser().person.getTotalCredit()}} {{getUser().person.getTotalCredit() == 1 ? 'crédito' : 'créditos'}}
 							</span>
 						</ion-col>
 						<ion-col class="see-more" col-auto>

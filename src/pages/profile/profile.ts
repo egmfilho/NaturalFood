@@ -23,7 +23,7 @@ export class ProfilePage {
 	@ViewChild(Content) content: Content;
 	
 	headerRGBA: string;
-	user: any;
+	user: User;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private camera: Camera, private utils: Utils) {
 		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
@@ -93,7 +93,8 @@ export class ProfilePage {
 		this.camera.getPicture(options).then(imageData => {
 			this.sendPicture(imageData).subscribe(success => {
 				console.log(success);
-				this.utils.globals.get(this.utils.constants.USER).imageUrl = success.data.image_uri;
+				this.user.imageUrl = success.data.image_uri;
+				this.utils.globals.set(this.utils.constants.USER, this.user);
 				loading.dismiss();
 			}, error => {
 				console.log(error);
@@ -109,7 +110,7 @@ export class ProfilePage {
 	sendPicture(data: string) {
 		return this.utils.getHttp().post('user.php?action=avatar', {
 			user_avatar: data
-		});
+		})
 	}
 	
 }
