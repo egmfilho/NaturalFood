@@ -24,7 +24,17 @@ export class AddressConfigPage {
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
 		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
+	}
+	
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad AddressesPage');
+	}
 
+	ionViewDidEnter() {
+		this.loadAddresses();
+	}
+
+	loadAddresses() {
 		let loading = this.utils.loading('Carregando');
 		loading.present();
 		this.utils.getHttp().post('address.php?action=getList', {
@@ -39,10 +49,6 @@ export class AddressConfigPage {
 		});
 	}
 	
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad AddressesPage');
-	}
-	
 	addAddress() {
 		this.navCtrl.push(MapPage);
 	}
@@ -55,7 +61,7 @@ export class AddressConfigPage {
 
 		}).subscribe(success => {
 			loading.dismiss();
-			this.utils.alert('Sucesso', 'Endereço removido!', ['Ok']).present();
+			this.loadAddresses();
 		}, err => {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Não foi possível remover o endereço. Tente novamente mais tarde.', ['Ok']).present();
@@ -63,7 +69,9 @@ export class AddressConfigPage {
 	}
 
 	editAddress(address: Address) {
-
+		this.navCtrl.push(MapPage, {
+			address: address
+		});
 	}
 	
 }

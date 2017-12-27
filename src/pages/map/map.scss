@@ -5,7 +5,7 @@ page-map {
 
 	#map_canvas {
 		width: 100%;
-		height: calc(100% - 200px + 64px);
+		height: calc(100% - 260px + 64px);
 		background-color: black;
 		position: relative;
 		margin-top: -64px;
@@ -39,12 +39,16 @@ page-map {
 	}
 
 	.info {
-		height: 250px;
+		height: 260px;
 		position: relative;
 		z-index: 10;
 		box-shadow: 0 0 4px rgba(#000, .3);
 		padding: 14px;
 		background-color: white;
+
+		.button-full {
+			margin-top: 30px;
+		}
 
 		.current-position-button {
 			position: absolute;

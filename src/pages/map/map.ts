@@ -6,6 +6,7 @@ import { Utils } from '../../services/utils.service';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { EditAddressPage } from '../edit-address/edit-address';
+import { Address } from '../../models/address.model';
 
 
 /**
@@ -28,13 +29,16 @@ export class MapPage {
 	map: GoogleMap;
 	mapReady: boolean;
 
-	cep: string;
-	route: string;
-	district: string;
-	city: string;
-	state: string;
+	address: Address;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private statusBar: StatusBar, private modalCtrl: ModalController, private utils: Utils) {
+		this.address = new Address({});
+
+		if (!!this.navParams.data.address) {
+			this.address = new Address(this.navParams.data.address);
+			this.selectLocation();
+		}
+
 		this.mapReady = false;
 	}
 	
@@ -63,12 +67,9 @@ export class MapPage {
 			}
 		};
 
-		console.log(' ### CRIANDO MAPA');
 		this.map = GoogleMaps.create(this.mapElement.nativeElement, mapOptions);
-		console.log(' ### MAPA CRIADO MAS AINDA NAO CARREGADO');
 		this.map.one(GoogleMapsEvent.MAP_READY)
 			.then(() => {
-				console.log(' ### MAPA CARREGADO');
 				this.mapReady = true;
 				this.utils.alert('Aviso', 'Mapa carregado', ['Ok']);
 
@@ -79,20 +80,14 @@ export class MapPage {
 		this.map.on(GoogleMapsEvent.MAP_DRAG_END)
 			.subscribe(data => {
 				var coords = this.map.getCameraPosition().target;
+				this.address.lat = coords.lat;
+				this.address.lng = coords.lng;
 				this.getGoogleInfo(coords.lat, coords.lng);
 			});
 	}
 
 	getLocality() {
-		return {
-			lat: this.mapReady ? this.map.getCameraPosition().target.lat : 0,
-			lng: this.mapReady ? this.map.getCameraPosition().target.lng : 0,
-			cep: this.cep || 'Indisponível',
-			route: this.route || 'Indisponível',
-			district: this.district || 'Indisponível',
-			city: this.city || 'Indisponível',
-			state: this.state || 'Indisponível'
-		}
+		return this.address;
 	}
 
 	getGoogleInfo(lat, lng) {
@@ -109,24 +104,24 @@ export class MapPage {
 
 			if (results.length) {
 				var components: Array<any> = results[0]['address_components'];
-console.log(JSON.stringify(components));
+
 				components.forEach(c => {
 					if (c.types.find(t => t == 'route')) {
-						this.route = c.long_name;
+						this.address.publicPlace = c.long_name;
 					} else if (c.types.find(t => t == 'postal_code')) { 
-						this.cep = c.long_name;
+						this.address.cep = c.long_name;
 					} else if (c.types.find(t => t == 'sublocality_level_1')) {
-						this.district = c.long_name;
+						this.address.district.name = c.long_name;
 					} else if (c.types.find(t => t == 'administrative_area_level_2')) {
-						this.city = c.long_name;
+						this.address.district.city.name = c.long_name;
 					} else if (c.types.find(t => t == 'administrative_area_level_1')) {
-						this.state = c.long_name;
+						this.address.district.city.uf.name = c.long_name;
 					}
 				});
 
 			} else {
 				console.log('### NENHUM ENDEREÇO ENCONTRADO');
-				this.route = '';
+				this.address = new Address({});
 			}
 			loading.dismiss();
 		}, err => {
@@ -149,17 +144,16 @@ console.log(JSON.stringify(components));
 	}
 
 	selectLocation() {
-		var modal = this.modalCtrl.create(EditAddressPage, this.getLocality());
+		var modal = this.modalCtrl.create(EditAddressPage, {
+			address: this.address
+		});
 
 		modal.present();
-	}
-
-	isValid() {
-
-	}
-
-	onSubmit() {
-
+		modal.onDidDismiss(data => {
+			if (!!data.sucess) {
+				this.navCtrl.pop();
+			}
+		});
 	}
 	
 }

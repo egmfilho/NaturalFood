@@ -33,8 +33,8 @@ export class Address {
 		this.number = address.number;
 		this.publicPlace = address.publicPlace;
 		this.districtId = address.districtId;
-		this.lat = address.lat;
-		this.lng = address.lng;
+		this.lat = address.lat || 0;
+		this.lng = address.lng || 0;
 		this.district = new District(address.district);
 	}
 
