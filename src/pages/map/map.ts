@@ -73,8 +73,11 @@ export class MapPage {
 				this.mapReady = true;
 				this.utils.alert('Aviso', 'Mapa carregado', ['Ok']);
 
-				// this.map.setMyLocationEnabled(true);
-				this.goToDeviceLocation();
+				if (this.address.lat == 0 && this.address.lng == 0) {
+					this.goToDeviceLocation();
+				} else {
+					this.map.setCameraTarget({ lat: this.address.lat, lng: this.address.lng });	
+				}
 			});
 
 		this.map.on(GoogleMapsEvent.MAP_DRAG_END)
@@ -150,7 +153,7 @@ export class MapPage {
 
 		modal.present();
 		modal.onDidDismiss(data => {
-			if (!!data.sucess) {
+			if (data) {
 				this.navCtrl.pop();
 			}
 		});

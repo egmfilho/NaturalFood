@@ -5,6 +5,7 @@ import { Utils } from '../../services/utils.service';
 import { District } from '../../models/district.model';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { Address } from '../../models/address.model';
+import { User } from '../../models/user.model';
 
 /**
  * Generated class for the EditAddressPage page.
@@ -20,11 +21,13 @@ import { Address } from '../../models/address.model';
 })
 export class EditAddressPage {
 	
+	user: User;
 	addressForm: FormGroup;
 	address: Address;
 	districtArray: District[];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private utils: Utils) {
+		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
 		this.address = new Address(this.navParams.data.address);
 		this.initForm();
 		this.getCityDistricts(this.address.district.city.name);
@@ -36,6 +39,10 @@ export class EditAddressPage {
 
 	initForm() {
 		this.addressForm = new FormGroup({
+			'address_id': new FormControl(this.address.id, []),
+			'person_id': new FormControl(this.user.personId),
+			'address_lat': new FormControl(this.address.lat),
+			'address_lng': new FormControl(this.address.lng),
 			'address_cep': new FormControl(this.address.cep, [
 				Validators.required,
 				Validators.pattern(/^[0-9]{5}-[0-9]{3}$/)
@@ -82,12 +89,15 @@ export class EditAddressPage {
 		let loading = this.utils.loading('Enviando...');
 		loading.present();
 
-		this.utils.getHttp().post('address.php?action=insert', this.addressForm.value).subscribe(success => {
+		var action = this.address.id ? 'edit' : 'insert';
+		this.utils.getHttp().post(`address.php?action=${action}`, this.addressForm.value).subscribe(success => {
 			loading.dismiss();
-			this.dismiss({ success: true});
+			this.dismiss(true);
 		}, err => {
 			loading.dismiss();
-			this.utils.alert('Erro', 'Não foi possível adicionar o endereço. Tente novamente mais tarde.', ['Ok']).present();
+			this.utils.alert('Erro', 'Não foi possível salvar o endereço. Tente novamente mais tarde.', ['Ok']).present();
+			console.clear();
+			console.log(JSON.stringify(err));
 		})
 	}
 

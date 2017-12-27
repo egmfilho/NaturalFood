@@ -21,8 +21,6 @@
 
 <ion-content padding>
 
-		<button type="button" ion-button outline block (click)="dismiss()">Voltar para o mapa</button>
-		<br>
 		<form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
 			<ion-list>
 				<ion-item>
@@ -58,7 +56,10 @@
 				</ion-item>
 			</ion-list>
 
-			<button type="submit" ion-button block [disabled]="!isValid()">Adicionar</button>
+			<button type="submit" ion-button block [disabled]="!isValid()">Salvar</button>
 		</form>
+
+		<br>
+		<button type="button" ion-button outline block (click)="dismiss()">Cancelar</button>
 	
 </ion-content>

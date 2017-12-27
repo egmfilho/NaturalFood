@@ -54,18 +54,29 @@ export class AddressConfigPage {
 	}
 
 	removeAddress(address: Address) {
-		let loading = this.utils.loading('');
-		loading.present();
+		var buttons = [{
+			text: 'Sim',
+			handler: () => {
+				let loading = this.utils.loading('');
+				loading.present();
 
-		this.utils.getHttp().post('address.php?action=del', {
+				this.utils.getHttp().post('address.php?action=del', {
+					address_id: address.id,
+					person_id: this.user.personId
+				}).subscribe(success => {
+					loading.dismiss();
+					this.loadAddresses();
+				}, err => {
+					loading.dismiss();
+					this.utils.alert('Erro', 'Não foi possível remover o endereço. Tente novamente mais tarde.', ['Ok']).present();
+				});
+			}
+		}, {
+			text: 'Não',
+			role: 'cancel'
+		}];
 
-		}).subscribe(success => {
-			loading.dismiss();
-			this.loadAddresses();
-		}, err => {
-			loading.dismiss();
-			this.utils.alert('Erro', 'Não foi possível remover o endereço. Tente novamente mais tarde.', ['Ok']).present();
-		});
+		this.utils.alert('Aviso', 'Deseja remover o endereço?', buttons).present();
 	}
 
 	editAddress(address: Address) {
