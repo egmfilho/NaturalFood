@@ -114,6 +114,10 @@ page-profile {
 				i.fa {
 					font-size: 22px;
 					width: 32px;
+
+					&.fa-map-marker {
+						font-size: 28px;
+					}
 				}
 			}
 		}

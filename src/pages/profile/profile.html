@@ -124,11 +124,11 @@
 		</ion-item-group>
 		
 		<ion-item-group>
-			<ion-item-divider color="light">Endereço principal</ion-item-divider>
+			<ion-item-divider color="light">Endereços</ion-item-divider>
 			
-			<ion-item>
-				<i class="fa fa-map-o" item-start></i>
-				<span item-end>{{user.person.getMainAddress().toString()}}</span>
+			<ion-item *ngFor="let a of user.person.address">
+				<i class="fa fa-map-marker" item-start></i>
+				<span item-end>{{a.toString()}}</span>
 			</ion-item>
 		</ion-item-group>
 	</div>

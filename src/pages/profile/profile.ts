@@ -5,6 +5,8 @@ import { Camera } from '@ionic-native/camera';
 import { Utils } from './../../services/utils.service';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { User } from '../../models/user.model';
+import { Address } from '../../models/address.model';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 
 /**
  * Generated class for the ProfilePage page.
@@ -25,12 +27,17 @@ export class ProfilePage {
 	headerRGBA: string;
 	user: User;
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private camera: Camera, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private modalCtrl: ModalController, private camera: Camera, private utils: Utils) {
 		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
+		this.getAddresses();
 	}
 	
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad EditProfilePage');
+		
+	}
+
+	ionViewWillLeave() {
+		
 	}
 
 	ngAfterViewInit() {
@@ -47,8 +54,24 @@ export class ProfilePage {
 		return `url(${avatar})`;
 	}
 
+	getAddresses() {
+		let loading = this.utils.loading('Carregando endereços');
+		loading.present();
+
+		this.utils.getHttp().post('address.php?action=getList', {
+			person_id: this.user.personId
+		}).subscribe(success => {
+			this.user.person.address = success.data.map(a => new Address(a));
+			loading.dismiss();
+		}, error => {
+			loading.dismiss();
+			this.utils.alert('Erro', 'Erro ao obter os endereços. Tente novamente mais tarde', ['Ok']).present();
+		});
+	}
+
 	editProfile() {
-		this.navCtrl.push(EditProfilePage);
+		var modal = this.modalCtrl.create(EditProfilePage);
+		modal.present();
 	}
 
 	selectFromSource() {
@@ -97,7 +120,7 @@ export class ProfilePage {
 				this.utils.globals.set(this.utils.constants.USER, this.user);
 				loading.dismiss();
 			}, error => {
-				console.log(error);
+				console.log(JSON.stringify(error));
 				loading.dismiss();
 				this.utils.alert('Erro', error.error.description, ['Ok']).present();
 			});
@@ -110,7 +133,7 @@ export class ProfilePage {
 	sendPicture(data: string) {
 		return this.utils.getHttp().post('user.php?action=avatar', {
 			user_avatar: data
-		})
+		});
 	}
 	
 }

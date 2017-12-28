@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Utils } from '../../services/utils.service';
 import { User } from '../../models/user.model';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
 
 /**
  * Generated class for the EditProfilePage page.
@@ -21,7 +22,7 @@ export class EditProfilePage {
 	editForm: FormGroup;
 	user: User;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private utils: Utils) {
 		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
 	}
 	
@@ -50,6 +51,10 @@ export class EditProfilePage {
 				Validators.required
 			])
 		});
+	}
+
+	dismiss() {
+		this.viewCtrl.dismiss();
 	}
 
 	onSubmit() {
