@@ -15,4 +15,5 @@ export class Constants {
 	public TOKEN: string = 'token';
 	public USER: string = 'user';
 	public ERROR_MESSAGE: string = 'errorMessage';
+	public BASE64_AVATAR: string = 'base64-Avatar';
 }

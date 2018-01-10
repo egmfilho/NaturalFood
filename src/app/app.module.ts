@@ -50,6 +50,7 @@ import { Globals } from './../services/globals.service';
 import { Utils } from './../services/utils.service';
 import { BasketService } from './../services/basket.service';
 import { FoodFilterPipe } from '../pipes/food-filter.pipe';
+import { SafePipe } from '../pipes/safe-pipe.pipe';
 import { InputMaskDirective } from '../directives/input-mask.directive';
 import { AddressConfigPage } from '../pages/address-config/address-config';
 
@@ -79,6 +80,7 @@ import { AddressConfigPage } from '../pages/address-config/address-config';
 		FoodCardComponent,
 		BasketComponent,
 		FoodFilterPipe,
+		SafePipe,
 		InputMaskDirective
 	],
 	imports: [

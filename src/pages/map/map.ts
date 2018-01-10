@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, LatLng } from '@ionic-native/google-maps';
 import { Utils } from '../../services/utils.service';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
@@ -28,7 +28,7 @@ export class MapPage {
 
 	map: GoogleMap;
 	mapReady: boolean;
-
+	startCoords: LatLng;
 	address: Address;
 	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private statusBar: StatusBar, private modalCtrl: ModalController, private utils: Utils) {
@@ -36,6 +36,7 @@ export class MapPage {
 
 		if (!!this.navParams.data.address) {
 			this.address = new Address(this.navParams.data.address);
+			this.startCoords = new LatLng(this.address.lat, this.address.lng);
 			this.selectLocation();
 		}
 
@@ -73,10 +74,13 @@ export class MapPage {
 				this.mapReady = true;
 				this.utils.alert('Aviso', 'Mapa carregado', ['Ok']);
 
-				if (this.address.lat == 0 && this.address.lng == 0) {
+				console.log('#################################################');
+				console.log(JSON.stringify(this.startCoords));
+				console.log('#################################################');
+				if (!this.startCoords) {
 					this.goToDeviceLocation();
 				} else {
-					this.map.setCameraTarget({ lat: this.address.lat, lng: this.address.lng });	
+					this.map.setCameraTarget(this.startCoords);	
 				}
 			});
 
@@ -137,7 +141,6 @@ export class MapPage {
 		if (this.mapReady) {
 			this.map.getMyLocation()
 				.then(location => {
-					console.log(JSON.stringify(location));
 					this.map.setCameraTarget(location.latLng);
 					this.getGoogleInfo(location.latLng.lat, location.latLng.lng);
 				}, err => {

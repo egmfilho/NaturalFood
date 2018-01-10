@@ -61,6 +61,7 @@ export class AutoLoginPage {
 			user_user: username,
 			user_pass: password
 		}).subscribe(success => {
+			// console.log(JSON.stringify(success.data));
 			this.utils.globals.getPersistent(this.utils.constants.RECEIVE_NOTIFICATIONS).then(res => {
 				if (!!res) this.utils.setPushNotification();
 			});
@@ -69,14 +70,13 @@ export class AutoLoginPage {
 			this.utils.globals.setInternal(this.utils.constants.TOKEN, user.id + ':'  + success.data.user_current_session.user_session_value);
 			this.utils.globals.set(this.utils.constants.USER, user);
 
-			this.utils.getBase64Image(user.imageUrl).then(res => {
-				this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
-					avatar: res || '',
-					name: user.name,
-					username: username,
-					password: password
-				});
+			this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
+				avatar: user.imageData,
+				name: user.name,
+				username: username,
+				password: password
 			});
+
 			loading.dismiss();
 			this.isLoading = false;
 			this.navCtrl.setRoot(FoodListPage);

@@ -22,7 +22,7 @@
 		<button ion-item (click)="openProfile()">
 			<ion-avatar item-start>
 				<ion-icon name="contact" *ngIf="!user.imageUrl"></ion-icon>
-				<img [src]="user.imageUrl" *ngIf="user.imageUrl" alt="">
+				<img [src]="getAvatar() | safe" *ngIf="user.imageUrl" alt="">
 			</ion-avatar>
 			<h2>{{user.name}}</h2>
 			<h3>Plano {{user.plan.name}}</h3>

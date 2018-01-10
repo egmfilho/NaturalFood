@@ -103,7 +103,7 @@ export class Utils {
 								user_device_id: id
 							});
 			
-							prompt('Registration ID', id);
+							// prompt('Registration ID', id);
 						});		
 					} else {
 						this.alert('Permissão de notificações', 'A permissão para o recebimento de notificações está desativada. Ative-a nos ajustes do aparelho para receber notificações e alertas do Natural Food.', ['ok']).present();
@@ -121,24 +121,8 @@ export class Utils {
 		return null;
 	}
 
-	getBase64Image(imgUrl): Promise<string> {
-		return new Promise<string>(resolve => {
-			var img = new Image();
-			img.setAttribute('crossOrigin', 'anonymous');
-			img.src = imgUrl;
-			img.onload = (() => {
-				var canvas = document.createElement("canvas");
-				canvas.width = img.width;
-				canvas.height = img.height;
-				var ctx = canvas.getContext("2d");
-				ctx.drawImage(img, 0, 0);
-				var dataURL = canvas.toDataURL("image/png");
-				// console.log('UgetBase64Image.dataURL ', dataURL);
-				// resolve(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-				resolve(dataURL);
-			});
-		});
+	getRandom() {
+		return Math.random();
 	}
 	  
-
 }

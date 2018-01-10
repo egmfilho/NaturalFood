@@ -49,6 +49,8 @@ export class Address {
 			isMain: address.address_main == 'Y',
 			number: address.address_number,
 			publicPlace: address.address_public_place,
+			lat: address.address_lat ? parseFloat(address.address_lat) : 0,
+			lng: address.address_lng ? parseFloat(address.address_lng) : 0,
 			districtId: address.district_id,
 			district: address.district
 		}

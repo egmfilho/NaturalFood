@@ -83,9 +83,17 @@ export class MyApp {
 	getUser() {
 		if (!this.user) {
 			var u = new User(this.utils.globals.get(this.utils.constants.USER));
-			if (u && u.id) this.user = u;
+			if (u && u.id) {
+				this.user = u;
+				this.user.imageUrl += '?x=' + this.utils.getRandom();
+			};
 		}
 
 		return this.user;
 	}
+
+	getAvatar() {
+		return this.utils.globals.get(this.utils.constants.USER).imageData;
+	}
+
 }

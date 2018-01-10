@@ -38,6 +38,14 @@ export class PreferencesPage {
 		console.log('ionViewDidLoad PreferencesPage');
 	}
 
+	ionViewDidEnter() {
+		this.user.imageUrl += '?x=' + this.utils.getRandom();
+	}
+
+	getAvatar() {
+		return this.utils.globals.get(this.utils.constants.USER).imageData;
+	}
+
 	openAgreement() {
 		let loading = this.utils.loading('Carregando');
 		loading.present();

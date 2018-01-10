@@ -6,7 +6,7 @@
 					<ion-row>
 						<ion-col class="avatar" col-auto>
 							<ion-icon name="contact" *ngIf="!getUser().imageUrl"></ion-icon>
-							<img [src]="getUser().imageUrl" *ngIf="getUser().imageUrl"/>
+							<img [src]="getAvatar() | safe" *ngIf="getUser().imageUrl"/>
 						</ion-col>
 						<ion-col class="info">
 							<b class="name">{{getUser().name}}</b>

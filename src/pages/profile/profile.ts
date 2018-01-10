@@ -7,6 +7,7 @@ import { EditProfilePage } from '../edit-profile/edit-profile';
 import { User } from '../../models/user.model';
 import { Address } from '../../models/address.model';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the ProfilePage page.
@@ -27,7 +28,7 @@ export class ProfilePage {
 	headerRGBA: string;
 	user: User;
 	
-	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private modalCtrl: ModalController, private camera: Camera, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private changeDetector: ChangeDetectorRef, private actionSheet: ActionSheetController, private modalCtrl: ModalController, private sanitizer: DomSanitizer, private camera: Camera, public utils: Utils) {
 		this.user = new User(this.utils.globals.get(this.utils.constants.USER));
 		this.getAddresses();
 	}
@@ -36,8 +37,8 @@ export class ProfilePage {
 		
 	}
 
-	ionViewWillLeave() {
-		
+	ionViewDidEnter() {
+		this.user.imageUrl += '?x=' + this.utils.getRandom();
 	}
 
 	ngAfterViewInit() {
@@ -49,9 +50,12 @@ export class ProfilePage {
 	}
 
 	getAvatar() {
-		var avatar = this.user.imageUrl || 'assets/images/no-pic.png';
+		// var avatar = this.user.imageUrl || 'assets/images/no-pic.png';
 
-		return `url(${avatar})`;
+		var avatar = this.utils.globals.get(this.utils.constants.USER).imageData;
+		// avatar = this.sanitizer.bypassSecurityTrustResourceUrl(avatar);
+		return this.sanitizer.bypassSecurityTrustStyle(`url(${avatar})`);
+		// return `url('${avatar}')`;
 	}
 
 	getAddresses() {
@@ -114,16 +118,19 @@ export class ProfilePage {
 
 		loading.present();
 		this.camera.getPicture(options).then(imageData => {
-			this.sendPicture(imageData).subscribe(success => {
-				console.log(success);
-				this.user.imageUrl = success.data.image_uri;
+			// this.sendPicture(imageData).subscribe(success => {
+				console.log(imageData);
+				this.user.imageData = 'data:image/png;base64,' + imageData;
+				// this.user.imageUrl = success.data.image_uri + 'small.jpg';
 				this.utils.globals.set(this.utils.constants.USER, this.user);
+				this.changeDetector.detectChanges();
+				
 				loading.dismiss();
-			}, error => {
-				console.log(JSON.stringify(error));
-				loading.dismiss();
-				this.utils.alert('Erro', error.error.description, ['Ok']).present();
-			});
+			// }, error => {
+			// 	console.log(JSON.stringify(error));
+			// 	loading.dismiss();
+			// 	this.utils.alert('Erro', error.error.description, ['Ok']).present();
+			// });
 		}, err => {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Não foi possível carregar a imagem.', ['OK']).present();

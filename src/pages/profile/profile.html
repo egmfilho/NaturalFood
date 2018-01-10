@@ -126,9 +126,15 @@
 		<ion-item-group>
 			<ion-item-divider color="light">Endereços</ion-item-divider>
 			
-			<ion-item *ngFor="let a of user.person.address">
-				<i class="fa fa-map-marker" item-start></i>
-				<span item-end>{{a.toString()}}</span>
+			<ng-container *ngIf="user.person.address.length">
+				<ion-item *ngFor="let a of user.person.address">
+					<i class="fa fa-map-marker" item-start></i>
+					<span item-end>{{a.toString()}}</span>
+				</ion-item>
+			</ng-container>
+
+			<ion-item *ngIf="!user.person.address.length">
+				<span style="display: block; text-align: center">Nenhum endereço cadastrado</span>
 			</ion-item>
 		</ion-item-group>
 	</div>

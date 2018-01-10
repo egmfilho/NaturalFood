@@ -16,8 +16,8 @@
 <ion-content fullscreen no-bounce>
 
 	<div #mapCanvas id="map_canvas">
-		<span class="marker-v"></span>
-		<span class="marker-h"></span>
+		<span class="marker-v" *ngIf="mapReady"></span>
+		<span class="marker-h" *ngIf="mapReady"></span>
 		<p *ngIf="mapReady">
 			{{getLocality().lat}}
 			<br>
