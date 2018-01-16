@@ -14,6 +14,7 @@ import { ListPage } from '../pages/list/list';
 import { ProfilePage } from '../pages/profile/profile';
 import { PreferencesPage } from '../pages/preferences/preferences';
 import { User } from '../models/user.model';
+import { HeaderColor } from '@ionic-native/header-color';
 
 @Component({
 	templateUrl: 'app.html'
@@ -27,7 +28,7 @@ export class MyApp {
 
 	user: User;
 	
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private utils: Utils) {
+	constructor(public platform: Platform, public statusBar: StatusBar, public headerColor: HeaderColor, public splashScreen: SplashScreen, private utils: Utils) {
 		this.initializeApp();
 		
 		// used for an example of ngFor and navigation
@@ -45,6 +46,7 @@ export class MyApp {
 			// Here you can do any higher level native things you might need.
 			this.statusBar.styleLightContent();
 			this.statusBar.backgroundColorByHexString('#162f0a');
+			this.headerColor.tint('#1e3f0d');
 
 			// this.utils.globals.setInternal('api', prompt('API', this.utils.globals.getInternal('api')));
 

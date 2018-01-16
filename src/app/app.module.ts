@@ -39,6 +39,7 @@ import { OrderSummaryPage } from '../pages/order-summary/order-summary';
 import { EditAddressPage } from '../pages/edit-address/edit-address';
 
 import { StatusBar } from '@ionic-native/status-bar';
+import { HeaderColor } from '@ionic-native/header-color';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { CategoryCardComponent } from './../components/category-card/category-card';
@@ -126,6 +127,7 @@ import { AddressConfigPage } from '../pages/address-config/address-config';
 	],
 	providers: [
 		StatusBar,
+		HeaderColor,
 		SplashScreen,
 		Camera,
 		FingerprintAIO,

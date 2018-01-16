@@ -21,6 +21,32 @@ page-food-list {
 		}
 	}
 
+	.no-food-text {
+		height: 200px;
+		margin: auto;
+		text-align: center;
+		font-size: 1.9em;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		/* Shadows are visible under slightly transparent text color */
+		$color: darken(#cdcdcd, 20%);
+		color: rgba($color, .5);
+		text-shadow: 1px 2px 4px #e2e2e2, 0 0 0 #444, 1px 2px 4px #e2e2e2;
+
+		i.fa {
+			font-size: 2.5em;
+		}
+
+		p {
+			margin-top: 40px;
+			font-weight: 500;
+		}
+	}
+
 	ion-card {
 		.picture {
 			width: 100%;

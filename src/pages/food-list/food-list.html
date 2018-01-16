@@ -28,7 +28,16 @@
 
 <ion-content>
 	
-	<food-card *ngFor="let food of foods | foodFilter:searchQuery:selectedTabId" [food]="food" [selectCallback]="selectFood"></food-card>
+	<div class="no-food-text" *ngIf="!foods.length">
+		<i class="fa fa-cutlery"></i>
+		<p>
+			Nenhum prato disponível
+		</p>
+	</div>
+
+	<ng-container *ngIf="foods.length">
+		<food-card *ngFor="let food of foods | foodFilter:searchQuery:selectedTabId" [food]="food" [selectCallback]="selectFood"></food-card>
+	</ng-container>
 
 </ion-content>
 

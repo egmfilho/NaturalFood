@@ -8,7 +8,17 @@
 </ion-header>
 
 <ion-content>
+
 	<ion-list>
+		<button ion-item>
+			<ion-icon name="alert" item-left></ion-icon>
+			<div class="item-note">
+				Nenhum pedido realizado ainda
+			</div>
+		</button>
+	</ion-list>
+
+	<!-- <ion-list>
 		<button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
 			<ion-icon [name]="item.icon" item-left></ion-icon>
 			{{item.title}}
@@ -19,5 +29,5 @@
 	</ion-list>
 	<div *ngIf="selectedItem" padding>
 		You navigated here from <b>{{selectedItem.title}}</b>
-	</div>
+	</div> -->
 </ion-content>

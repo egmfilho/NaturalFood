@@ -53,9 +53,7 @@ export class ProfilePage {
 		// var avatar = this.user.imageUrl || 'assets/images/no-pic.png';
 
 		var avatar = this.utils.globals.get(this.utils.constants.USER).imageData;
-		// avatar = this.sanitizer.bypassSecurityTrustResourceUrl(avatar);
 		return this.sanitizer.bypassSecurityTrustStyle(`url(${avatar})`);
-		// return `url('${avatar}')`;
 	}
 
 	getAddresses() {
@@ -118,7 +116,7 @@ export class ProfilePage {
 
 		loading.present();
 		this.camera.getPicture(options).then(imageData => {
-			// this.sendPicture(imageData).subscribe(success => {
+			this.sendPicture(imageData).subscribe(success => {
 				console.log(imageData);
 				this.user.imageData = 'data:image/png;base64,' + imageData;
 				// this.user.imageUrl = success.data.image_uri + 'small.jpg';
@@ -126,11 +124,11 @@ export class ProfilePage {
 				this.changeDetector.detectChanges();
 				
 				loading.dismiss();
-			// }, error => {
-			// 	console.log(JSON.stringify(error));
-			// 	loading.dismiss();
-			// 	this.utils.alert('Erro', error.error.description, ['Ok']).present();
-			// });
+			}, error => {
+				console.log(JSON.stringify(error));
+				loading.dismiss();
+				this.utils.alert('Erro', error.error.description, ['Ok']).present();
+			});
 		}, err => {
 			loading.dismiss();
 			this.utils.alert('Erro', 'Não foi possível carregar a imagem.', ['OK']).present();

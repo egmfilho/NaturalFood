@@ -33,6 +33,7 @@ export class FoodListPage {
 	constructor(public navCtrl: NavController, public navParams: NavParams, private statusBar: StatusBar, private basket: BasketService, private utils: Utils) {
 		// this.category = navParams.get('category') as Category;
 		this.plans = [];
+		this.foods = [];
 		this.selectedTabId = 0;
 	}
 	
@@ -70,6 +71,9 @@ export class FoodListPage {
 		this.utils.getHttp().get('product.php?action=getList').subscribe(success => {
 			this.foods = success.data.map(n => new Food(n));
 			loading.dismiss();
+			if (!this.foods.length) {
+				this.utils.alert('Aviso', 'No momento estamos sem pratos disponíveis.', ['Ok']).present();
+			}
 		}, error => {
 			loading.dismiss();
 		});
