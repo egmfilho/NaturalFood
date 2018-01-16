@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.futuraagencia.naturalfood" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.futuraagencia.naturalfood" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Natural Food</name>
     <description>Aplicativo de delivery Natural Food.</description>
     <author href="http://futuraagencia.com.br/">Futura Agência</author>

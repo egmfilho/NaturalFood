@@ -8,6 +8,7 @@ import { FoodListPage } from '../food-list/food-list';
 import { RegisterPage } from './../register/register';
 import { Utils } from '../../services/utils.service';
 import { User } from '../../models/user.model';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 
 @IonicPage()
 @Component({
@@ -22,13 +23,14 @@ export class LoginPage {
 
 	private canFingerprint;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private statusBar: StatusBar, private fingerPrint: FingerprintAIO, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private statusBar: StatusBar, private menuController: MenuController, private fingerPrint: FingerprintAIO, private utils: Utils) {
 		this.isLoading = false;
 		this.canFingerprint = false;
 	}
 
 	ionViewDidEnter() {
 		this.statusBar.overlaysWebView(true);
+		this.menuController.swipeEnable(false);
 
 		/* Login via impressao digital */
 		// if (this.utils.platform.is('cordova')) {
@@ -36,6 +38,11 @@ export class LoginPage {
 		// 		this.logInUsingFingerprint();
 		// 	})
 		// }
+	}
+
+	ionViewWillLeave() {
+		this.statusBar.overlaysWebView(false);
+		this.menuController.swipeEnable(true);
 	}
 
 	showFingerprint() {
@@ -94,12 +101,11 @@ export class LoginPage {
 					username: username,
 					password: password
 				});
+
+				loading.dismiss();
+				this.isLoading = false;
+				this.navCtrl.setRoot(FoodListPage);
 			});
-
-
-			loading.dismiss();
-			this.isLoading = false;
-			this.navCtrl.setRoot(FoodListPage);
 		}, error => {
 			loading.dismiss();
 			let title, msg;

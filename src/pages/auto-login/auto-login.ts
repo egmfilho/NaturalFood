@@ -6,6 +6,7 @@ import { LoginPage } from '../login/login';
 import { User } from '../../models/user.model';
 import { FoodListPage } from '../food-list/food-list';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 
 /**
  * Generated class for the AutoLoginPage page.
@@ -27,7 +28,7 @@ export class AutoLoginPage {
 	password: string;
 	isLoading: boolean;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public viewController: ViewController, private statusBar: StatusBar, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public viewController: ViewController, private menuController: MenuController, private statusBar: StatusBar, private utils: Utils) {
 		this.avatar = 'url(\'assets/images/no-pic.png\')';
 
 		this.utils.globals.getPersistent(this.utils.constants.CREDENTIALS)
@@ -46,6 +47,12 @@ export class AutoLoginPage {
 	
 	ionViewDidLoad() {
 		this.statusBar.overlaysWebView(true);
+		this.menuController.swipeEnable(false);
+	}
+
+	ionViewWillLeave() {
+		this.statusBar.overlaysWebView(false);
+		this.menuController.swipeEnable(true);
 	}
 
 	useAnotherAccount() {
@@ -55,9 +62,7 @@ export class AutoLoginPage {
 		this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS)
 			.then((success) => {
 				loading.present();
-				this.navCtrl.push(LoginPage).then(res => {
-					this.navCtrl.removeView(this.viewController);
-				});
+				this.navCtrl.setRoot(LoginPage);
 			}, (err) => {
 				loading.present();
 				this.utils.alert('Erro', err, ['Ok']);
@@ -90,11 +95,11 @@ export class AutoLoginPage {
 					username: username,
 					password: password
 				});
-			});
 
-			loading.dismiss();
-			this.isLoading = false;
-			this.navCtrl.setRoot(FoodListPage);
+				loading.dismiss();
+				this.isLoading = false;
+				this.navCtrl.setRoot(FoodListPage);
+			});
 		}, error => {
 			loading.dismiss();
 			let title, msg;

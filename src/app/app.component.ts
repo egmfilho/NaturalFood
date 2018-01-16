@@ -44,6 +44,7 @@ export class MyApp {
 		this.platform.ready().then(() => {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
+			this.statusBar.show();
 			this.statusBar.styleLightContent();
 			this.statusBar.backgroundColorByHexString('#162f0a');
 			this.headerColor.tint('#1e3f0d');
