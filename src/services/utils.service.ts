@@ -124,5 +124,22 @@ export class Utils {
 	getRandom() {
 		return Math.random();
 	}
+
+	imageUrlToUri(imageUrl: string) {
+		return new Promise<string>((resolve, reject) => {
+			if (!imageUrl) resolve('');
+
+			var http = new XMLHttpRequest();
+			http.open('GET', imageUrl, true);
+			http.responseType = 'arraybuffer';
+			http.onload = function(e) {
+				var arr = new Uint8Array(http.response);
+				var raw = String.fromCharCode.apply(null, arr);
+				var b64 = window.btoa(raw);
+				resolve('data:image/png;base64,' + b64);
+			};
+			http.send();
+		});
+	}
 	  
 }

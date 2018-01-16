@@ -79,14 +79,17 @@ export class AutoLoginPage {
 			});
 
 			var user = new User(success.data);
-			this.utils.globals.setInternal(this.utils.constants.TOKEN, user.id + ':'  + success.data.user_current_session.user_session_value);
-			this.utils.globals.set(this.utils.constants.USER, user);
-
-			this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
-				avatar: user.imageData,
-				name: user.name,
-				username: username,
-				password: password
+			this.utils.imageUrlToUri(user.imageUrl).then((uri) => {
+				if (uri && uri.length)
+					user.imageData = uri;
+				this.utils.globals.setInternal(this.utils.constants.TOKEN, user.id + ':'  + success.data.user_current_session.user_session_value);
+				this.utils.globals.set(this.utils.constants.USER, user);
+				this.utils.globals.setPersistent(this.utils.constants.CREDENTIALS, {
+					avatar: user.imageData,
+					name: user.name,
+					username: username,
+					password: password
+				});
 			});
 
 			loading.dismiss();
