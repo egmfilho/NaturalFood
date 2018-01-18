@@ -15,7 +15,7 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 @IonicPage()
 @Component({
 	selector: 'page-edit-profile',
-	templateUrl: 'edit-profile.html'
+	templateUrl: 'edit-profile.html',
 })
 export class EditProfilePage {
 
@@ -45,7 +45,7 @@ export class EditProfilePage {
 			]),
 			'person_rg': new FormControl(this.user.person.rg, [
 				Validators.required,
-				Validators.pattern(/^[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}$/)
+				Validators.pattern(/^[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{1}$/)
 			]),
 			'person_gender': new FormControl(this.user.person.gender, [
 				Validators.required

@@ -52,7 +52,7 @@ import { Utils } from './../services/utils.service';
 import { BasketService } from './../services/basket.service';
 import { FoodFilterPipe } from '../pipes/food-filter.pipe';
 import { SafePipe } from '../pipes/safe-pipe.pipe';
-import { InputMaskDirective } from '../directives/input-mask.directive';
+import { InputMask } from '../directives/input-mask.directive';
 import { AddressConfigPage } from '../pages/address-config/address-config';
 
 @NgModule({
@@ -82,7 +82,7 @@ import { AddressConfigPage } from '../pages/address-config/address-config';
 		BasketComponent,
 		FoodFilterPipe,
 		SafePipe,
-		InputMaskDirective
+		InputMask
 	],
 	imports: [
 		BrowserModule,

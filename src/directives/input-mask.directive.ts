@@ -1,80 +1,76 @@
-/*
- * @Author: egmfilho &lt;egmfilho@live.com&gt; 
- * @Date: 2017-11-23 16:27:18 
- * @Last Modified by: egmfilho
- * @Last Modified time: 2017-11-23 16:54:27
- */
-
-import { Directive, HostListener, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Directive, Attribute  } from '@angular/core';
 
 @Directive({
-	selector: '[inputMask]',
-	providers: [{
-		provide: NG_VALUE_ACCESSOR,
-		useExisting: InputMaskDirective,
-		multi: true
-	}]
+	selector: '[mask]',
+	host: {
+		'(keyup)': 'onInputChange($event)'
+	}
 })
-export class InputMaskDirective implements ControlValueAccessor {
+export class InputMask  {
 	
-	onTouched: any;
-	onChange: any;
-
-	@Input('inputMask') inputMask: string;
-
-	writeValue(value: any): void {
-
+	pattern: string;
+	
+	constructor( @Attribute('mask') pattern: string ) {
+		this.pattern = pattern;
 	}
-
-	registerOnChange(fn: any): void {
-		this.onChange = fn;
-	}
-
-	registerOnTouched(fn: any): void {
-		this.onTouched = fn;
-	}
-
-	@HostListener('keyup', ['$event'])
-	onKeyup($event: any) {
-		var valor = $event.target.value.replace(/\D/g, '');
-		var pad = this.inputMask.replace(/\D/g, '').replace(/9/g, '_');
-		var valorMask = valor + pad.substring(0, pad.length - valor.length);
-
-		// retorna caso pressionado backspace
-		if ($event.keyCode === 8) {
-			this.onChange(valor);
-			return;
-		}
-
-		if (valor.length <= pad.length) {
-			this.onChange(valor);
-		}
-
-		var valorMaskPos = 0;
-		valor = '';
-		for (var i = 0; i < this.inputMask.length; i++) {
-			if (isNaN(parseInt(this.inputMask.charAt(i)))) {
-				valor += this.inputMask.charAt(i);
-			} else {
-				valor += valorMask[valorMaskPos++];
+	
+	onInputChange(e) {
+		try {
+			
+			let value = e.target.value,
+				caret = e.target.selectionStart,
+				pattern = this.pattern,
+				reserve = pattern.replace(/\*/, 'g'),
+				applied = '',
+				ordinal = 0;
+			
+			if (e.keyCode === 8 || e.key === 'Backspace' || e.keyCode === 46 || e.key === 'Delete') {
+				if (value.length) {
+					//remove all trailing formatting
+					while (value.length && pattern[value.length] && pattern[value.length] !== '*') {
+						value = value.substring(0, value.length - 1);
+					}
+					//remove all leading formatting to restore placeholder
+					if (pattern.substring(0, value.length).indexOf('*') < 0) {
+						value = value.substring(0, value.length - 1);
+					}
+				}
 			}
+			
+			//apply mask characters 
+			for (var i = 0; i < value.length; i++) {
+				//enforce pattern limit
+				if (i < pattern.length) {
+					//match mask
+					if (value[i] === pattern[ordinal]) {
+						applied += value[i];
+						ordinal++;
+					} else if (reserve.indexOf(value[i]) > -1) {
+						//skip other reserved characters
+					} else {
+						//apply leading formatting
+						while (ordinal < pattern.length && pattern[ordinal] !== '*') {
+							applied += pattern[ordinal];
+							ordinal++;
+						}
+						applied += value[i];
+						ordinal++;
+						//apply trailing formatting
+						while (ordinal < pattern.length && pattern[ordinal] !== '*') {
+							applied += pattern[ordinal];
+							ordinal++;
+						}
+					}
+				}
+			}
+			e.target.value = applied;
+			if (caret < value.length) {
+				e.target.setSelectionRange(caret, caret);
+			}
+		} catch (ex) {
+			console.error(ex.message);
 		}
-
-		if (valor.indexOf('_') > -1) {
-			valor = valor.substr(0, valor.indexOf('_'));
-		}
-
-		$event.target.value = valor;
+		
 	}
-
-	@HostListener('blur', ['$event'])
-	onblur($event: any) {
-		if ($event.target.value.length === this.inputMask.length) {
-			return;
-		}
-
-		this.onChange('');
-		$event.target.value = '';
-	}
+	
 }
