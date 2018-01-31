@@ -61,10 +61,10 @@ export class AutoLoginPage {
 		loading.present();
 		this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS)
 			.then((success) => {
-				loading.present();
+				loading.dismiss();
 				this.navCtrl.setRoot(LoginPage);
 			}, (err) => {
-				loading.present();
+				loading.dismiss();
 				this.utils.alert('Erro', err, ['Ok']);
 			});
 	}
