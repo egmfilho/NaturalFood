@@ -17,7 +17,7 @@ export class Globals {
 	constructor(private storage: Storage) {
 		this.dictionary = { };
 		this.internal = {
-			// 'api': 'http://172.16.0.176/app/',
+			// 'api': 'http://172.16.0.96/app/',
 			'api': 'http://www.naturalfoodteresopolis.com.br/app/',
 			'token': null,
 			'errorMessage': 'Não foi possível estabelecer uma conexão com o servidor. Tente novamente mais tarde.'
@@ -40,6 +40,10 @@ export class Globals {
 			return;
 
 		delete this.dictionary[key];
+	}
+
+	removeAll() {
+		this.dictionary = [];
 	}
 
 	setInternal(key: string, value: any) {

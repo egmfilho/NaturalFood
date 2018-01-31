@@ -44,7 +44,12 @@ export class PreferencesPage {
 	}
 
 	getAvatar() {
-		return this.utils.globals.get(this.utils.constants.USER).imageData;
+		let user = this.utils.globals.get(this.utils.constants.USER);
+
+		if (user)
+			return user.imageData;
+
+		return null;
 	}
 
 	openAgreement() {
@@ -186,6 +191,7 @@ export class PreferencesPage {
 		}).subscribe(s => {
 			loading.dismiss();
 			this.utils.unsetPushNotification();
+			this.utils.globals.removeAll();
 			this.utils.globals.removeInternal(this.utils.constants.TOKEN);
 			this.utils.globals.setPersistent(this.utils.constants.RECEIVE_NOTIFICATIONS, true);
 			this.utils.globals.removePersistent(this.utils.constants.CREDENTIALS)

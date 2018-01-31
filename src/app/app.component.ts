@@ -26,7 +26,7 @@ export class MyApp {
 	
 	pages: Array<{title: string, component: any}>;
 
-	user: User;
+	// user: User;
 	
 	constructor(public platform: Platform, public statusBar: StatusBar, public headerColor: HeaderColor, public splashScreen: SplashScreen, private utils: Utils) {
 		this.initializeApp();
@@ -84,19 +84,26 @@ export class MyApp {
 	}
 
 	getUser() {
-		if (!this.user) {
-			var u = new User(this.utils.globals.get(this.utils.constants.USER));
-			if (u && u.id) {
-				this.user = u;
-				this.user.imageUrl += '?x=' + this.utils.getRandom();
-			};
-		}
+		// if (!this.user) {
+		// 	var u = new User(this.utils.globals.get(this.utils.constants.USER));
+		// 	if (u && u.id) {
+		// 		this.user = u;
+		// 		this.user.imageUrl += '?x=' + this.utils.getRandom();
+		// 	};
+		// }
 
-		return this.user;
+		// return this.user;
+
+		return new User(this.utils.globals.get(this.utils.constants.USER));
 	}
 
 	getAvatar() {
-		return this.utils.globals.get(this.utils.constants.USER).imageData;
+		let user = this.utils.globals.get(this.utils.constants.USER);
+		
+		if (user)
+			return user.imageData;
+
+		return null;
 	}
 
 }

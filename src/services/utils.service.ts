@@ -94,7 +94,9 @@ export class Utils {
 								sound: "true"
 							}
 						});
-			
+						
+						this.pushNotification.subscribe('Natural');
+						
 						this.pushNotification.on('registration').subscribe(data => {
 							var id = data.registrationId;
 							this.globals.setInternal('registrationId', id);
