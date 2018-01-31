@@ -56,10 +56,12 @@
 				</ion-item>
 			</ion-list>
 
+			<button type="button" ion-button block color="light" (click)="dismiss()">Ir para o mapa</button>
+			<br>
 			<button type="submit" ion-button block [disabled]="!isValid()">Salvar</button>
 		</form>
 
 		<br>
-		<button type="button" ion-button block color="light" (click)="dismiss()">Cancelar</button>
+		<button type="button" ion-button block color="danger" (click)="abort()">Cancelar</button>
 	
 </ion-content>

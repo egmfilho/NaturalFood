@@ -102,7 +102,21 @@ export class EditAddressPage {
 	}
 
 	dismiss(data) {
-		this.viewCtrl.dismiss(data);
+		return this.viewCtrl.dismiss(data);
+	}
+
+	abort() {
+		var buttons = [{ 
+			text: 'Sim',
+			handler: () => {
+				this.dismiss(true);
+			}
+		}, { 
+			text: 'Não', 
+			role: 'cancel' 
+		}];
+
+		this.utils.alert('Aviso', 'Ao cancelar, todas as alterações serão perdidas. Deseja continuar?', buttons).present();
 	}
 	
 }
