@@ -43,4 +43,8 @@ export class BasketService {
         }, 0);
     }
 
+    clear() {
+        this.list = [];
+    }
+
 }

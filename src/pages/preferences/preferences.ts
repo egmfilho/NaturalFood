@@ -8,6 +8,7 @@ import { AgreementPage } from '../agreement/agreement';
 import { User } from '../../models/user.model';
 import { LoginPage } from '../login/login';
 import { AddressConfigPage } from '../address-config/address-config';
+import { BasketService } from '../../services/basket.service';
 
 /**
  * Generated class for the PreferencesPage page.
@@ -26,7 +27,7 @@ export class PreferencesPage {
 	user: User;
 	isNotificationOn: boolean;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private popover: PopoverController, private alert: AlertController, private utils: Utils) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private popover: PopoverController, private alert: AlertController, private basket: BasketService, private utils: Utils) {
 		this.user =  new User(this.utils.globals.get(this.utils.constants.USER));
 		this.utils.globals.getPersistent(this.utils.constants.RECEIVE_NOTIFICATIONS)
 			.then(data => {
@@ -179,6 +180,7 @@ export class PreferencesPage {
 		let loading = this.utils.loading('Desconectando');
 		loading.present();
 
+		this.basket.clear();
 		this.utils.getHttp().post('logout.php', {
 			user_device_id: this.utils.globals.getInternal('registrationId')
 		}).subscribe(s => {
